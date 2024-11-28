@@ -1,17 +1,16 @@
 # PDF Processing and Question-Answering System
 
-A comprehensive system for extracting content from PDFs and implementing question-answering capabilities using various approaches.
+A comprehensive codebase for extracting content from PDFs and implementing question-answering capabilities using various approaches.
 
 ## Core Features
 
 ### Content Extraction
 - Multiple extraction methods:
   - Cloud-based: Claude 3.5 Sonnet, GPT-4 Vision, Unstructured.io
-  - Local: Llama 3.2 Vision, Docling, PDFium
-  - Specialized: Camelot (tables), PDFMiner (text), PDFPlumber (mixed)
+  - Local: Llama 3.2 11B, Docling, PDFium
+  - Specialized: Camelot (tables), PDFMiner (text), PDFPlumber (mixed), PyPdf etc
 - Maintains document structure and formatting
 - Handles complex PDFs with mixed content
-- Supports batch processing of multiple PDFs
 
 ### Question-Answering Pipeline
 - Implements RAG (Retrieval-Augmented Generation)
@@ -22,13 +21,13 @@ A comprehensive system for extracting content from PDFs and implementing questio
 ## Implementation Options
 
 ### 1. Cloud-Based Solutions
-- **Claude & Llama**: Best for complex PDFs with mixed content
+- **Claude & Llama**: Excellent  for complex PDFs with mixed content
 - **GPT-4 Vision**: Excellent for visual content analysis
 - **Unstructured.io**: Advanced content partitioning and classification
 
 ### 2. Local Solutions
-- **Llama Vision**: Image-based PDF processing
-- **Docling**: Text-heavy PDFs with formatting preservation
+- **Llama 3.2 11B Vision**: Image-based PDF processing
+- **Docling**: Excellent  for complex PDFs with mixed content
 - **PDFium**: High-fidelity processing using Chrome's PDF engine
 - **Camelot**: Specialized table extraction
 - **PDFMiner/PDFPlumber**: Basic text and layout extraction
@@ -82,25 +81,8 @@ ollama pull x/llama3.2-vision:11b
 ## Usage
 
 1. Place PDF files in `input/` directory
-2. Choose implementation based on PDF type:
-   ```python
-   # Cloud-based processing
-   from langchain_community.document_loaders import UnstructuredLoader
-   loader = UnstructuredLoader("input/sample.pdf", partition_via_api=True)
-   
-   # Local processing
-   from langchain_community.document_loaders import PyPDFium2Loader
-   loader = PyPDFium2Loader("input/sample.pdf")
-   
-   # Batch processing
-   from langchain_community.document_loaders import PyPDFDirectoryLoader
-   loader = PyPDFDirectoryLoader("input/")
-   
-   # Load and process
-   docs = loader.load()
-   ```
 
-## Supported PDF Types
+## Example Complex Pdf placed in Input folder
 - **sample-1.pdf**: Standard tables
 - **sample-2.pdf**: Image-based simple tables
 - **sample-3.pdf**: Image-based complex tables
@@ -108,7 +90,7 @@ ollama pull x/llama3.2-vision:11b
 
 ## Notes
 - System resources needed for local LLM operations
-- API keys required for cloud-based implementations
+- API keys required for cloud based implementations
 - Consider PDF complexity when choosing implementation
 - Ghostscript required for Camelot
 - Different processors suit different use cases
