@@ -58,7 +58,7 @@ def main():
    # Note: API key should be stored securely in environment variables
    loader = UnstructuredLoader(
        file_path=file_path,
-       api_key="FQqdet8HyKsXFbVxwceEeUM9dcPa0W",  # Replace with your API key
+       api_key="<YOUR API KEY>",  # Replace with your API key
        partition_via_api=True,  # Enable cloud-based processing
    )
    
