@@ -1,10 +1,12 @@
-# PDF Processing and Question-Answering System
+# 📝🤖 PDF Processing and Question-Answering System 💡❓
 
 A comprehensive codebase for extracting content from PDFs and implementing question-answering capabilities using various approaches.
 
-## Core Features
+<hr></hr>
 
-### Content Extraction
+## 📌 Core Features
+
+### 📤 Content Extraction
 - Multiple extraction methods:
   - Cloud-based: Claude 3.5 Sonnet, GPT-4 Vision, Unstructured.io
   - Local: Llama 3.2 11B, Docling, PDFium
@@ -12,29 +14,32 @@ A comprehensive codebase for extracting content from PDFs and implementing quest
 - Maintains document structure and formatting
 - Handles complex PDFs with mixed content
 
-### Question-Answering Pipeline
+### ❓Question-Answering Pipeline
 - Implements RAG (Retrieval-Augmented Generation)
 - Vector storage using FAISS
 - Text embeddings via HuggingFace
 - Local inference using Llama 3.1 8B
+<hr></hr>
 
-## Implementation Options
+## 📦 Implementation Options
 
-### 1. Cloud-Based Solutions
+### 1. ☁️ Cloud-Based Solutions
 - **Claude & Llama**: Excellent  for complex PDFs with mixed content
 - **GPT-4 Vision**: Excellent for visual content analysis
 - **Unstructured.io**: Advanced content partitioning and classification
 
-### 2. Local Solutions
+### 2. 🖥️ Local Solutions
 - **Llama 3.2 11B Vision**: Image-based PDF processing
 - **Docling**: Excellent  for complex PDFs with mixed content
 - **PDFium**: High-fidelity processing using Chrome's PDF engine
 - **Camelot**: Specialized table extraction
 - **PDFMiner/PDFPlumber**: Basic text and layout extraction
 
-## Dependencies
+<hr></hr>
 
-### Core Libraries
+## 🔗 Dependencies
+
+### 📚 Core Libraries
 ```bash
 langchain_ollama
 langchain_huggingface
@@ -43,7 +48,7 @@ FAISS
 python-dotenv
 ```
 
-### Implementation-Specific
+### ⚙️ Implementation-Specific
 ```bash
 anthropic        # Claude
 openai           # GPT-4 Vision
@@ -54,7 +59,9 @@ pypdfium2       # PDFium processing
 boto3           # AWS Textract
 ```
 
-## Setup
+<hr></hr>
+
+## 🛠️ Setup
 
 1. Environment Variables
 ```bash
@@ -77,18 +84,21 @@ curl https://ollama.ai/install.sh | sh
 ollama pull llama3.1
 ollama pull x/llama3.2-vision:11b
 ```
+<hr></hr>
 
-## Usage
+## 📈 Usage
 
 1. Place PDF files in `input/` directory
 
-## Example Complex Pdf placed in Input folder
+## 📄 Example Complex Pdf placed in Input folder
 - **sample-1.pdf**: Standard tables
 - **sample-2.pdf**: Image-based simple tables
 - **sample-3.pdf**: Image-based complex tables
 - **sample-4.pdf**: Mixed content (text, tables, images)
 
-## Notes
+<hr></hr>
+
+## 📝 Notes
 - System resources needed for local LLM operations
 - API keys required for cloud based implementations
 - Consider PDF complexity when choosing implementation
