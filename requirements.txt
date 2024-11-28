@@ -1,0 +1,19 @@
+pymupdf
+docling
+camelot-py[cv] 
+pypdf 
+opencv-python
+Ghostscript
+ollama
+openai
+anthropic
+tiktoken 
+faiss-cpu # Vector Store
+sentence_transformers # Huggingface Embedding Models
+langchain_ollama
+langchain_huggingface
+langchain_community
+boto3 #AWS
+amazon-textract-caller>=0.2.0  #AWS
+python-dotenv
+PyPDF2<3.0
