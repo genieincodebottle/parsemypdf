@@ -2,7 +2,6 @@
 
 A comprehensive example codes for extracting content from PDFs
 
-<hr></hr>
 
 ## 📌 Core Features
 
@@ -14,7 +13,6 @@ A comprehensive example codes for extracting content from PDFs
 - Maintains document structure and formatting
 - Handles complex PDFs with mixed content including extracting image data
 
-<hr></hr>
 
 ## 📦 Implementation Options
 
@@ -29,8 +27,6 @@ A comprehensive example codes for extracting content from PDFs
 - **PDFium**: High-fidelity processing using Chrome's PDF engine
 - **Camelot**: Specialized table extraction
 - **PDFMiner/PDFPlumber**: Basic text and layout extraction
-
-<hr></hr>
 
 ## 🔗 Dependencies
 
@@ -53,8 +49,6 @@ pdf2image       # PDF conversion
 pypdfium2       # PDFium processing
 boto3           # AWS Textract
 ```
-
-<hr></hr>
 
 ## 🛠️ Setup
 
@@ -79,7 +73,6 @@ curl https://ollama.ai/install.sh | sh
 ollama pull llama3.1
 ollama pull x/llama3.2-vision:11b
 ```
-<hr></hr>
 
 ## 📈 Usage
 
@@ -90,8 +83,6 @@ ollama pull x/llama3.2-vision:11b
 - **sample-2.pdf**: Image-based simple tables
 - **sample-3.pdf**: Image-based complex tables
 - **sample-4.pdf**: Mixed content (text, tables, images)
-
-<hr></hr>
 
 ## 📝 Notes
 - System resources needed for local LLM operations
