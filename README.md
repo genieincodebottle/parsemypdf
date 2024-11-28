@@ -1,34 +1,29 @@
-# 📝🤖 PDF Processing and Question-Answering System 💡❓
+# 📑 Complex PDF Parsing
 
-A comprehensive codebase for extracting content from PDFs and implementing question-answering capabilities using various approaches.
+A comprehensive example codes for extracting content from PDFs
 
 <hr></hr>
 
 ## 📌 Core Features
 
 ### 📤 Content Extraction
-- Multiple extraction methods:
+- Multiple extraction methods with different tools/libraries:
   - Cloud-based: Claude 3.5 Sonnet, GPT-4 Vision, Unstructured.io
   - Local: Llama 3.2 11B, Docling, PDFium
   - Specialized: Camelot (tables), PDFMiner (text), PDFPlumber (mixed), PyPdf etc
 - Maintains document structure and formatting
-- Handles complex PDFs with mixed content
+- Handles complex PDFs with mixed content including extracting image data
 
-### ❓Question-Answering Pipeline
-- Implements RAG (Retrieval-Augmented Generation)
-- Vector storage using FAISS
-- Text embeddings via HuggingFace
-- Local inference using Llama 3.1 8B
 <hr></hr>
 
 ## 📦 Implementation Options
 
-### 1. ☁️ Cloud-Based Solutions
+### 1. ☁️ Cloud-Based Methods
 - **Claude & Llama**: Excellent  for complex PDFs with mixed content
 - **GPT-4 Vision**: Excellent for visual content analysis
 - **Unstructured.io**: Advanced content partitioning and classification
 
-### 2. 🖥️ Local Solutions
+### 2. 🖥️ Local Methods
 - **Llama 3.2 11B Vision**: Image-based PDF processing
 - **Docling**: Excellent  for complex PDFs with mixed content
 - **PDFium**: High-fidelity processing using Chrome's PDF engine
