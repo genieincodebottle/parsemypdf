@@ -25,6 +25,11 @@ Advantages:
 
 from langchain_unstructured import UnstructuredLoader
 
+# Get API key from environment variables and validate its presence
+UNSTRUCTURED_API_KEY = os.getenv("UNSTRUCTURED_API_KEY")
+if not UNSTRUCTURED_API_KEY:
+    raise ValueError("UNSTRUCTURED_API_KEY not set in environment variables")
+
 def main():
    """
    Main function to demonstrate PDF content extraction using Unstructured.io API.
@@ -58,7 +63,7 @@ def main():
    # Note: API key should be stored securely in environment variables
    loader = UnstructuredLoader(
        file_path=file_path,
-       api_key="<YOUR API KEY>",  # Replace with your API key
+       api_key=UNSTRUCTURED_API_KEY,  # Replace with your API key
        partition_via_api=True,  # Enable cloud-based processing
    )
    
