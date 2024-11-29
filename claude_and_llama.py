@@ -186,9 +186,9 @@ def main():
     # STEP 5: Create QA chain & get response of question
     qa_chain = get_qa_chain(vector_store)
 
-    #question = "What is maximum lot depth/width of commercial zone?"
-    #question = "Provide me details of Community Business base height?"
-    question = "What is Air Receiver?"
+    #question = "What is maximum lot depth/width of commercial zone?" # From sample-3.pdf
+    #question = "Provide me details of Community Business base height?" # From sample-3.pdf
+    question = "What is Air Receiver?" # From sample-4.pdf
     print(f"\nQuestion: {question}")
     response = qa_chain.invoke({"query": question})
     print(f"\nAnswer: {response['result']}")

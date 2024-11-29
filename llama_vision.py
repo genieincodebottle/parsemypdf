@@ -205,9 +205,9 @@ def main():
     qa_chain = get_qa_chain(vector_store)
 
     # Example questions for different PDF types
-    # question = "What is maximum lot depth/width of commercial zone?"
-    question = "Provide me details of Community Business base height?"
-    #question = "What is Air Receiver?"
+    #question = "What is maximum lot depth/width of commercial zone?" # From sample-3.pdf
+    question = "Provide me details of Community Business base height?" # From sample-3.pdf
+    #question = "What is Air Receiver?" # From sample-4.pdf
 
     # Process question and get answer
     print(f"\nQuestion: {question}")
