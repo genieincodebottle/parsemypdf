@@ -14,7 +14,7 @@
 
 A comprehensive example codes for extracting content from PDFs
 
-Also, check: [Pdf Parsing Guide](https://github.com/genieincodebottle/parse-my-pdf/blob/main/pdf-parsing-guide.pdf)
+Also, check -> [Pdf Parsing Guide](https://github.com/genieincodebottle/parse-my-pdf/blob/main/pdf_parsing_guide.pdf)
 
 ## 📌 Core Features
 
