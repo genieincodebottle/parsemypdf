@@ -1,5 +1,5 @@
 <div align="center">
-<h1><a href="https://www.instagram.com/genieincodebottle/"><img width="200" src="https://github.com/genieincodebottle/generative-ai/blob/main/images/logo_genie.png">&nbsp;</a></h1>
+<h1><a href="https://www.instagram.com/genieincodebottle/"><img width="200" src="https://github.com/genieincodebottle/generative-ai/blob/main/images/logo_genie_new.png">&nbsp;</a></h1>
 </div>
 <div align="center">
     <a target="_blank" href="https://www.youtube.com/@genieincodebottle"><img src="https://img.shields.io/badge/YouTube-10.6K-blue"></a>&nbsp;
@@ -14,7 +14,7 @@
 
 A comprehensive example codes for extracting content from PDFs
 
-Also, check -> [Pdf Parsing Guide](https://github.com/genieincodebottle/parse-my-pdf/blob/main/pdf_parsing_guide.pdf)
+Also, check -> [Pdf Parsing Guide](https://github.com/genieincodebottle/parse-my-pdf/blob/main/pdf-parsing-guide.pdf)
 
 ## 📌 Core Features
 
