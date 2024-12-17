@@ -29,7 +29,7 @@ Environment Setup:
         - Local Ollama installation
         - Access to HuggingFace models
 """
-
+import sys
 import os
 import base64
 from typing import List
@@ -42,7 +42,13 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
+
+# Get the project root directory
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+sys.path.append(project_root)
+
 from utils.pdf_to_image import PDFToJPGConverter
+
 
 # Initialize environment variables from .env file
 load_dotenv()

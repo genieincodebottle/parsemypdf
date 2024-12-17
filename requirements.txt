@@ -1,4 +1,5 @@
 pymupdf
+pdfplumber
 docling
 camelot-py[cv] 
 pypdf 
