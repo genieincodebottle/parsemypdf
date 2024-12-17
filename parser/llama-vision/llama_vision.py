@@ -20,6 +20,7 @@ Dependencies:
 - HuggingFace: For text embeddings
 """
 
+import sys
 import os
 from typing import List
 import ollama
@@ -33,6 +34,11 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
+
+# Get the project root directory
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+sys.path.append(project_root)
+
 from utils.pdf_to_image import PDFToJPGConverter
 
 

@@ -48,10 +48,10 @@ Usage:
 Note: Requires sufficient system resources for running local LLM and vector operations
 """
 
+import sys
 import os
 from typing import List
 from dotenv import load_dotenv
-import utils.utils as utils
 
 import anthropic
 
@@ -61,6 +61,12 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 from langchain.prompts import PromptTemplate
+
+# Get the project root directory
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+sys.path.append(project_root)
+
+import utils.utils as utils
 
 # Load environment variables
 load_dotenv()
