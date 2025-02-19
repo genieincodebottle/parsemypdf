@@ -10,15 +10,15 @@
 
 #  
 
-# 📑 Complex PDF Parsing
+## 📑 Complex PDF Parsing
 
 A comprehensive example codes for extracting content from PDFs
 
 Also, check -> [Pdf Parsing Guide](https://github.com/genieincodebottle/parse-my-pdf/blob/main/pdf-parsing-guide.pdf)
 
-## 📌 Core Features
+### 📌 Core Features
 
-### 📤 Content Extraction
+#### 📤 Content Extraction
 - Multiple extraction methods with different tools/libraries:
   - Cloud-based: Claude 3.5 Sonnet, GPT-4 Vision, Unstructured.io
   - Local: Llama 3.2 11B, Docling, PDFium
@@ -27,23 +27,29 @@ Also, check -> [Pdf Parsing Guide](https://github.com/genieincodebottle/parse-my
 - Handles complex PDFs with mixed content including extracting image data
 
 
-## 📦 Implementation Options
+### 📦 Implementation Options
 
-### 1. ☁️ Cloud-Based Methods
-- **Claude & Llama**: Excellent  for complex PDFs with mixed content
-- **GPT-4 Vision**: Excellent for visual content analysis
-- **Unstructured.io**: Advanced content partitioning and classification
+#### 1. ☁️ Cloud-Based Methods
+- [Claude](parser/claude/): Excellent  for complex PDFs with mixed content
+- [GPT-4 Vision](parser/openai/): Excellent for visual content analysis
+- [Unstructured.io](parser/unstructured-io/): Advanced content partitioning and classification
+- [Amazon Textract](parser/amazon-textract/): Advanced content partitioning and classification
 
-### 2. 🖥️ Local Methods
-- **Llama 3.2 11B Vision**: Image-based PDF processing
-- **Docling**: Excellent  for complex PDFs with mixed content
-- **PDFium**: High-fidelity processing using Chrome's PDF engine
-- **Camelot**: Specialized table extraction
-- **PDFMiner/PDFPlumber**: Basic text and layout extraction
+#### 2. 🖥️ Local Methods
+- [Llama 3.2 11B Vision](parser/llama-vision/): Image-based PDF processing
+- [Docling](parser/docling/): Excellent  for complex PDFs with mixed content
+- [markitdown](parser/markitdown/) : MarkItDown is a utility for converting various files to Markdown (e.g., for indexing, text analysis, etc). It supports: PDF, PowerPoint, Word, Excel, Images (EXIF metadata and OCR), Audio (EXIF metadata and speech transcription), HTML, Text-based formats (CSV, JSON, XML), ZIP files (iterates over contents)
+- [pdfium](parser/pypdfmium/): High-fidelity processing using Chrome's PDF engine
+- [Camelot](parser/camelot/): Specialized table extraction
+- [PDFMiner](parser/pdfminer/): Basic text and layout extraction
+- [PDFPlumber](parser/pdfplumber/): Basic text and layout extraction
+- [PyMUPDF](parser/pymupdf/): PyMuPDF is a high performance Python library for data extraction, analysis, conversion & manipulation of PDF
+- [PyPdf](parser/pypdf/): pypdf is a free and open-source pure-python PDF library capable of splitting, merging, cropping, and transforming the pages of PDF files. It can also add custom data, viewing options, and passwords to PDF files. pypdf can retrieve text and metadata from PDFs as well.
+- [PyPdfDirectory](parser/pypdfdirectory/): Batch PDF Content Extraction Script using PyPDF2 Directory Loader
 
-## 🔗 Dependencies
+### 🔗 Dependencies
 
-### 📚 Core Libraries
+#### 📚 Core Libraries
 ```bash
 langchain_ollama
 langchain_huggingface
@@ -52,7 +58,7 @@ FAISS
 python-dotenv
 ```
 
-### ⚙️ Implementation-Specific
+#### ⚙️ Implementation-Specific
 ```bash
 anthropic        # Claude
 openai           # GPT-4 Vision
@@ -63,7 +69,7 @@ pypdfium2       # PDFium processing
 boto3           # AWS Textract
 ```
 
-## 🛠️ Setup
+### 🛠️ Setup
 
 1. Environment Variables
 ```bash
@@ -87,17 +93,17 @@ ollama pull llama3.1
 ollama pull x/llama3.2-vision:11b
 ```
 
-## 📈 Usage
+### 📈 Usage
 
 1. Place PDF files in `input/` directory
 
-## 📄 Example Complex Pdf placed in Input folder
+### 📄 Example Complex Pdf placed in Input folder
 - **sample-1.pdf**: Standard tables
 - **sample-2.pdf**: Image-based simple tables
 - **sample-3.pdf**: Image-based complex tables
 - **sample-4.pdf**: Mixed content (text, tables, images)
 
-## 📝 Notes
+### 📝 Notes
 - System resources needed for local LLM operations
 - API keys required for cloud based implementations
 - Consider PDF complexity when choosing implementation

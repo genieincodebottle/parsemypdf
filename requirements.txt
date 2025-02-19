@@ -18,3 +18,4 @@ boto3 #AWS
 amazon-textract-caller>=0.2.0  #AWS
 python-dotenv
 PyPDF2<3.0
+markitdown
