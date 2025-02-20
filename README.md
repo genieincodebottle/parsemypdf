@@ -95,7 +95,9 @@ UNSTRUCTURED_API_KEY=your_key_here # For Unstructured.io
 ```
 
 For **ANTHROPIC_API_KEY** follow this -> https://console.anthropic.com/settings/keys
+
 For **OPENAI_API_KEY** follow this -> https://platform.openai.com/api-keys
+
 For **UNSTRUCTURED_API_KEY** follow this -> https://unstructured.io/api-key-free
 
 2. Install Dependencies
