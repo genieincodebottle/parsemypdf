@@ -33,6 +33,7 @@ def main():
        - sample-2.pdf: Contains image-based simple tables
        - sample-3.pdf: Contains image-based complex tables
        - sample-4.pdf: Contains mixed content (text, images, complex tables)
+       - sample-5.pdf: Multi-column Texts 
    
    PDFium2 advantages:
        - Chrome's PDF rendering engine (production-grade)

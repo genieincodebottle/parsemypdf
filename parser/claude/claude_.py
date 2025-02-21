@@ -29,6 +29,7 @@ Usage:
     - sample-2.pdf: Contains image-based simple tables
     - sample-3.pdf: Contains image-based complex tables
     - sample-4.pdf: Complex PDF with mixed content (text and tables in images)
+    - sample-5.pdf: Multi-column Texts 
 
 Note: Uses Claude 3.5 Sonnet model with PDF beta feature for optimal extraction
 """

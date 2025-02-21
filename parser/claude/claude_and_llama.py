@@ -44,6 +44,7 @@ Usage:
     - sample-2.pdf: Image-based simple tables
     - sample-3.pdf: Image-based complex tables
     - sample-4.pdf: Mixed content (text, tables, images)
+    - sample-5.pdf: Multi-column Texts 
 
 Note: Requires sufficient system resources for running local LLM and vector operations
 """

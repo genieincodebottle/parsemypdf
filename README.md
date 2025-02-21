@@ -127,7 +127,8 @@ ollama pull x/llama3.2-vision:11b
 - **sample-2.pdf**: Image-based simple tables
 - **sample-3.pdf**: Image-based complex tables
 - **sample-4.pdf**: Mixed content (text, tables, images)
-
+- **sample-5.pdf**: Multi-column Texts 
+   
 ### 📝 Notes
 - System resources needed for local LLM operations
 - API keys required for cloud based implementations

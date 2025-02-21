@@ -41,6 +41,7 @@ Usage:
     - sample-2.pdf: Image-based simple tables
     - sample-3.pdf: Image-based complex tables
     - sample-4.pdf: Mixed content (text, tables, images)
+    - sample-5.pdf: Multi-column Texts 
 
 Note: This implementation runs entirely locally and doesn't require API keys
 or cloud services, but needs sufficient system resources for LLM operations.
