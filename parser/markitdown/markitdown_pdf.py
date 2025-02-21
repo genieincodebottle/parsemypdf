@@ -35,6 +35,8 @@ def main():
     #file_path = "input/sample-2.pdf" # Image based simple table in pdf
     #file_path = "input/sample-3.pdf" # Image based complex table in pdf
     file_path = "input/sample-4.pdf"  # Complex PDF with mixed content types
+    #file_path = "input/sample-5.pdf"  # Multi-column Texts
+    
     result = md.convert(file_path)
     print(result.text_content)
 

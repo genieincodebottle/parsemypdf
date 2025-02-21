@@ -38,6 +38,7 @@ def main():
     #file_path = "input/sample-2.pdf" # Image based simple table in pdf
     #file_path = "input/sample-3.pdf" # Image based complex table in pdf
     file_path = "input/sample-4.pdf"  # Complex PDF where many text contents and tables are in image
+    #file_path = "input/sample-5.pdf"  # Multi-column Texts 
     
     # Initialize PDFMiner loader with specified file
     loader = PDFMinerLoader(file_path)

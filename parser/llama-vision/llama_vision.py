@@ -180,6 +180,7 @@ def main():
     #file_path = "input/sample-2.pdf" # Image based simple table in pdf
     file_path = "input/sample-3.pdf" # Image based complex table in pdf
     #file_path = "input/sample-4.pdf"  # Complex PDF where many text contents and tables are in image
+    #file_path = "input/sample-5.pdf"  # Multi-column Texts 
 
     # Initialize PDF to JPG converter
     converter = PDFToJPGConverter()
@@ -214,6 +215,7 @@ def main():
     #question = "What is maximum lot depth/width of commercial zone?" # From sample-3.pdf
     question = "Provide me details of Community Business base height?" # From sample-3.pdf
     #question = "What is Air Receiver?" # From sample-4.pdf
+    #question = "What is Embodied Intelligence?" # From sample-5.pdf
 
     # Process question and get answer
     print(f"\nQuestion: {question}")

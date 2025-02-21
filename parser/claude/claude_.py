@@ -114,10 +114,12 @@ def main():
     """
     # STEP 1: Read and encode the PDF file
     # Multiple PDF files available for testing different scenarios:
+    #file_path = "input/pdf_multiple_column.pdf"
     #file_path = "input/sample-1.pdf" # Table in pdf
     #file_path = "input/sample-2.pdf" # Image based simple table in pdf
     file_path = "input/sample-3.pdf" # Image based complex table in pdf
     #file_path = "input/sample-4.pdf"  # Complex PDF where many text contents and tables are in image
+    #file_path = "input/sample-5.pdf"  # Multi-column Texts 
     
     # Read PDF file and convert to base64
     with open(file_path, "rb") as pdf_file:
@@ -129,6 +131,7 @@ def main():
     #question = "What is maximum lot depth/width of commercial zone?" # From sample-3.pdf
     question = "Provide me details of Community Business base height?" # From sample-3.pdf
     #question = "What is Air Receiver?" # From sample-4.pdf
+    #question = "What is Embodied Intelligence?" #From  sample-5.pdf
     
     # Get response from Claude
     response = extract_pdf_content(question, base64_string, ANTHROPIC_API_KEY)

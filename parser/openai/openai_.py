@@ -246,6 +246,7 @@ def main():
     #file_path = "input/sample-2.pdf"  # PDF with image-based simple tables
     file_path = "input/sample-3.pdf"   # PDF with complex image-based tables
     #file_path = "input/sample-4.pdf"  # PDF with mixed content types
+    #file_path = "input/sample-5.pdf"  # Multi-column Texts
 
     # Set up PDF to image conversion
     converter = PDFToJPGConverter()
@@ -298,7 +299,8 @@ def main():
     #question = "What is maximum lot depth/width of commercial zone?" # From sample-3.pdf
     question = "Provide me details of Community Business base height?" # From sample-3.pdf
     #question = "What is Air Receiver?" # From sample-4.pdf
-
+    #question = "What is Embodied Intelligence?" # From sample-5.pdf
+    
     # Process question and generate answer
     print(f"\nQuestion: {question}")
     response = qa_chain.invoke({"query": question})

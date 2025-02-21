@@ -32,6 +32,7 @@ def main():
     #file_path = "input/sample-2.pdf" # Contains image-based simple table
     #file_path = "input/sample-3.pdf" # Contains image-based complex table
     #file_path = "input/sample-4.pdf" # Complex PDF with mixed content (text and tables in images)
+    #file_path = "input/sample-5.pdf"  # Multi-column Texts 
     
     # Extract tables from the PDF
     # camelot.read_pdf returns a TableList object containing all detected tables

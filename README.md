@@ -33,12 +33,14 @@ Also, check -> [Pdf Parsing Guide](https://github.com/genieincodebottle/parse-my
 - [Claude 3.5 Sonnet](parser/claude/): Excellent  for complex PDFs with mixed content
 - [GPT-4 Vision](parser/openai/): Excellent for visual content analysis
 - [Unstructured.io](parser/unstructured-io/): Advanced content partitioning and classification
+- [llama-parse](parser/llama-parse/)
 - [Amazon Textract](parser/amazon-textract/): Advanced content partitioning and classification
 
 #### 2. 🖥️ Local Methods
 - [Llama 3.2 11B Vision](parser/llama-vision/): Good for Image-based PDF processing.
 - [Docling](parser/docling/): Excellent  for complex PDFs with mixed content. Docling simplifies document processing, parsing diverse formats — including advanced PDF understanding, and providing seamless integrations with the gen AI ecosystem.
 - [markitdown](parser/markitdown/) : Excellent  for complex PDFs with mixed content. MarkItDown is a utility for converting various files to Markdown (e.g., for indexing, text analysis, etc). It supports: PDF, PowerPoint, Word, Excel, Images (EXIF metadata and OCR), Audio (EXIF metadata and speech transcription), HTML, Text-based formats (CSV, JSON, XML), ZIP files (iterates over contents)
+- [Marker](https://github.com/VikParuchuri/marker) : Marker quickly converts PDFs and images to Markdown, JSON, and HTML with high accuracy. It supports all languages and document types while handling tables, forms, math, links, and code blocks. It extracts images, removes artifacts, and allows customization with user-defined formatting and logic. Accuracy can be enhanced with LLM integration, and it runs on GPU, CPU, or MPS. Code is not included here but can be checked on their GitHub repo.
 - [Camelot](parser/camelot/): Specialized table extraction
 - [PyPdf](parser/pypdf/): pypdf is a free and open-source pure-python PDF library capable of splitting, merging, cropping, and transforming the pages of PDF files. It can also add custom data, viewing options, and passwords to PDF files. pypdf can retrieve text and metadata from PDFs as well.
 - [PDFMiner](parser/pdfminer/): Basic text and layout extraction
@@ -46,6 +48,7 @@ Also, check -> [Pdf Parsing Guide](https://github.com/genieincodebottle/parse-my
 - [PyMUPDF](parser/pymupdf/): PyMuPDF is a high performance Python library for data extraction, analysis, conversion & manipulation of PDF
 - [pdfium](parser/pypdfmium/): High-fidelity processing using Chrome's PDF engine
 - [PyPdfDirectory](parser/pypdfdirectory/): Batch PDF Content Extraction Script using PyPDF2 Directory Loader
+
 
 ### 🔗 Dependencies
 
@@ -92,6 +95,7 @@ python-dotenv
 ANTHROPIC_API_KEY=your_key_here    # For Claude
 OPENAI_API_KEY=your_key_here       # For OpenAI
 UNSTRUCTURED_API_KEY=your_key_here # For Unstructured.io
+LLAMA_CLOUD_API_KEY=your_key_here # For llama-parse
 ```
 
 For **ANTHROPIC_API_KEY** follow this -> https://console.anthropic.com/settings/keys
@@ -99,6 +103,8 @@ For **ANTHROPIC_API_KEY** follow this -> https://console.anthropic.com/settings/
 For **OPENAI_API_KEY** follow this -> https://platform.openai.com/api-keys
 
 For **UNSTRUCTURED_API_KEY** follow this -> https://unstructured.io/api-key-free
+
+For **LLAMA_CLOUD_API_KEY** follow this -> https://cloud.llamaindex.ai/api-key
 
 2. Install Dependencies
 ```bash

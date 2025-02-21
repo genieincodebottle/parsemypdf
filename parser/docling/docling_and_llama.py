@@ -143,8 +143,9 @@ def main():
     # Different PDF types for testing
     #file_path = "input/sample-1.pdf" # Table in pdf
     #file_path = "input/sample-2.pdf" # Image based simple table in pdf
-    file_path = "input/sample-3.pdf" # Image based complex table in pdf
-    #file_path = "input/sample-4.pdf"  # Complex PDF with text and tables in images
+    #file_path = "input/sample-3.pdf" # Image based complex table in pdf
+    file_path = "input/sample-4.pdf"  # Complex PDF with text and tables in images
+    #file_path = "input/sample-5.pdf"  # Multi-column Texts 
     
     structured_content = extract_pdf_content(file_path)
     print(structured_content)
@@ -165,8 +166,9 @@ def main():
     
     # Sample questions for testing
     #question = "What is maximum lot depth/width of commercial zone?" # From sample-3.pdf
-    question = "Provide me details of Community Business base height?" # From sample-3.pdf
+    #question = "Provide me details of Community Business base height?" # From sample-3.pdf
     #question = "What is Air Receiver?" # From sample-4.pdf
+    question = "What is Embodied Intelligence?" # From sample-5.pdf
     
     print(f"\nQuestion: {question}")
     response = qa_chain.invoke({"query": question})

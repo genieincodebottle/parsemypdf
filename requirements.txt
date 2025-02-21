@@ -6,7 +6,8 @@ PyPDF2<3.0
 camelot-py[cv]
 Ghostscript
 docling # IBM's Opensource
-markitdown # Microsoft's Opensource 
+markitdown # Microsoft's Opensource
+llama-cloud-services #llama-parse related 
 
 # Computer Vision
 opencv-python
