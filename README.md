@@ -94,7 +94,7 @@ python-dotenv
 - #### Installation
    1. Clone the repository:
       ```bash
-      git clone https://github.com/genieincodebottle/genaicodelab.git
+      git clone https://github.com/genieincodebottle/parsemypdf.git
       cd parsemypdf
       ```
    2. Create a virtual environment:
