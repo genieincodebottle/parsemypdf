@@ -1,3 +1,7 @@
+# UI
+streamlit 
+
+nest-asyncio
 # PDF Processing Libraries
 pypdf
 pymupdf
@@ -5,6 +9,7 @@ pdfplumber
 PyPDF2<3.0
 camelot-py[cv]
 Ghostscript
+
 docling # IBM's Opensource
 markitdown # Microsoft's Opensource
 llama-cloud-services #llama-parse related 
@@ -14,12 +19,16 @@ opencv-python
 
 # LLM related Libraries
 ollama
-tiktoken
 openai
 anthropic
 langchain_ollama
+langchain-groq
+langchain_openai
+langchain-anthropic
+langchain-google-genai
 langchain_huggingface
 langchain_community
+tiktoken
 
 # Vector Store and Embeddings
 faiss-cpu
@@ -31,3 +40,4 @@ amazon-textract-caller>=0.2.0
 
 # Utilities
 python-dotenv
+

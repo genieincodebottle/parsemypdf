@@ -108,15 +108,21 @@ python-dotenv
       ```
    4. Environment Variables
       ```bash
+      GROQ_API_KEY=your_key_here    # For Groq based open source models
       ANTHROPIC_API_KEY=your_key_here    # For Claude
       OPENAI_API_KEY=your_key_here       # For OpenAI
+      GOOGLE_API_KEY=your_key_here   # For Google's Gemini models api key
       UNSTRUCTURED_API_KEY=your_key_here # For Unstructured.io
       LLAMA_CLOUD_API_KEY=your_key_here # For llama-parse
       ```
 
+      For **GROQ_API_KEY** follow this -> https://console.groq.com/keys
+
       For **ANTHROPIC_API_KEY** follow this -> https://console.anthropic.com/settings/keys
 
       For **OPENAI_API_KEY** follow this -> https://platform.openai.com/api-keys
+
+      For **GOOGLE_API_KEY** follow this -> https://ai.google.dev/gemini-api/docs/api-key
 
       For **UNSTRUCTURED_API_KEY** follow this -> https://unstructured.io/api-key-free
 
@@ -131,18 +137,23 @@ python-dotenv
          - ollama pull llama3.1
          - ollama pull x/llama3.2-vision:11b
 
-### 📈 Usage
+  6. For running each parser individually
+      - Place PDF files in `input/` directory
+      - You can run and test different type of parser available in "parser" folder.
 
-1. Place PDF files in `input/` directory
-2. You can run and test different type of parser available in "parser" folder.
+  7. Example Complex Pdf placed in Input folder(You can use your own pdf)
+      - **sample-1.pdf**: Standard tables
+      - **sample-2.pdf**: Image-based simple tables
+      - **sample-3.pdf**: Image-based complex tables
+      - **sample-4.pdf**: Mixed content (text, tables, images)
+      - **sample-5.pdf**: Multi-column Texts 
+  
+  8. To check all parsers at Web UI, run following command at "parsemypdf" folder
+      -  streamlit run app.py
 
-### 📄 Example Complex Pdf placed in Input folder(You can use your own pdf)
-- **sample-1.pdf**: Standard tables
-- **sample-2.pdf**: Image-based simple tables
-- **sample-3.pdf**: Image-based complex tables
-- **sample-4.pdf**: Mixed content (text, tables, images)
-- **sample-5.pdf**: Multi-column Texts 
-   
+      <img src="images/ui.png" alt="UI" width="700" height="300" />
+
+  
 ### 📝 Important Notes
 - System resources needed for local LLM operations
 - API keys required for cloud based implementations
