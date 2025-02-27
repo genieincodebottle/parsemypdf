@@ -13,8 +13,11 @@ Note:
     PDF, PowerPoint, Word, Excel, Images (EXIF metadata and OCR), Audio (EXIF metadata and speech transcription), HTML
     Text-based formats (CSV, JSON, XML), ZIP files (iterates over contents)
 """
-
+import os
 from markitdown import MarkItDown
+
+# Get the project root directory
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 def main():
     """
@@ -32,11 +35,11 @@ def main():
     """
     md = MarkItDown()
     # Select PDF file to process - uncomment desired sample file
-    #file_path = "input/sample-1.pdf" # Table in pdf
-    #file_path = "input/sample-2.pdf" # Image based simple table in pdf
-    #file_path = "input/sample-3.pdf" # Image based complex table in pdf
-    file_path = "input/sample-4.pdf"  # Complex PDF with mixed content types
-    #file_path = "input/sample-5.pdf"  # Multi-column Texts
+    #file_path = project_root+"/input/sample-1.pdf" # Table in pdf
+    #file_path = project_root+"/input/sample-2.pdf" # Image based simple table in pdf
+    #file_path = project_root+"/input/sample-3.pdf" # Image based complex table in pdf
+    file_path = project_root+"/input/sample-4.pdf"  # Complex PDF with mixed content types
+    #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts
     
     result = md.convert(file_path)
     print(result.text_content)

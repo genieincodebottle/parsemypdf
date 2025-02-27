@@ -168,10 +168,10 @@ def main():
 
     # STEP 1: Read the PDF and base64 encoding
 
-    #file_path = "input/sample-1.pdf" # Table in pdf
-    #file_path = "input/sample-2.pdf" # Image based simple table in pdf
-    #file_path = "input/sample-3.pdf" # Image based complex table in pdf
-    file_path = "input/sample-4.pdf"  # Complex PDF where many text contents and tables are in image 
+    #file_path = project_root+"/input/sample-1.pdf" # Table in pdf
+    #file_path = project_root+"/input/sample-2.pdf" # Image based simple table in pdf
+    #file_path = project_root+"/input/sample-3.pdf" # Image based complex table in pdf
+    file_path = project_root+"/input/sample-4.pdf"  # Complex PDF where many text contents and tables are in image 
     base64_encoded_list = utils.read_pdf_in_pairs(file_path)
     
     # STEP 2: Extract PDF content as text using Claude 3.5 Sonnet API

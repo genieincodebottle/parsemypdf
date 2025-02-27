@@ -26,9 +26,11 @@ Advantages:
    - Handwriting recognition
    - Integration with AWS services
 """
-
+import os
 import boto3
 from langchain_community.document_loaders import AmazonTextractPDFLoader
+
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 def main():
    """
@@ -54,11 +56,11 @@ def main():
        None: Prints extracted content to console
    """
    # Local file path for processing
-   file_path = "input/sample-1.pdf"  # Contains standard table format
-   #file_path = "input/sample-2.pdf" # Contains image-based simple table
-   #file_path = "input/sample-3.pdf" # Contains image-based complex table
-   #file_path = "input/sample-4.pdf" # Complex PDF with mixed content (text and tables in images)
-   #file_path = "input/sample-5.pdf"  # Multi-column Texts 
+   file_path = project_root+"/input/sample-1.pdf"  # Contains standard table format
+   #file_path = project_root+"/input/sample-2.pdf" # Contains image-based simple table
+   #file_path = project_root+"/input/sample-3.pdf" # Contains image-based complex table
+   #file_path = project_root+"/input/sample-4.pdf" # Complex PDF with mixed content (text and tables in images)
+   #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts 
    
    # Initialize AWS Textract client
    # Requires properly configured AWS credentials

@@ -26,9 +26,11 @@ langchain-groq
 langchain_openai
 langchain-anthropic
 langchain-google-genai
+langchain-unstructured
 langchain_huggingface
 langchain_community
 tiktoken
+google-genai
 
 # Vector Store and Embeddings
 faiss-cpu

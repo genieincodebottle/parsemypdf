@@ -22,8 +22,11 @@ Advantages:
    - Sophisticated document structure analysis
    - Support for multiple document formats
 """
-
+import os
 from langchain_unstructured import UnstructuredLoader
+
+# Get the project root directory
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 # Get API key from environment variables and validate its presence
 UNSTRUCTURED_API_KEY = os.getenv("UNSTRUCTURED_API_KEY")
@@ -55,11 +58,11 @@ def main():
        None: Prints extracted content to console
    """
    # Select PDF file to process - uncomment desired sample file
-   file_path = "input/sample-1.pdf" # Table in pdf
-   #file_path = "input/sample-2.pdf" # Image based simple table in pdf
-   #file_path = "input/sample-3.pdf" # Image based complex table in pdf
-   #file_path = "input/sample-4.pdf"  # Complex PDF with mixed content types
-   #file_path = "input/sample-5.pdf"  # Multi-column Texts 
+   file_path = project_root+"/input/sample-1.pdf" # Table in pdf
+   #file_path = project_root+"/input/sample-2.pdf" # Image based simple table in pdf
+   #file_path = project_root+"/input/sample-3.pdf" # Image based complex table in pdf
+   #file_path = project_root+"/input/sample-4.pdf"  # Complex PDF with mixed content types
+   #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts 
    
    # Initialize Unstructured loader with API configuration
    # Note: API key should be stored securely in environment variables

@@ -49,7 +49,6 @@ sys.path.append(project_root)
 
 from utils.pdf_to_image import PDFToJPGConverter
 
-
 # Initialize environment variables from .env file
 load_dotenv()
 
@@ -242,15 +241,15 @@ def main():
 
     # Configure input PDF path
     # Different sample types available for processing:
-    #file_path = "input/sample-1.pdf"  # Simple table-based PDF
-    #file_path = "input/sample-2.pdf"  # PDF with image-based simple tables
-    file_path = "input/sample-3.pdf"   # PDF with complex image-based tables
-    #file_path = "input/sample-4.pdf"  # PDF with mixed content types
-    #file_path = "input/sample-5.pdf"  # Multi-column Texts
+    #file_path = project_root+"/input/sample-1.pdf"  # Simple table-based PDF
+    #file_path = project_root+"/input/sample-2.pdf"  # PDF with image-based simple tables
+    file_path = project_root+"/input/sample-3.pdf"   # PDF with complex image-based tables
+    #file_path = project_root+"/input/sample-4.pdf"  # PDF with mixed content types
+    #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts
 
     # Set up PDF to image conversion
     converter = PDFToJPGConverter()
-    output_path = "converted_images/llama"  # Directory for converted images
+    output_path = project_root+"/converted_images/llama"  # Directory for converted images
 
     # Execute PDF to JPG conversion
     converted_files = converter.convert_pdf(file_path, output_path)

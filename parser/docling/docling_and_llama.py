@@ -46,7 +46,7 @@ Usage:
 Note: This implementation runs entirely locally and doesn't require API keys
 or cloud services, but needs sufficient system resources for LLM operations.
 """
-
+import os
 from typing import List
 from docling.document_converter import DocumentConverter  # For PDF content extraction
 from langchain_ollama.llms import OllamaLLM  # Local LLM integration
@@ -55,6 +55,9 @@ from langchain_huggingface import HuggingFaceEmbeddings  # For text embeddings
 from langchain_community.vectorstores import FAISS  # Vector database
 from langchain.chains import RetrievalQA  # For question-answering pipeline
 from langchain.prompts import PromptTemplate  # For customizing LLM prompts
+
+# Get the project root directory
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 def extract_pdf_content(file_path) -> str:
     """
@@ -142,11 +145,11 @@ def main():
     """
     # STEP 1: Extract PDF content as text using Claude 3.5 Sonnet API
     # Different PDF types for testing
-    #file_path = "input/sample-1.pdf" # Table in pdf
-    #file_path = "input/sample-2.pdf" # Image based simple table in pdf
-    #file_path = "input/sample-3.pdf" # Image based complex table in pdf
-    file_path = "input/sample-4.pdf"  # Complex PDF with text and tables in images
-    #file_path = "input/sample-5.pdf"  # Multi-column Texts 
+    #file_path = project_root+"/input/sample-1.pdf" # Table in pdf
+    #file_path = project_root+"/input/sample-2.pdf" # Image based simple table in pdf
+    #file_path = project_root+"/input/sample-3.pdf" # Image based complex table in pdf
+    file_path = project_root+"/input/sample-4.pdf"  # Complex PDF with text and tables in images
+    #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts 
     
     structured_content = extract_pdf_content(file_path)
     print(structured_content)

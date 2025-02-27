@@ -17,8 +17,11 @@ Note:
     PDFMiner is particularly good at extracting text but may have limitations with 
     complex layouts or image-based content.
 """
-
+import os
 from langchain_community.document_loaders import PDFMinerLoader
+
+# Get the project root directory
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 def main():
     """
@@ -35,11 +38,11 @@ def main():
         None: Prints extracted content to console
     """
     # File path selection - uncomment desired sample file
-    #file_path = "input/sample-1.pdf" # Table in pdf
-    #file_path = "input/sample-2.pdf" # Image based simple table in pdf
-    #file_path = "input/sample-3.pdf" # Image based complex table in pdf
-    file_path = "input/sample-4.pdf"  # Complex PDF where many text contents and tables are in image
-    #file_path = "input/sample-5.pdf"  # Multi-column Texts 
+    #file_path = project_root+"/input/sample-1.pdf" # Table in pdf
+    #file_path = project_root+"/input/sample-2.pdf" # Image based simple table in pdf
+    #file_path = project_root+"/input/sample-3.pdf" # Image based complex table in pdf
+    file_path = project_root+"/input/sample-4.pdf"  # Complex PDF where many text contents and tables are in image
+    #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts 
     
     # Initialize PDFMiner loader with specified file
     loader = PDFMinerLoader(file_path)

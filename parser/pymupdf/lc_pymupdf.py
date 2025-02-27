@@ -20,8 +20,11 @@ Advantages:
    - Ability to handle encrypted PDFs
    - Memory efficient for large documents
 """
-
+import os
 from langchain_community.document_loaders import PyMuPDFLoader
+
+# Get the project root directory
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 def main():
    """
@@ -45,11 +48,11 @@ def main():
        None: Prints extracted content to console
    """
    # Select PDF file to process - uncomment desired sample file
-   #file_path = "input/sample-1.pdf" # Table in pdf
-   #file_path = "input/sample-2.pdf" # Image based simple table in pdf
-   #file_path = "input/sample-3.pdf" # Image based complex table in pdf
-   file_path = "input/sample-4.pdf"  # Complex PDF with mixed content types
-   #file_path = "input/sample-5.pdf"  # Multi-column Texts 
+   #file_path = project_root+"/input/sample-1.pdf" # Table in pdf
+   #file_path = project_root+"/input/sample-2.pdf" # Image based simple table in pdf
+   #file_path = project_root+"/input/sample-3.pdf" # Image based complex table in pdf
+   file_path = project_root+"/input/sample-4.pdf"  # Complex PDF with mixed content types
+   #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts 
    
    # Initialize PyMuPDF loader
    # PyMuPDF handles PDF parsing and content extraction

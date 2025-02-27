@@ -176,11 +176,11 @@ def main():
     4. Sets up QA system for querying the content
     """
     # Sample PDF files for different use cases
-    #file_path = "input/sample-1.pdf" # Table in pdf
-    #file_path = "input/sample-2.pdf" # Image based simple table in pdf
-    file_path = "input/sample-3.pdf" # Image based complex table in pdf
-    #file_path = "input/sample-4.pdf"  # Complex PDF where many text contents and tables are in image
-    #file_path = "input/sample-5.pdf"  # Multi-column Texts 
+    #file_path = project_root+"/input/sample-1.pdf" # Table in pdf
+    #file_path = project_root+"/input/sample-2.pdf" # Image based simple table in pdf
+    file_path = project_root+"/input/sample-3.pdf" # Image based complex table in pdf
+    #file_path = project_root+"/input/sample-4.pdf"  # Complex PDF where many text contents and tables are in image
+    #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts 
 
     # Initialize PDF to JPG converter
     converter = PDFToJPGConverter()

@@ -19,8 +19,11 @@ Key Features:
    - Basic text extraction from each PDF
    - Maintains document separation in output
 """
-
+import os
 from langchain_community.document_loaders import PyPDFDirectoryLoader
+
+# Get the project root directory
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 def main():
    """
@@ -48,7 +51,7 @@ def main():
    
    # Initialize directory loader
    # Points to directory containing PDF files
-   loader = PyPDFDirectoryLoader("input/")
+   loader = PyPDFDirectoryLoader(project_root+"/input/")
    
    # Extract content from all PDFs in directory
    # Returns list of Document objects, one per page across all PDFs

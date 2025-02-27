@@ -42,6 +42,8 @@ import base64
 from dotenv import load_dotenv
 import anthropic
 
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -115,12 +117,11 @@ def main():
     """
     # STEP 1: Read and encode the PDF file
     # Multiple PDF files available for testing different scenarios:
-    #file_path = "input/pdf_multiple_column.pdf"
-    #file_path = "input/sample-1.pdf" # Table in pdf
-    #file_path = "input/sample-2.pdf" # Image based simple table in pdf
-    file_path = "input/sample-3.pdf" # Image based complex table in pdf
-    #file_path = "input/sample-4.pdf"  # Complex PDF where many text contents and tables are in image
-    #file_path = "input/sample-5.pdf"  # Multi-column Texts 
+    #file_path = project_root+"/input/sample-1.pdf" # Table in pdf
+    #file_path = project_root+"/input/sample-2.pdf" # Image based simple table in pdf
+    file_path = project_root+"/input/sample-3.pdf" # Image based complex table in pdf
+    #file_path = project_root+"/input/sample-4.pdf"  # Complex PDF where many text contents and tables are in image
+    #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts 
     
     # Read PDF file and convert to base64
     with open(file_path, "rb") as pdf_file:

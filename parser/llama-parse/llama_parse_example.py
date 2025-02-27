@@ -2,6 +2,8 @@ from llama_cloud_services import LlamaParse
 
 import os
 from dotenv import load_dotenv
+# Get the project root directory
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 # Load environment variables from .env file
 load_dotenv()
@@ -20,11 +22,11 @@ def main():
         language="en",  # Optionally you can define a language, default=en
     )
 
-    #file_path = "input/sample-1.pdf" # Table in pdf
-    #file_path = "input/sample-2.pdf" # Image based simple table in pdf
-    #file_path = "input/sample-3.pdf" # Image based complex table in pdf
-    #file_path = "input/sample-4.pdf"  # Complex PDF with text and tables in images
-    file_path = "input/sample-5.pdf"  # Multi-column Texts 
+    #file_path = project_root+"/input/sample-1.pdf" # Table in pdf
+    #file_path = project_root+"/input/sample-2.pdf" # Image based simple table in pdf
+    #file_path = project_root+"/input/sample-3.pdf" # Image based complex table in pdf
+    #file_path = project_root+"/input/sample-4.pdf"  # Complex PDF with text and tables in images
+    file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts 
 
     docs = parser.load_data(file_path)
 
