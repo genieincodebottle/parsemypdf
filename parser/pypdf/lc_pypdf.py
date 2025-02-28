@@ -66,8 +66,9 @@ def main():
    docs = loader.load()
    
    # Output options
-   #print(docs)  # Uncomment to see full Document objects including metadata
-   print(docs[0].page_content)  # Print extracted text from first page
+   print("#### Extracted Content #### \n")
+   for doc in docs:
+      print(doc.page_content+ "\n")
 
 if __name__ == "__main__":
    main()

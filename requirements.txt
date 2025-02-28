@@ -43,3 +43,4 @@ amazon-textract-caller>=0.2.0
 # Utilities
 python-dotenv
 
+

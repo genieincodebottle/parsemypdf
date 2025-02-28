@@ -51,9 +51,14 @@ def main():
     # docs will be a list of Document objects, where each Document represents a page
     docs = loader.load()
     
-    # Print extracted content
-    #print(docs)  # Uncomment to see full Document objects including metadata
-    print(docs[0].page_content)  # Print only the text content of the first page
+    # Output options
+    extracted_content = ""
+    for doc in docs:
+        extracted_content += doc.page_content+ "\n"
+
+    # Output extracted content to output.txt
+    with open("output.txt", 'w') as file:
+        file.write(extracted_content)
 
 if __name__ == "__main__":
     main()

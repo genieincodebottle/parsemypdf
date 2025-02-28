@@ -179,7 +179,9 @@ def main():
     for content in base64_encoded_list:
         structured_content += "\n" + extract_pdf_content(content, ANTHROPIC_API_KEY)
     
-    print(structured_content)
+    # Output extracted content to output.txt
+    with open("output.txt", 'w') as file:
+        file.write(structured_content)
 
     # STEP 3: Split & chunk extracted PDF text
     text_splitter = RecursiveCharacterTextSplitter(

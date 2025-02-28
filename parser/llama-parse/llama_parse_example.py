@@ -2,6 +2,7 @@ from llama_cloud_services import LlamaParse
 
 import os
 from dotenv import load_dotenv
+
 # Get the project root directory
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
@@ -25,15 +26,22 @@ def main():
     #file_path = project_root+"/input/sample-1.pdf" # Table in pdf
     #file_path = project_root+"/input/sample-2.pdf" # Image based simple table in pdf
     #file_path = project_root+"/input/sample-3.pdf" # Image based complex table in pdf
-    #file_path = project_root+"/input/sample-4.pdf"  # Complex PDF with text and tables in images
-    file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts 
+    file_path = project_root+"/input/sample-4.pdf"  # Complex PDF with text and tables in images
+    #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts 
 
     docs = parser.load_data(file_path)
 
     # Batch
     #documents = parser.load_data(["./my_file1.pdf", "./my_file2.pdf"])
 
-    print(docs[0].text)
+    # Output options
+    extracted_content = ""
+    for doc in docs:
+        extracted_content += doc.text+ "\n"
+    
+    # Output extracted content to output.txt
+    with open("output.txt", 'w') as file:
+        file.write(extracted_content)
 
 if __name__ == "__main__":
    main()

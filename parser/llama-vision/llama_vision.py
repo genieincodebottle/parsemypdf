@@ -199,6 +199,10 @@ def main():
     # Extract text content from converted images
     response = extract_images_content(output_path)
 
+    # Output extracted content to output.txt
+    with open("output.txt", 'w') as file:
+        file.write(response)
+
     # Split extracted text into manageable chunks
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=2000, chunk_overlap=100, is_separator_regex=False

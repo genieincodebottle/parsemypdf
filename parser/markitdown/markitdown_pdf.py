@@ -42,7 +42,10 @@ def main():
     #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts
     
     result = md.convert(file_path)
-    print(result.text_content)
+
+    # Output extracted content to output.txt
+    with open("output.txt", 'w') as file:
+        file.write(result.text_content)
 
 if __name__ == "__main__":
     main()

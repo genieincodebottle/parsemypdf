@@ -152,7 +152,9 @@ def main():
     #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts 
     
     structured_content = extract_pdf_content(file_path)
-    print(structured_content)
+    # Output extracted content to output.txt
+    with open("output.txt", 'w') as file:
+        file.write(structured_content)
     
     # STEP 2: Split extracted PDF text into smaller chunks for processing
     text_splitter = RecursiveCharacterTextSplitter(

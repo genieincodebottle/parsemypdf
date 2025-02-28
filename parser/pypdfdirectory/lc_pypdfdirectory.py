@@ -59,8 +59,13 @@ def main():
    docs = loader.load()
    
    # Output options
-   #print(docs)  # Uncomment to see full Document objects including metadata
-   print(docs[3].page_content)  # Print content of first page from first processed PDF
+   extracted_content = ""
+   for doc in docs:
+      extracted_content += doc.page_content+ "\n"
+
+   # Output extracted content to output.txt
+   with open("output.txt", 'w') as file:
+      file.write(extracted_content)
 
 if __name__ == "__main__":
    main()

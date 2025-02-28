@@ -275,6 +275,7 @@ def main():
         final_response += response.choices[0].message.content + "\n"
 
     # Display complete extracted content
+    print("#### Extracted Response ####")
     print(final_response)
 
     # PHASE 2: QUESTION ANSWERING SETUP

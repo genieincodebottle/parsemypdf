@@ -45,7 +45,7 @@ def main():
     # Parameters:
     #   - 'output/table.csv': Output file path
     #   - f='csv': Specify output format as CSV
-    tables.export(project_root+"/output/table.csv', f='csv')
+    tables.export("/output/table.csv', f='csv')
     
     # Alternative export with compression (commented out)
     # Useful for large tables or when storage space is a concern
