@@ -90,8 +90,13 @@ torch>=2.6.0
          - ollama pull gemma3:27b
          - ollama pull x/llama3.2-vision:11b
 
-  6. To review each Vision Language Model powered OCR in the Web UI, navigate to parsemypdf/llm_ocr/<provider_folder> (e.g., claude) and run:
+  6. To review each Vision Language Model powered OCR in the Web UI, navigate to `parsemypdf/llm_ocr/<provider_folder>` (e.g., claude) and run:
       
       ```bash 
       streamlit run main.py 
+      ```
+  7.  To review all the Vision Language Models powered OCR at single Web UI, navigate to root folder -> `parsemypdf` and run:
+      
+      ```bash 
+      streamlit run vlm_ocr_app.py 
       ```

@@ -1,3 +1,8 @@
+# pip install streamlit>=1.43.2 
+# pip install pillow>=11.1.0
+# pip install google-genai>=1.5.0
+# pip install python-dotenv>=1.0.1
+
 import streamlit as st
 import os
 from PIL import Image

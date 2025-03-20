@@ -1,3 +1,8 @@
+# pip install streamlit>=1.43.2 
+# pip install pillow>=11.1.0
+# pip install openai>=1.66.3
+# pip install python-dotenv>=1.0.1
+
 import streamlit as st
 import base64
 import io

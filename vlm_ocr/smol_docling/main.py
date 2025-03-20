@@ -1,3 +1,8 @@
+# pip install streamlit>=1.43.2 
+# pip install transformers>=4.49.0
+# pip install torch>=2.6.0
+# pip install docling_core>=2.23.1
+
 import os
 import torch
 import time
