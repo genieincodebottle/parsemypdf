@@ -34,7 +34,7 @@ Required Environment Variables:
     - ANTHROPIC_API_KEY: API key for Claude services
 
 Models Used:
-    - Text Extraction: claude-3-5-sonnet-20241022
+    - Text Extraction: claude-3-7-sonnet-20250219
     - Embeddings: sentence-transformers/all-MiniLM-L12-v2
     - Question Answering: llama3.1 8B(via Ollama)
 
@@ -98,7 +98,7 @@ def extract_pdf_content(pdf_base64_string, api_key) -> str:
     Format tables properly in markdown format. In case of tables, preserve all numerical data and relationships between elements.
     Do not exclude any content from the pdf"""
 
-    model_name = "claude-3-5-sonnet-20241022"
+    model_name = "cclaude-3-7-sonnet-20250219"
 
     messages = [
         {
@@ -174,7 +174,7 @@ def main():
     file_path = project_root+"/input/sample-4.pdf"  # Complex PDF where many text contents and tables are in image 
     base64_encoded_list = utils.read_pdf_in_pairs(file_path)
     
-    # STEP 2: Extract PDF content as text using Claude 3.5 Sonnet API
+    # STEP 2: Extract PDF content as text using Claude 3.7 Sonnet API
     structured_content = ""
     for content in base64_encoded_list:
         structured_content += "\n" + extract_pdf_content(content, ANTHROPIC_API_KEY)

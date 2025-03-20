@@ -31,7 +31,7 @@ Usage:
     - sample-4.pdf: Complex PDF with mixed content (text and tables in images)
     - sample-5.pdf: Multi-column Texts 
 
-Note: Uses Claude 3.5 Sonnet model with PDF beta feature for optimal extraction
+Note: Uses Claude 3.7 Sonnet model with PDF beta feature for optimal extraction
 """
 
 # Standard library imports
@@ -94,7 +94,7 @@ def extract_pdf_content(question, pdf_base64_string, api_key) -> str:
     Response must be to the point."""
     
     # Specify the model version
-    model_name = "claude-3-5-sonnet-20241022"
+    model_name = "claude-3-7-sonnet-20250219"
     
     # Construct message payload with PDF document and prompt
     messages = [

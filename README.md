@@ -7,7 +7,9 @@
     <a target="_blank" href="https://github.com/genieincodebottle/generative-ai/blob/main/GenAI_Roadmap.md"><img src="https://img.shields.io/badge/style--5eba00.svg?label=GenAI Roadmap&logo=github&style=social"></a>
 </div>
 
-## 📑 Complex PDF Parsing
+## A. 🖼️ [Vision Language Models Powered OCR](/vlm_ocr/README.md)
+
+## B. 📑 Complex PDF Parsing
 
 A comprehensive example codes for extracting content from PDFs
 
@@ -32,6 +34,7 @@ Also, check -> [Pdf Parsing Guide](https://github.com/genieincodebottle/parse-my
 - [Unstructured.io](parser/unstructured-io/): Advanced content partitioning and classification. Unstructured.io specializes in converting unstructured data for LLMs and AI applications. Its open-source Unstructured library processes PDFs, HTML, Word, and images, streamlining data prep for AI. The Enterprise ETL Platform automates data ingestion and cleaning, integrating seamlessly with Generative AI stacks.
 - [llama-parse](parser/llama-parse/): LlamaParse is a GenAI-native document parser for LLM applications like RAG and agents. It supports PDFs, PowerPoint, Word, Excel, and HTML, accurately extracting tables, images, and diagrams. It integrates with LlamaIndex for retrieval systems and allows custom parsing via prompts. Free users get 1,000 pages/day, with paid plans offering higher limits and extra features.
 - [Amazon Textract](parser/amazon-textract/): Advanced content partitioning and classification. Amazon Textract is an AWS ML service that extracts text, forms, tables, and signatures from scanned documents. It goes beyond OCR by preserving structure for easy data integration. Supporting PNG, JPEG, TIFF, and PDF, it enables automation for data entry, search indexing, and document processing.
+- [Mistral-OCR](https://colab.research.google.com/github/mistralai/cookbook/blob/main/mistral/ocr/structured_ocr.ipynb): Mistral OCR is an advanced AI-powered OCR API for extracting structured text, tables, and equations from documents with high accuracy. It supports multiple languages, processes up to 2,000 pages/min, and provides structured markdown output. Available via Mistral’s platform with flexible deployment options. Doc: https://mistral.ai/news/mistral-ocr
 
 #### 2. 🖥️ Local Methods
 - [Llama 3.2 11B Vision](parser/llama-vision/): Good for Image-based PDF processing.
@@ -51,38 +54,52 @@ Also, check -> [Pdf Parsing Guide](https://github.com/genieincodebottle/parse-my
 
 #### 📚 Python Libraries
 ```bash
+# UI
+streamlit>=1.43.2 
+
 # PDF Processing Libraries
-pypdf
-pymupdf
-pdfplumber
-PyPDF2<3.0
-camelot-py[cv]
-Ghostscript
-docling # IBM's Opensource
-markitdown # Microsoft's Opensource 
+pypdf>=5.4.0
+pymupdf>=1.25.4
+PyPDF2>=3.0
+camelot-py>=1.0.0
+Ghostscript>=0.7
+
+docling>=2.26.0 # IBM's Opensource
+markitdown>=0.0.2 # Microsoft's Opensource
+llama-cloud-services>=0.1.14 #llama-parse related 
 
 # Computer Vision
-opencv-python
+opencv-python>=4.11.0.86
 
 # LLM related Libraries
-ollama
-tiktoken
-openai
-anthropic
-langchain_ollama
-langchain_huggingface
-langchain_community
+ollama>=0.4.7
+openai>=1.66.3
+anthropic>=0.49.0
+langchain_ollama>=0.2.3
+langchain-groq>=0.2.5
+langchain_openai>=0.3.9
+langchain-anthropic>=0.3.10
+langchain-google-genai>=2.1.0
+langchain-unstructured>=0.1.6
+langchain_huggingface>=0.1.2
+langchain_community>=0.3.19
+tiktoken>=0.9.0
+google-genai>=1.5.0
+
+# Huggingface library
+transformers>=4.49.0
 
 # Vector Store and Embeddings
-faiss-cpu
-sentence_transformers
+faiss-cpu>=1.10.0
+sentence_transformers>=3.4.1
 
 # AWS Libraries
-boto3
+boto3>=1.37.14
 amazon-textract-caller>=0.2.0
 
 # Utilities
-python-dotenv
+nest-asyncio>=1.6.0
+python-dotenv>=1.0.1
 ```
 
 ### ⚙️ Setup Instructions
@@ -106,7 +123,7 @@ python-dotenv
       ```bash
       pip install -r requirements.txt
       ```
-   4. Environment Variables
+   4. Rename `.env.example` to `.env` and update required Environment Variables as per requirements
       ```bash
       GROQ_API_KEY=your_key_here    # For Groq based open source models
       ANTHROPIC_API_KEY=your_key_here    # For Claude
@@ -114,6 +131,8 @@ python-dotenv
       GOOGLE_API_KEY=your_key_here   # For Google's Gemini models api key
       UNSTRUCTURED_API_KEY=your_key_here # For Unstructured.io
       LLAMA_CLOUD_API_KEY=your_key_here # For llama-parse
+      MISTRAL_API_KEY=your_key_here # For Mistral API Key
+      OMNI_API_KEY=your_key_here # For Omniai API Key
       ```
 
       For **GROQ_API_KEY** follow this -> https://console.groq.com/keys
@@ -127,6 +146,10 @@ python-dotenv
       For **UNSTRUCTURED_API_KEY** follow this -> https://unstructured.io/api-key-free
 
       For **LLAMA_CLOUD_API_KEY** follow this -> https://cloud.llamaindex.ai/api-key
+
+      For **MISTRAL_API_KEY** follow this -> https://console.mistral.ai/api-keys
+
+      For **OMNI_API_KEY** follow this -> https://app.getomni.ai/settings/account
 
   5. Install Ollama & Models (for local processing)
       - Install Ollama
@@ -149,9 +172,9 @@ python-dotenv
       - **sample-5.pdf**: Multi-column Texts 
   
   8. To check all parsers at Web UI, run following command at "parsemypdf" folder
-      -  streamlit run app.py
+      -  streamlit run pdf_parser_app.py
 
-      <img src="images/ui.png" alt="UI" width="700" height="300" />
+      <img src="images/ui.png" alt="UI"/>
 
   
 ### 📝 Important Notes

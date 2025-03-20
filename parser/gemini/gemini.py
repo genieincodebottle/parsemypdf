@@ -31,17 +31,9 @@ Environment Setup:
 """
 import sys
 import os
-import base64
-from typing import List
 from google import genai
 from dotenv import load_dotenv
 from pathlib import Path
-from langchain_ollama.llms import OllamaLLM
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_community.vectorstores import FAISS
-from langchain.chains import RetrievalQA
-from langchain.prompts import PromptTemplate
 import PIL
 
 # Get the project root directory
@@ -80,6 +72,8 @@ def get_completion_response(image_path):
                Markdown format, preserving numerical data and relationships. Ensure no text is excluded, 
                including any introductory or explanatory text before or after the table."""
     
+    client = genai.Client(api_key=GOOGLE_API_KEY)
+
     # Generate response from Gemini
     response = client.models.generate_content(
         model='gemini-2.0-flash',

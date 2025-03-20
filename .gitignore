@@ -1,5 +1,6 @@
 .DS_Store
 .huskyrc.json
+.env
 out
 log.log
 **/node_modules
