@@ -1,11 +1,5 @@
-# pip install streamlit>=1.43.2 
-# pip install pillow>=11.1.0
-# pip install anthropic>=0.49.0
-# pip install google-genai>=1.5.0
-# pip install openai>=1.66.3
-# pip install mistralai>=1.5.1
-# pip install requests>=2.32.3
-# pip install python-dotenv>=1.0.1
+# Required libraries to run this app
+# pip install streamlit>=1.43.2 pillow>=11.1.0 anthropic>=0.49.0 google-genai>=1.5.0 openai>=1.66.3 mistralai>=1.5.1 requests>=2.32.3 python-dotenv>=1.0.1
 
 import streamlit as st
 import base64
@@ -53,10 +47,12 @@ OMNI_API_KEY = os.getenv("OMNI_API_KEY")
 
 # Omni API constants
 OMNI_API_URL = 'https://api.getomni.ai'
+
 OMNI_HEADERS_URL = {
     'x-api-key': OMNI_API_KEY,
     'Content-Type': 'application/json'
 } if OMNI_API_KEY else {}
+
 OMNI_HEADER_UPLOAD_FILE = {
     'x-api-key': OMNI_API_KEY
 } if OMNI_API_KEY else {}
@@ -99,7 +95,7 @@ MODEL_PROVIDERS = {
 AVAILABLE_PROVIDERS = [p for p, details in MODEL_PROVIDERS.items() if details["available"]]
 
 st.set_page_config(
-    page_title="Multi-Model OCR",
+    page_title="OCR with Vision Language Model",
     page_icon="📄",
     layout="wide"
 )
@@ -117,6 +113,7 @@ def encode_image_to_base64(image):
     img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
     return img_str, img_format.lower()
 
+####### CLAUDE Models ##########
 def query_claude(image, prompt, model_name, temperature=0.7, max_tokens=2048):
     """Query Claude API with the image and prompt"""
     if not ANTHROPIC_AVAILABLE or not ANTHROPIC_API_KEY:
@@ -159,6 +156,7 @@ def query_claude(image, prompt, model_name, temperature=0.7, max_tokens=2048):
     except Exception as e:
         return f"Error connecting to Claude API: {str(e)}"
 
+####### GEMINI Models ##########
 def query_gemini(image, prompt, model_name, temperature=0.7, max_tokens=2048):
     """Query Gemini API with the image and prompt"""
     if not GOOGLE_AVAILABLE or not GOOGLE_API_KEY:
@@ -179,6 +177,7 @@ def query_gemini(image, prompt, model_name, temperature=0.7, max_tokens=2048):
     except Exception as e:
         return f"Error connecting to Gemini API: {str(e)}"
 
+####### GPT Models ##########
 def query_gpt(image, prompt, model_name, temperature=0.7, max_tokens=2048):
     """Query OpenAI GPT API with the image and prompt"""
     if not OPENAI_AVAILABLE or not OPENAI_API_KEY:
@@ -224,6 +223,7 @@ def query_gpt(image, prompt, model_name, temperature=0.7, max_tokens=2048):
     except Exception as e:
         return f"Error connecting to GPT API: {str(e)}"
 
+####### MISTRAL-OCR Model ##########
 def query_mistral_ocr(image, model_name):
     """Query Mistral-OCR API with the image and prompt"""
     if not MISTRAL_AVAILABLE or not MISTRAL_API_KEY:
@@ -256,6 +256,7 @@ def query_mistral_ocr(image, model_name):
     except Exception as e:
         return f"Error connecting to Mistral-OCR API: {str(e)}"
 
+####### OLLAMA Based Vision Models ##########
 def query_ollama(image, model_name, prompt=None, temperature=0.7, top_p=0.9, top_k=40):
     """Query Ollama API with the image and optional prompt"""
     # Encode image to base64
@@ -288,6 +289,7 @@ def query_ollama(image, model_name, prompt=None, temperature=0.7, top_p=0.9, top
     except Exception as e:
         return f"Error connecting to Ollama: {str(e)}"
 
+####### OMNIAI Model ##########
 def create_omni_extraction(url, template_id):
     """Initiate an extraction job with Omni AI API"""
     if not OMNI_API_KEY:

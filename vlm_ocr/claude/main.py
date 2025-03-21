@@ -1,7 +1,5 @@
-# pip install streamlit>=1.43.2 
-# pip install pillow>=11.1.0
-# pip install anthropic>=0.49.0
-# pip install python-dotenv>=1.0.1
+# Required libraries to run this app
+# pip install streamlit>=1.43.2 pillow>=11.1.0 anthropic>=0.49.0 python-dotenv>=1.0.1
 
 import streamlit as st
 import base64

@@ -1,6 +1,5 @@
-# pip install streamlit>=1.43.2 
-# pip install pillow>=11.1.0
-# pip install requests>=2.32.3
+# Required libraries to run this app
+# pip install streamlit>=1.43.2 pillow>=11.1.0 requests>=2.32.3
 
 import streamlit as st
 import requests
