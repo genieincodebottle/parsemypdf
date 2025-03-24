@@ -1,4 +1,4 @@
-## 🖼️ Vision Language Models Powered OCR
+### 🖼️ Vision Language Models Powered OCR
 
 - [Gemini-2.0](/llm_ocr/gemini/main.py) 
 
@@ -13,6 +13,8 @@
 - [SmolDocling](/llm_ocr/smol_docling/main.py): https://huggingface.co/ds4sd/SmolDocling-256M-preview
 
 - [Omni-AI](/llm_ocr/omni_ai/): https://docs.getomni.ai/docs/introduction
+
+### [OCR Benchmark](https://github.com/getomni-ai/benchmark?tab=readme-ov-file#omni-ocr-benchmark) 
 
 ### 🔗 Dependencies
 
