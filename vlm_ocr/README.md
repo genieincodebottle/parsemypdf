@@ -1,20 +1,24 @@
 ### 🖼️ Vision Language Models Powered OCR
 
-- [Gemini-2.0](/llm_ocr/gemini/main.py) 
+- Open-Source (Ollama & Huggingface)
 
-- [Claude-3.7 Sonnet](/llm_ocr/claude/main.py)
+   - [Gemma3-4b, 12b, 27b and Llama3.2-11b Vision Model](/llm_ocr/ollama_models/main.py)
 
-- [GPT-4.0 Model](/llm_ocr/gpt4/main.py)
+   - [SmolDocling](/llm_ocr/smol_docling/main.py): https://huggingface.co/ds4sd/SmolDocling-256M-preview
 
-- [Gemma3-4b, 12b, 27b and Llama3.2-11b Vision Model](/llm_ocr/ollama_models/main.py)
+- Closed Source (Paid API-based)
 
-- [Mistral-OCR](/llm_ocr/mistral_ocr/) : https://docs.mistral.ai/capabilities/document/
+   - [Gemini-2.0](/llm_ocr/gemini/main.py) 
 
-- [SmolDocling](/llm_ocr/smol_docling/main.py): https://huggingface.co/ds4sd/SmolDocling-256M-preview
+   - [Claude-3.7 Sonnet](/llm_ocr/claude/main.py)
 
-- [Omni-AI](/llm_ocr/omni_ai/): https://docs.getomni.ai/docs/introduction
+   - [GPT-4.0 Model](/llm_ocr/gpt4/main.py)
 
-### [OCR Benchmark](https://github.com/getomni-ai/benchmark?tab=readme-ov-file#omni-ocr-benchmark) 
+   - [Omni-AI](/llm_ocr/omni_ai/): https://docs.getomni.ai/docs/introduction
+
+   - [Mistral-OCR](/llm_ocr/mistral_ocr/) : https://docs.mistral.ai/capabilities/document/
+
+### 📊 [OCR Benchmark](https://github.com/getomni-ai/benchmark?tab=readme-ov-file#omni-ocr-benchmark) 
 
 ### 🔗 Dependencies
 
