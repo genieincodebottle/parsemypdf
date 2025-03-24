@@ -1,10 +1,10 @@
-### 🖼️ Vision Language Models Powered OCR
+### 🖼️ OCR with Multimodal | Vision Language Models
 
 | Model Provider | Models                                                       | Open / Paid | Code     | Doc       |
 | -------------- | ------------------------------------------------------------ | ------------------ | -------- |---------- |
-| Anthropic      | `claude-3-7-sonnet-20250219`, `claude-3-5-sonnet-20241022`   | Paid               | [Code](/vlm_ocr/claude/main.py)              | [Doc](https://www.anthropic.com/claude/sonnet)                                                                                |
+| Anthropic      | `claude-3-7-sonnet-20250219`, `claude-3-5-sonnet-20241022`   | Paid               | [Code](/vlm_ocr/anthrpic/main.py)              | [Doc](https://www.anthropic.com/claude/sonnet)                                                                                |
 | Gemini         | `gemini-2.0-flash`, `gemini-2.0-flash-lite`, `gemini-2.0-pro-exp-02-05` | Paid               | [Code](/vlm_ocr/gemini/main.py)              | [Doc](https://ai.google.dev/gemini-api/docs/models)
-| OpenAI         | `gpt-4o`, `gpt-4o-mini` | Paid               | [Code](/vlm_ocr/gpt4//main.py)              | [Doc](https://platform.openai.com/docs/models/gpt-4o)
+| OpenAI         | `gpt-4o`, `gpt-4o-mini` | Paid               | [Code](/vlm_ocr/openai//main.py)              | [Doc](https://platform.openai.com/docs/models/gpt-4o)
 | Mistral-OCR        | `mistral-ocr`                                                | Paid  | [Code](/vlm_ocr/mistral_ocr/main.py)              | [Doc](https://docs.mistral.ai/capabilities/document/)
 | OmniAI         | `omniai`                                                     | Paid  | [Code](/vlm_ocr/omni_ai/main.py)              | [Doc](https://docs.getomni.ai/docs/introduction)
 | Google & Meta         | `gemma3:4b`, `gemma3:12b`, `gemma3:27b`, `x/llama3.2-vision:11b` | Open Weight  | [Code](/vlm_ocr/ollama_models/main.py)              | [Gemma Doc](https://blog.google/technology/developers/gemma-3/), [Llama3.2 Doc](https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/)
