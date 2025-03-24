@@ -10,7 +10,7 @@
     <a target="_blank" href="https://github.com/genieincodebottle/generative-ai/blob/main/GenAI_Roadmap.md"><img src="https://img.shields.io/badge/style--5eba00.svg?label=GenAI Roadmap&logo=github&style=social"></a>
 </div>
 
-## A. 🖼️ [OCR with Multimodal | Vision Language Models](/vlm_ocr/README.md)
+## A. 🖼️ [OCR with Multimodal | Vision Language Models](/vlm_ocr/)
 
 ## B. 📑 Complex PDF Parsing
 
