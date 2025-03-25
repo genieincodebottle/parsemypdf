@@ -70,20 +70,19 @@ def get_completion(client, messages, model_name):
         messages=messages
     ).content[0].text
 
-def extract_pdf_content(question, pdf_base64_string, api_key) -> str:
+def extract_pdf_content(question, pdf_base64_string) -> str:
     """
     Extract content from a PDF and answer questions about it using Claude API
     
     Args:
         question (str): Question to ask about the PDF content
         pdf_base64_string (str): Base64 encoded PDF content
-        api_key (str): Anthropic API key
         
     Returns:
         str: Claude's answer to the question based on PDF content
     """
     # Initialize Anthropic client with PDF beta feature
-    client = anthropic.Client(api_key=api_key, default_headers={"anthropic-beta": "pdfs-2024-09-25"})
+    client = anthropic.Client(api_key=ANTHROPIC_API_KEY)
     
     # Define system prompt for PDF content extraction and question answering
     system_prompt = f"""You are an expert at extracting and structuring content from PDFs.
@@ -136,7 +135,7 @@ def main():
     #question = "What is Embodied Intelligence?" #From  sample-5.pdf
     
     # Get response from Claude
-    response = extract_pdf_content(question, base64_string, ANTHROPIC_API_KEY)
+    response = extract_pdf_content(question, base64_string)
     
     # Print the response
     print(response)

@@ -86,12 +86,10 @@ def get_completion(client, messages, model_name):
     )
 
 
-def extract_pdf_content(pdf_base64_string, api_key) -> str:
+def extract_pdf_content(pdf_base64_string) -> str:
     """Extract structured content from PDF using Claude API"""
 
-    client = anthropic.Client(
-        api_key=api_key, default_headers={"anthropic-beta": "pdfs-2024-09-25"}
-    )
+    client = anthropic.Client(api_key=ANTHROPIC_API_KEY)
 
     system_prompt = """You are an expert at extracting and structuring content from complex PDFs, which contain tables, images and text. 
     Please scan the pdf deeply and extract every text content from the provided PDF, maintaining the structure and formatting.
@@ -177,7 +175,7 @@ def main():
     # STEP 2: Extract PDF content as text using Claude 3.7 Sonnet API
     structured_content = ""
     for content in base64_encoded_list:
-        structured_content += "\n" + extract_pdf_content(content, ANTHROPIC_API_KEY)
+        structured_content += "\n" + extract_pdf_content(content)
     
     # Output extracted content to output.txt
     with open("output.txt", 'w') as file:
