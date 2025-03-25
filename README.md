@@ -33,7 +33,7 @@ Also, check -> [Pdf Parsing Guide](https://github.com/genieincodebottle/parse-my
 
 #### 1. ☁️ Paid - API Based Methods
 
-| Model Provider | Models                      | Details                                 | Code     | Doc       |
+| Model Provider | Models                      | Details                                 | Example Code     | Doc       |
 | -------------- | ----------------------------|-------------------------------- | -------- |---------- |
 | Anthropic      | `claude-3-7-sonnet-20250219`, `claude-3-5-sonnet-20241022`| Claude 3.7/3.5 Sonnet is a multimodal AI model developed by Anthropic, capable of processing both text and images. It excels in visual reasoning tasks, such as interpreting charts and graphs, and can accurately transcribe text from imperfect images, benefiting industries like retail, logistics, and financial services.  | [Code](/parser/claude/)              | [Doc](https://www.anthropic.com/claude/)
 | Gemini         | `gemini-2.0-flash`, `gemini-2.0-flash-lite`, `gemini-2.0-pro-exp-02-05` | ​Gemini 2.0 Flash is offering superior speed, native tool integration, and multimodal generation capabilities. It supports a 1 million token context window, enabling efficient processing of extensive data. The model accepts multimodal inputs—including text, images, audio, and video—and provides multimodal outputs, such as natively generated images and controllable text-to-speech audio.| [Code](/parser/gemini/)              | [Doc](https://ai.google.dev/gemini-api/docs/models)
@@ -46,7 +46,7 @@ Also, check -> [Pdf Parsing Guide](https://github.com/genieincodebottle/parse-my
 
 #### 2. 🖥️ Open Weight - Local Methods
 
-| Model/Framework Provider | Models/Framework Name                     | Details                                 | Code     | Doc       |
+| Model/Framework Provider | Models/Framework Name                     | Details                                 | Example Code     | Doc       |
 | -------------- | ----------------------------|-------------------------------- | ------------------ | ----------| 
 | Meta      | `llama3.2-vision`| ​Llama 3.2-11B Vision is a multimodal AI model developed by Meta, designed to process both text and images. It excels in visual recognition, image reasoning, captioning, and answering general questions about images. With a context length of 128,000 tokens, it supports complex multimodal interactions. The model is optimized for efficiency, making it suitable for deployment on various platforms, including mobile devices. | [Code](/parser/llama-vision/) | [Doc](https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices)  
 | IBM      | `Docling`| Excellent  for complex PDFs with mixed content. Docling simplifies document processing, parsing diverse formats — including advanced PDF understanding, and providing seamless integrations with the gen AI ecosystem. | [Code](/parser/docling/) | [Doc](https://docling-project.github.io/docling/)  

@@ -1,6 +1,6 @@
 ### 🖼️ OCR with Multimodal | Vision Language Models
 
-| Model Provider | Models                                                       | Open / Paid | Code     | Doc       |
+| Model Provider | Models                                                       | Open / Paid | Example Code     | Doc       |
 | -------------- | ------------------------------------------------------------ | ------------------ | -------- |---------- |
 | Anthropic      | `claude-3-7-sonnet-20250219`, `claude-3-5-sonnet-20241022`   | Paid               | [Code](/vlm_ocr/anthropic/main.py)              | [Doc](https://www.anthropic.com/claude/sonnet)                                                                                |
 | Gemini         | `gemini-2.0-flash`, `gemini-2.0-flash-lite`, `gemini-2.0-pro-exp-02-05` | Paid               | [Code](/vlm_ocr/gemini/main.py)              | [Doc](https://ai.google.dev/gemini-api/docs/models)

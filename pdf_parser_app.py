@@ -18,6 +18,9 @@ import streamlit as st
 import ollama
 import anthropic
 from openai import OpenAI
+from google import genai
+from google.genai import types
+from mistralai import Mistral
 
 # LangChain Core
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -113,13 +116,21 @@ PARSER_CONFIGS = {
         "description": "Converts PDFs to markdown format",
         "requires_api_key": None
     },
-    "Claude PDF": {
+    "Gemini 2.0": {
+        "description": "Uses Gemini's native PDF processing capabilities",
+        "requires_api_key": "GOOGLE_API_KEY"
+    },
+    "Claude": {
         "description": "Uses Claude's native PDF processing capabilities",
         "requires_api_key": "ANTHROPIC_API_KEY"
     },
-    "OpenAI Vision": {
-        "description": "Uses GPT-4 Vision for processing PDFs",
+    "OpenAI": {
+        "description": "Uses GPT-4o for processing PDFs",
         "requires_api_key": "OPENAI_API_KEY"
+    },
+    "Mistral-OCR": {
+        "description": "Uses Mistral-OCR for processing PDFs",
+        "requires_api_key": "MISTRAL_API_KEY"
     },
     "Camelot": {
         "description": "Specialized in table extraction",
@@ -218,17 +229,22 @@ class MultiParser:
         self.parser_name = parser_name
         self.image_converter = PDFToJPGConverter()
 
-    def parse_pdf(self, pdf_content: bytes) -> str:
+    def parse_pdf(self, uploaded_file) -> str:
+        pdf_content = uploaded_file.read()
         logger.debug(f"Parsing PDF with {self.parser_name}")
         try:
             if self.parser_name == "Docling":
                 return self._parse_with_docling(pdf_content)
             elif self.parser_name == "MarkItDown":
                 return self._parse_with_markitdown(pdf_content)
-            elif self.parser_name == "Claude PDF":
+            elif self.parser_name == "Gemini 2.0":
+                return self._parse_with_gemini(pdf_content)
+            elif self.parser_name == "Claude":
                 return self._parse_with_claude(pdf_content)
-            elif self.parser_name == "OpenAI Vision":
+            elif self.parser_name == "OpenAI":
                 return self._parse_with_openai_vision(pdf_content)
+            elif self.parser_name == "Mistral-OCR":
+                return self._parse_with_mistral_ocr(uploaded_file)
             elif self.parser_name == "Camelot":
                 return self._parse_with_camelot(pdf_content)
             elif self.parser_name == "PyPDF":
@@ -248,7 +264,27 @@ class MultiParser:
         except Exception as e:
             logger.error(f"Error parsing PDF with {self.parser_name}: {str(e)}", exc_info=True)
             raise
-
+    
+    def _parse_with_gemini(self, pdf_content: bytes) -> str:
+        api_key=os.getenv("GOOGLE_API_KEY")
+        client = genai.Client(api_key=api_key)
+    
+        prompt = """Extract all the text content, including both plain text and tables, from the 
+                provided document or image. Maintain the original structure, including headers, 
+                paragraphs, and any content preceding or following the table. Format the table in 
+                Markdown format, preserving numerical data and relationships. Ensure no text is excluded, 
+                including any introductory or explanatory text before or after the table."""
+        
+        response = client.models.generate_content(
+            model="gemini-1.5-flash",
+            contents=[
+                types.Part.from_bytes(
+                    data=pdf_content,
+                    mime_type='application/pdf',
+                ),
+                prompt])
+        return response.text
+    
     def _parse_with_claude(self, pdf_content: bytes) -> str:
         api_key=os.getenv("ANTHROPIC_API_KEY")
         client = anthropic.Client(api_key=api_key, default_headers={"anthropic-beta": "pdfs-2024-09-25"})
@@ -268,7 +304,11 @@ class MultiParser:
                 },
                 {
                     "type": "text",
-                    "text": "Extract all text content from the PDF, maintaining structure and formatting."
+                    "text": """Extract all the text content, including both plain text and tables, from the 
+                            provided document or image. Maintain the original structure, including headers, 
+                            paragraphs, and any content preceding or following the table. Format the table in 
+                            Markdown format, preserving numerical data and relationships. Ensure no text is excluded, 
+                            including any introductory or explanatory text before or after the table."""
                 }
             ]
         }]
@@ -318,7 +358,11 @@ class MultiParser:
                         "content": [
                             {
                                 "type": "text",
-                                "text": "Extract all text content from this image, maintaining structure and formatting."
+                                "text": """Extract all the text content, including both plain text and tables, from the 
+                                        provided document or image. Maintain the original structure, including headers, 
+                                        paragraphs, and any content preceding or following the table. Format the table in 
+                                        Markdown format, preserving numerical data and relationships. Ensure no text is excluded, 
+                                        including any introductory or explanatory text before or after the table."""
                             },
                             {
                                 "type": "image_url",
@@ -334,6 +378,33 @@ class MultiParser:
         
         return full_text
 
+    def _parse_with_mistral_ocr(self, uploaded_file) -> str:
+        api_key=os.getenv("MISTRAL_API_KEY")
+        client = Mistral(api_key=api_key)
+        uploaded_pdf = client.files.upload(
+                file={
+                        "file_name": uploaded_file.name,
+                        "content": uploaded_file.getvalue(),
+                    },
+                    purpose="ocr"
+                ) 
+        signed_url = client.files.get_signed_url(file_id=uploaded_pdf.id).url
+        
+        ocr_response = client.ocr.process(
+            model="mistral-ocr-latest",
+            document={
+                "type": "document_url",
+                "document_url": signed_url,
+            },
+            include_image_base64=True,
+            )
+        final_response = ""
+        
+        for page in ocr_response.pages:
+            final_response += page.markdown + "\n"
+        
+        return final_response
+    
     def _parse_with_camelot(self, pdf_content: bytes) -> str:
         # Save PDF content temporarily
         with open("temp.pdf", "wb") as f:
@@ -561,7 +632,7 @@ def main():
                     # Parse PDF
                     progress_text.text("Extracting text from PDF...")
                     progress_bar.progress(0.3)
-                    extracted_text = parser.parse_pdf(uploaded_file.read())
+                    extracted_text = parser.parse_pdf(uploaded_file)
 
                     if show_debug:
                         st.text("Extracted text sample:")
