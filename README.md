@@ -177,11 +177,8 @@ python-dotenv>=1.0.1
 
   
 ### 📝 Important Notes
-- System resources needed for local LLM operations
-- API keys required for cloud based implementations
-- Consider PDF complexity when choosing implementation
+- System resources needed for local Multimodal models operations
+- API keys required for API/cloud based implementations
+- Factor in PDF complexity—snapshots, tables, merged cells, scanned documents, handwritten text, multi-column layouts, rotated text, embedded images, and annotations—when selecting implementation options 
+- All frameworks, libraries, and multimodal models provided in one place for testing. 
 - Ghostscript required for Camelot
-- Different processors suit different use cases
-  - **Cloud**: Complex documents, mixed content
-  - **Local**: Simple text, basic tables
-  - **Specialized**: Specific content types (tables, forms)
