@@ -14,20 +14,9 @@
 
 ## B. 📑 Complex PDF Parsing
 
-A comprehensive example codes for extracting content from PDFs
+A Comprehensive example codes for extracting content from complex PDFs with mixed elements, including text and image data extraction
 
 Also, check -> [Pdf Parsing Guide](https://github.com/genieincodebottle/parse-my-pdf/blob/main/pdf-parsing-guide.pdf)
-
-### 📌 Core Features
-
-#### 📤 Content Extraction
-- Multiple extraction methods with different tools/libraries:
-  - Cloud-based: Claude 3.5 Sonnet, GPT-4 Vision, Unstructured.io
-  - Local: Llama 3.2 11B, Docling, PDFium
-  - Specialized: Camelot (tables), PDFMiner (text), PDFPlumber (mixed), PyPdf etc
-- Maintains document structure and formatting
-- Handles complex PDFs with mixed content including extracting image data
-
 
 ### 📦 Implementation Options
 
