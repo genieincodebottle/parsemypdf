@@ -1,3 +1,7 @@
+import torch
+# To override warning related torch path reload when using streamlit 
+torch.classes.__path__ = []
+
 # Standard Library Imports
 import os
 import json
