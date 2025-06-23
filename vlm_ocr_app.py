@@ -60,17 +60,17 @@ OMNI_HEADER_UPLOAD_FILE = {
 # Constants
 MODEL_PROVIDERS = {
     "Claude": {
-        "models": ["claude-3-7-sonnet-20250219", "claude-3-5-sonnet-20241022"],
+        "models": ["claude-opus-4-20250514", "claude-sonnet-4-20250514", "claude-3-7-sonnet-20250219", "claude-3-5-sonnet-20241022"],
         "api_key": ANTHROPIC_API_KEY,
         "available": ANTHROPIC_AVAILABLE and ANTHROPIC_API_KEY is not None
     },
     "Gemini": {
-        "models": ["gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-2.0-pro-exp-02-05"],
+        "models": ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-2.0-pro-exp-02-05"],
         "api_key": GOOGLE_API_KEY,
         "available": GOOGLE_AVAILABLE and GOOGLE_API_KEY is not None
     },
     "GPT": {
-        "models": ["gpt-4o", "gpt-4o-mini"],
+        "models": ["gpt-4.1-2025-04-14", "gpt-4.1-mini-2025-04-14", "gpt-4o", "gpt-4o-mini"],
         "api_key": OPENAI_API_KEY,
         "available": OPENAI_AVAILABLE and OPENAI_API_KEY is not None
     },

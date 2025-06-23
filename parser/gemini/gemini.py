@@ -52,7 +52,7 @@ def main():
         client = genai.Client(api_key=GOOGLE_API_KEY)
         # Generate response from Gemini
         response = client.models.generate_content(
-            model="gemini-1.5-flash",
+            model="gemini-2.5-pro", #gemini-2.5-flash, #gemini-2.5-flash-lite-preview-06-17, #gemini-2.0-flash
             contents=[
                 types.Part.from_bytes(
                     data=pdf_bytes,

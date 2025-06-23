@@ -85,6 +85,8 @@ LLM_CONFIGS = {
     },
     "OpenAI": {
         "models": [
+            "gpt-4.1-2025-04-14",
+            "gpt-4.1-mini-2025-04-14",
             "gpt-4o-2024-08-06",
             "gpt-4o-mini-2024-07-18"
         ],
@@ -92,16 +94,21 @@ LLM_CONFIGS = {
     },
     "Anthropic": {
         "models": [
+            "claude-opus-4-20250514",
+            "claude-sonnet-4-20250514",
             "claude-3-7-sonnet-latest",
             "claude-3-5-sonnet-20241022",
             "claude-3-5-haiku-20241022",
-            "claude-3-opus-20240229"
         ],
         "requires_key": "ANTHROPIC_API_KEY"
     },
     "Gemini": {
         "models": [
-            "gemini-2.0-flash-exp",
+            "gemini-2.5-pro",
+            "gemini-2.5-flash",
+            "gemini-2.5-flash-lite-preview-06-17",
+            "gemini-2.0-flash",
+            "gemini-2.0-flash-lite"
             "gemini-1.5-flash",
             "gemini-1.5-flash-8b",
             "gemini-1.5-pro"
