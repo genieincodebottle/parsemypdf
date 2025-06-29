@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 
 # Conditionally import provider libraries
 try:
-    from anthropic import Anthropic
+    from anthropic import Anthropic 
     ANTHROPIC_AVAILABLE = True
 except ImportError:
     ANTHROPIC_AVAILABLE = False
@@ -260,14 +260,14 @@ def query_mistral_ocr(image, model_name):
 def query_ollama(image, model_name, prompt=None, temperature=0.7, top_p=0.9, top_k=40):
     """Query Ollama API with the image and optional prompt"""
     # Encode image to base64
-    base64_string, img_format = encode_image_to_base64(image)
+    base64_string, img_format = encode_image_to_base64(image)   
     
     # Default prompt if none provided
-    if not prompt:
+    if not prompt:  
         prompt = "Extract the content of this image. Preserve layout of tables and spatial positions of contents."
     
     # Prepare the API request
-    api_url = "http://localhost:11434/api/generate"
+    api_url = "http://localhost:11434/api/generate" 
     payload = {
         "model": model_name,
         "prompt": prompt,
