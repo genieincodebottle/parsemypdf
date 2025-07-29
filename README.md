@@ -20,6 +20,10 @@ A Comprehensive example codes for extracting content from complex PDFs with mixe
 
 Also, check -> [Pdf Parsing Guide](https://github.com/genieincodebottle/parse-my-pdf/blob/main/pdf-parsing-guide.pdf), [GenAI Roadmap](https://github.com/genieincodebottle/generative-ai)
 
+🎥 YouTube Video:  Walkthrough on setup and running the app
+
+[![Watch the video](https://img.youtube.com/vi/26thuRsxiUc/0.jpg)](https://www.youtube.com/watch?v=26thuRsxiUc)
+
 ### 📦 Implementation Options
 
 #### 1. ☁️ Paid - API Based Methods
