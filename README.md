@@ -1,16 +1,17 @@
 <div align="center">
-<a href="https://www.instagram.com/genieincodebottle/"><img width="200" src="https://github.com/genieincodebottle/generative-ai/blob/main/images/logo_genie_new.png"></a>
+<a href="https://www.instagram.com/genieincodebottle/"><img src="./images/genie_logo.png"></a>
 </div>
 <br>
 
 <div align="center">
-    <a target="_blank" href="https://www.youtube.com/@genieincodebottle"><img src="https://img.shields.io/badge/YouTube-11.4K-blue"></a>&nbsp;
+    <a target="_blank" href="https://www.youtube.com/@genieincodebottle"><img src="https://img.shields.io/badge/YouTube-11.5K-blue"></a>&nbsp;
     <a target="_blank" href="https://www.linkedin.com/in/rajesh-srivastava"><img src="https://img.shields.io/badge/style--5eba00.svg?label=LinkedIn&logo=linkedin&style=social"></a>&nbsp;
-    <a target="_blank" href="https://www.instagram.com/genieincodebottle/"><img src="https://img.shields.io/badge/51K-C13584?style=flat-square&labelColor=C13584&logo=instagram&logoColor=white&link=https://www.instagram.com/eduardopiresbr/"></a>&nbsp;
+    <a target="_blank" href="https://www.instagram.com/genieincodebottle/"><img src="https://img.shields.io/badge/52K-C13584?style=round-square&labelColor=C13584&logo=instagram&logoColor=white&link=https://www.instagram.com/eduardopiresbr/"></a>&nbsp;
+    <a target="_blank" href="https://medium.com/@raj-srivastava"><img src="https://img.shields.io/badge/Medium-12100E?style=round-square&style=for-the-badge&logo=medium"></a>&nbsp;
     <a target="_blank" href="https://x.com/zero2nn"><img src="https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=%20%40zero2nn"></a>
 </div>
 
-<h3><a target="_blank" href="https://github.com/genieincodebottle/generative-ai/blob/main/GenAI_Roadmap.md">👉 GenAI Roadmap - 2025</a></h3>
+## <a target="_blank" href="https://github.com/genieincodebottle/generative-ai/blob/main/GenAI_Roadmap.md">👉 GenAI Roadmap - 2025</a></h3>
 
 ## 🖼️ [OCR with Multimodal | Vision Language Models](/vlm_ocr/)
 
@@ -18,7 +19,7 @@
 
 A Comprehensive example codes for extracting content from complex PDFs with mixed elements, including text and image data extraction
 
-Also, check -> [Pdf Parsing Guide](https://github.com/genieincodebottle/parse-my-pdf/blob/main/pdf-parsing-guide.pdf), [GenAI Roadmap](https://github.com/genieincodebottle/generative-ai)
+### Also, check -> [Pdf Parsing Guide](https://github.com/genieincodebottle/parse-my-pdf/blob/main/pdf-parsing-guide.pdf)
 
 🎥 YouTube Video:  Walkthrough on setup and running the app
 
@@ -30,9 +31,9 @@ Also, check -> [Pdf Parsing Guide](https://github.com/genieincodebottle/parse-my
 
 | Model Provider | Models                      | Details                                 | Example Code     | Doc       |
 | -------------- | ----------------------------|-------------------------------- | -------- |---------- |
-| Anthropic      | `claude-opus-4-20250514`, `claude-sonnet-4-20250514`, `claude-3-7-sonnet-20250219`, `claude-3-5-sonnet-20241022`| Claude 3.7/3.5 Sonnet is a multimodal AI model developed by Anthropic, capable of processing both text and images. It excels in visual reasoning tasks, such as interpreting charts and graphs, and can accurately transcribe text from imperfect images, benefiting industries like retail, logistics, and financial services.  | [Code](/parser/claude/)              | [Doc](https://www.anthropic.com/claude/)
-| Gemini         | `gemini-2.5-pro`, `gemini-2.5-flash`, `gemini-2.5-flash-lite-preview-06-17`, `gemini-2.0-flash`, `gemini-2.0-flash-lite`, `gemini-2.0-pro-exp-02-05` | ​Gemini 2.0 Flash is offering superior speed, native tool integration, and multimodal generation capabilities. It supports a 1 million token context window, enabling efficient processing of extensive data. The model accepts multimodal inputs—including text, images, audio, and video—and provides multimodal outputs, such as natively generated images and controllable text-to-speech audio.| [Code](/parser/gemini/)              | [Doc](https://ai.google.dev/gemini-api/docs/models)
-| OpenAI         | `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4o`, `gpt-4o-mini` | GPT-4o is a multimodal AI model capable of processing text, images, and audio with high efficiency. It enhances text generation, reasoning, and vision tasks while improving latency and cost. Supporting multiple languages, it enables real-time interactions and advanced multimodal applications. | [Code](/parser/openai/)              | [Doc](https://platform.openai.com/docs/models/gpt-4o)
+| Anthropic      | `claude-opus-4-20250514`, `claude-sonnet-4-20250514`, `claude-3-7-sonnet-20250219`, `claude-3-5-sonnet-20241022`| Claude 4/3.7/3.5 Sonnet is a multimodal AI model developed by Anthropic, capable of processing both text and images. It excels in visual reasoning tasks, such as interpreting charts and graphs, and can accurately transcribe text from imperfect images, benefiting industries like retail, logistics, and financial services.  | [Code](/parser/claude/)              | [Doc](https://www.anthropic.com/claude/)
+| Gemini         | `gemini-2.5-pro`, `gemini-2.5-flash`, `gemini-2.5-flash-lite-preview-06-17`, `gemini-2.0-flash`, `gemini-2.0-flash-lite`, `gemini-2.0-pro-exp-02-05` | ​Gemini 2.5-pro/2.0 Flash is offering superior speed, native tool integration, and multimodal generation capabilities. It supports a 1 million token context window, enabling efficient processing of extensive data. The model accepts multimodal inputs—including text, images, audio, and video—and provides multimodal outputs, such as natively generated images and controllable text-to-speech audio.| [Code](/parser/gemini/)              | [Doc](https://ai.google.dev/gemini-api/docs/models)
+| OpenAI         | `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4o`, `gpt-4o-mini` | GPT-4.1/4o is a multimodal AI model capable of processing text, images, and audio with high efficiency. It enhances text generation, reasoning, and vision tasks while improving latency and cost. Supporting multiple languages, it enables real-time interactions and advanced multimodal applications. | [Code](/parser/openai/)              | [Doc](https://platform.openai.com/docs/models/gpt-4o)
 | Mistral-OCR        | `mistral-ocr` | Mistral OCR is an advanced AI-powered OCR API for extracting structured text, tables, and equations from documents with high accuracy. It supports multiple languages, processes up to 2,000 pages/min, and provides structured markdown output. Available via Mistral’s platform with flexible deployment options.  | [Code](/parser/mistral_ocr/)              | [Doc](https://mistral.ai/news/mistral-ocr)
 | Unstructure IO      | -- | Advanced content partitioning and classification. Unstructured.io specializes in converting unstructured data for LLMs and AI applications. Its open-source Unstructured library processes PDFs, HTML, Word, and images, streamlining data prep for AI. The Enterprise ETL Platform automates data ingestion and cleaning, integrating seamlessly with Generative AI stacks.  | [Code](/parser/unstructured-io/)  | [Doc](https://docs.unstructured.io/welcome)
 | Llama-Parse     | -- | LlamaParse is a GenAI-native document parser for LLM applications like RAG and agents. It supports PDFs, PowerPoint, Word, Excel, and HTML, accurately extracting tables, images, and diagrams. It integrates with LlamaIndex for retrieval systems and allows custom parsing via prompts. Free users get 1,000 pages/day, with paid plans offering higher limits and extra features. | [Code](/parser/llama-parse/)  | [Doc](https://docs.llamaindex.ai/en/stable/llama_cloud/llama_parse/)
