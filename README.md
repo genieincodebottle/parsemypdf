@@ -147,7 +147,7 @@ python-dotenv>=1.0.1
 
       For **OPENAI_API_KEY** follow this -> https://platform.openai.com/api-keys
 
-      For **GOOGLE_API_KEY** follow this -> https://ai.google.dev/gemini-api/docs/api-key
+      For **GOOGLE_API_KEY** follow this -> https://aistudio.google.com/apikey
 
       For **UNSTRUCTURED_API_KEY** follow this -> https://unstructured.io/api-key-free
 
