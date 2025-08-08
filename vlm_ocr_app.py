@@ -70,7 +70,7 @@ MODEL_PROVIDERS = {
         "available": GOOGLE_AVAILABLE and GOOGLE_API_KEY is not None
     },
     "GPT": {
-        "models": ["gpt-4.1-2025-04-14", "gpt-4.1-mini-2025-04-14", "gpt-4o", "gpt-4o-mini"],
+        "models": ["gpt-5-2025-08-07","gpt-4.1-2025-04-14", "gpt-4.1-mini-2025-04-14", "gpt-4o", "gpt-4o-mini"],
         "api_key": OPENAI_API_KEY,
         "available": OPENAI_AVAILABLE and OPENAI_API_KEY is not None
     },
