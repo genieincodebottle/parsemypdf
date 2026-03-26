@@ -29,11 +29,11 @@ from PIL import Image
 from pathlib import Path
 
 from langchain_ollama.llms import OllamaLLM
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 
 # Get the project root directory
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -127,7 +127,7 @@ def extract_images_content(directory_path):
         str: Concatenated text content extracted from all images
     """
     # Currently only supporting JPG files
-    image_extensions = ('.jpg')
+    image_extensions = ('.jpg', '.jpeg', '.png')
     final_response = ""
 
     try:

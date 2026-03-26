@@ -6,7 +6,7 @@
 <div align="center">
     <a target="_blank" href="https://www.youtube.com/@genieincodebottle"><img src="https://img.shields.io/badge/YouTube-11.5K-blue"></a>&nbsp;
     <a target="_blank" href="https://www.linkedin.com/in/rajesh-srivastava"><img src="https://img.shields.io/badge/style--5eba00.svg?label=LinkedIn&logo=linkedin&style=social"></a>&nbsp;
-    <a target="_blank" href="https://www.instagram.com/genieincodebottle/"><img src="https://img.shields.io/badge/52K-C13584?style=round-square&labelColor=C13584&logo=instagram&logoColor=white&link=https://www.instagram.com/eduardopiresbr/"></a>&nbsp;
+    <a target="_blank" href="https://www.instagram.com/genieincodebottle/"><img src="https://img.shields.io/badge/55.5K-C13584?style=round-square&labelColor=C13584&logo=instagram&logoColor=white"></a>&nbsp;
     <a target="_blank" href="https://medium.com/@raj-srivastava"><img src="https://img.shields.io/badge/Medium-12100E?style=round-square&style=for-the-badge&logo=medium"></a>&nbsp;
     <a target="_blank" href="https://x.com/zero2nn"><img src="https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=%20%40zero2nn"></a>
 </div>
@@ -17,11 +17,14 @@
 
 ## 📑 Complex PDF Parsing
 
-A Comprehensive example codes for extracting content from complex PDFs with mixed elements, including text and image data extraction
+Comprehensive example code for extracting content from complex PDFs with mixed elements, including text and image data extraction. Includes **two Streamlit apps**:
 
-### Also, check -> [Pdf Parsing Guide](https://github.com/genieincodebottle/parse-my-pdf/blob/main/pdf-parsing-guide.pdf)
+1. **PDF Parser & RAG Evaluator** (`pdf_parser_app.py`) - Parse PDFs with 13 different parsers + ask questions using RAG
+2. **VLM OCR App** (`vlm_ocr_app.py`) - Extract text from images using Vision Language Models (Claude, Gemini, GPT-4o, Mistral-OCR, Ollama, OmniAI)
 
-🎥 YouTube Video:  Walkthrough on setup and running the app
+### Also, check -> [PDF Parsing Guide](https://github.com/genieincodebottle/parse-my-pdf/blob/main/pdf-parsing-guide.pdf)
+
+🎥 YouTube Video: Walkthrough on setup and running the app
 
 [![Watch the video](https://img.youtube.com/vi/26thuRsxiUc/0.jpg)](https://www.youtube.com/watch?v=26thuRsxiUc)
 
@@ -29,163 +32,117 @@ A Comprehensive example codes for extracting content from complex PDFs with mixe
 
 #### 1. ☁️ Paid - API Based Methods
 
-| Model Provider | Models                      | Details                                 | Example Code     | Doc       |
-| -------------- | ----------------------------|-------------------------------- | -------- |---------- |
-| Anthropic      | `claude-opus-4-20250514`, `claude-sonnet-4-20250514`, `claude-3-7-sonnet-20250219`, `claude-3-5-sonnet-20241022`| Claude 4/3.7/3.5 Sonnet is a multimodal AI model developed by Anthropic, capable of processing both text and images. It excels in visual reasoning tasks, such as interpreting charts and graphs, and can accurately transcribe text from imperfect images, benefiting industries like retail, logistics, and financial services.  | [Code](/parser/claude/)              | [Doc](https://www.anthropic.com/claude/)
-| Gemini         | `gemini-2.5-pro`, `gemini-2.5-flash`, `gemini-2.5-flash-lite-preview-06-17`, `gemini-2.0-flash`, `gemini-2.0-flash-lite`, `gemini-2.0-pro-exp-02-05` | ​Gemini 2.5-pro/2.0 Flash is offering superior speed, native tool integration, and multimodal generation capabilities. It supports a 1 million token context window, enabling efficient processing of extensive data. The model accepts multimodal inputs—including text, images, audio, and video—and provides multimodal outputs, such as natively generated images and controllable text-to-speech audio.| [Code](/parser/gemini/)              | [Doc](https://ai.google.dev/gemini-api/docs/models)
-| OpenAI         | `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4o`, `gpt-4o-mini` | GPT-4.1/4o is a multimodal AI model capable of processing text, images, and audio with high efficiency. It enhances text generation, reasoning, and vision tasks while improving latency and cost. Supporting multiple languages, it enables real-time interactions and advanced multimodal applications. | [Code](/parser/openai/)              | [Doc](https://platform.openai.com/docs/models/gpt-4o)
-| Mistral-OCR        | `mistral-ocr` | Mistral OCR is an advanced AI-powered OCR API for extracting structured text, tables, and equations from documents with high accuracy. It supports multiple languages, processes up to 2,000 pages/min, and provides structured markdown output. Available via Mistral’s platform with flexible deployment options.  | [Code](/parser/mistral_ocr/)              | [Doc](https://mistral.ai/news/mistral-ocr)
-| Unstructure IO      | -- | Advanced content partitioning and classification. Unstructured.io specializes in converting unstructured data for LLMs and AI applications. Its open-source Unstructured library processes PDFs, HTML, Word, and images, streamlining data prep for AI. The Enterprise ETL Platform automates data ingestion and cleaning, integrating seamlessly with Generative AI stacks.  | [Code](/parser/unstructured-io/)  | [Doc](https://docs.unstructured.io/welcome)
-| Llama-Parse     | -- | LlamaParse is a GenAI-native document parser for LLM applications like RAG and agents. It supports PDFs, PowerPoint, Word, Excel, and HTML, accurately extracting tables, images, and diagrams. It integrates with LlamaIndex for retrieval systems and allows custom parsing via prompts. Free users get 1,000 pages/day, with paid plans offering higher limits and extra features. | [Code](/parser/llama-parse/)  | [Doc](https://docs.llamaindex.ai/en/stable/llama_cloud/llama_parse/)
-| Amazon Textract     | -- | Advanced content partitioning and classification. Amazon Textract is an AWS ML service that extracts text, forms, tables, and signatures from scanned documents. It goes beyond OCR by preserving structure for easy data integration. Supporting PNG, JPEG, TIFF, and PDF, it enables automation for data entry, search indexing, and document processing. | [Code](/parser/amazon-textract/)  | [Doc](https://aws.amazon.com/textract/)
+| Model Provider | Models | Details | Example Code | Doc |
+| -------------- | -------|---------|:------------:|:---:|
+| Anthropic | `claude-opus-4-20250514`, `claude-sonnet-4-20250514`, `claude-3-7-sonnet-20250219`, `claude-3-5-sonnet-20241022` | Claude 4/3.7/3.5 Sonnet is a multimodal AI model developed by Anthropic, capable of processing both text and images. It excels in visual reasoning tasks, such as interpreting charts and graphs, and can accurately transcribe text from imperfect images. Supports native PDF input via base64 encoding. | [Code](/parser/claude/) | [Doc](https://www.anthropic.com/claude/)
+| Gemini | `gemini-2.5-pro`, `gemini-2.5-flash`, `gemini-2.5-flash-lite-preview-06-17`, `gemini-2.0-flash`, `gemini-2.0-flash-lite` | Gemini 2.5/2.0 models offer superior speed, native tool integration, and multimodal generation capabilities. Support 1M token context window, native PDF input, and multimodal outputs. | [Code](/parser/gemini/) | [Doc](https://ai.google.dev/gemini-api/docs/models)
+| OpenAI | `gpt-4.1-2025-04-14`, `gpt-4.1-mini-2025-04-14`, `gpt-4o`, `gpt-4o-mini` | GPT-4.1/4o is a multimodal AI model capable of processing text, images, and audio with high efficiency. It enhances text generation, reasoning, and vision tasks while improving latency and cost. | [Code](/parser/openai/) | [Doc](https://platform.openai.com/docs/models/gpt-4o)
+| Mistral-OCR | `mistral-ocr-latest` | Mistral OCR is an advanced AI-powered OCR API for extracting structured text, tables, and equations from documents with high accuracy. Supports multiple languages, processes up to 2,000 pages/min, and provides structured markdown output. | [Code](/parser/mistral_ocr/) | [Doc](https://mistral.ai/news/mistral-ocr)
+| Unstructured IO | -- | Advanced content partitioning and classification. Processes PDFs, HTML, Word, and images. The Enterprise ETL Platform automates data ingestion and cleaning, integrating seamlessly with GenAI stacks. | [Code](/parser/unstructured-io/) | [Doc](https://docs.unstructured.io/welcome)
+| Llama-Parse | -- | GenAI-native document parser for LLM applications like RAG and agents. Supports PDFs, PowerPoint, Word, Excel, and HTML. Free users get 1,000 pages/day. | [Code](/parser/llama-parse/) | [Doc](https://docs.llamaindex.ai/en/stable/llama_cloud/llama_parse/)
+| Amazon Textract | -- | AWS ML service that extracts text, forms, tables, and signatures from scanned documents. Goes beyond OCR by preserving structure for easy data integration. Supports PNG, JPEG, TIFF, and PDF. | [Code](/parser/amazon-textract/) | [Doc](https://aws.amazon.com/textract/)
 
 
 #### 2. 🖥️ Open Weight - Local Methods
 
-| Model/Framework Provider | Models/Framework Name                     | Details                                 | Example Code     | Doc       |
-| -------------- | ----------------------------|-------------------------------- | ------------------ | ----------| 
-| Meta      | `llama3.2-vision`| ​Llama 3.2-11B Vision is a multimodal AI model developed by Meta, designed to process both text and images. It excels in visual recognition, image reasoning, captioning, and answering general questions about images. With a context length of 128,000 tokens, it supports complex multimodal interactions. The model is optimized for efficiency, making it suitable for deployment on various platforms, including mobile devices. | [Code](/parser/llama-vision/) | [Doc](https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices)  
-| IBM      | `Docling`| Excellent  for complex PDFs with mixed content. Docling simplifies document processing, parsing diverse formats — including advanced PDF understanding, and providing seamless integrations with the gen AI ecosystem. | [Code](/parser/docling/) | [Doc](https://docling-project.github.io/docling/)  
-| Microsoft      | `markitdown`| Excellent  for complex PDFs with mixed content. MarkItDown is a utility for converting various files to Markdown (e.g., for indexing, text analysis, etc). It supports: PDF, PowerPoint, Word, Excel, Images (EXIF metadata and OCR), Audio (EXIF metadata and speech transcription), HTML, Text-based formats (CSV, JSON, XML), ZIP files (iterates over contents). | [Code](/parser/markitdown/) | [Doc](https://github.com/microsoft/markitdown)  
-| --     | `marker`| Marker quickly converts PDFs and images to Markdown, JSON, and HTML with high accuracy. It supports all languages and document types while handling tables, forms, math, links, and code blocks. It extracts images, removes artifacts, and allows customization with user-defined formatting and logic. Accuracy can be enhanced with LLM integration, and it runs on GPU, CPU, or MPS. Code is not included here but can be checked on their GitHub repo.  | [Code](https://github.com/VikParuchuri/marker?tab=readme-ov-file#installation) | [Doc](https://github.com/VikParuchuri/marker)  
-| Camelot-Dev      | `Camelot`| Specialized table extraction. Camelot is a Python library for extracting tables from text-based PDFs using "Lattice" (grid-based) and "Stream" (whitespace-based) methods. It outputs tables as pandas DataFrames and supports CSV, JSON, Excel, and more. A CLI is available, and Excalibur provides a web-based interface for easy table extraction.  | [Code](/parser/camelot/) | [Doc](https://github.com/camelot-dev/camelot)  
-| PyPdf     | `PyPdf`| pypdf is a free and open-source pure-python PDF library capable of splitting, merging, cropping, and transforming the pages of PDF files. It can also add custom data, viewing options, and passwords to PDF files. pypdf can retrieve text and metadata from PDFs as well.  | [Code](/parser/pypdf/) | [Doc](https://pypdf.readthedocs.io/en/stable/)  
-| PDFMiner     | `PDFMiner`| Basic text and layout extraction. PDFMiner is a Python library for extracting text and layout details from PDFs, supporting various fonts and complex layouts. It enables conversion to HTML/XML and automatic layout analysis. Since version 20191010, it supports only Python 3, with pdfminer.six available for Python 2.  | [Code](/parser/pdfminer/) | [Doc](https://pdfminersix.readthedocs.io/en/latest/)  
-| Artifex Software    | `PyMUPDF`| PyMuPDF is a fast Python library for extracting, analyzing, converting, and manipulating PDFs, XPS, and eBooks. It supports text/image extraction, rendering to PNG/SVG, and conversion to HTML, XML, and JSON, making it ideal for high-speed document processing.  | [Code](/parser/pymupdf/) | [Doc](https://pymupdf.readthedocs.io/en/latest/)  
-| Google    | `pdfium`| PDFium is Google's open-source C++ library for viewing, parsing, and rendering PDFs. It powers Chromium, enabling text extraction, metadata access, and page rendering. Designed for performance, it's ideal for desktop and server applications.  | [Code](/parser/pypdfium/) | [Doc](https://pdfium.googlesource.com/pdfium/)  
-| LangChain    | `PyPdfDirectory`| Batch PDF Content Extraction Script using PyPDF2 Directory Loader.  | [Code](/parser/pypdfdirectory/) | [Doc](https://python.langchain.com/api_reference/community/document_loaders/langchain_community.document_loaders.pdf.PyPDFDirectoryLoader.html)  
-| --    | `PDFPlumber`| Basic text and layout extraction. PDFPlumber extends pdfminer.six for PDF data extraction, handling text, tables, and shapes with visual debugging. It excels at extracting tables into pandas DataFrames while preserving layout but lacks OCR for scanned documents.  | [Code](/parser/pdfplumber/) | [Doc](https://github.com/jsvine/pdfplumber)  
-
-### 🔗 Dependencies
-
-#### 📚 Python Libraries
-```bash
-# UI
-streamlit>=1.43.2 
-
-# PDF Processing Libraries
-pypdf>=5.4.0
-pymupdf>=1.25.4
-PyPDF2>=3.0
-camelot-py>=1.0.0
-Ghostscript>=0.7
-
-docling>=2.26.0 # IBM's Opensource
-markitdown>=0.0.2 # Microsoft's Opensource
-llama-cloud-services>=0.1.14 #llama-parse related 
-
-# Computer Vision
-opencv-python>=4.11.0.86
-
-# LLM related Libraries
-ollama>=0.4.7
-openai>=1.66.3
-anthropic>=0.49.0
-langchain_ollama>=0.2.3
-langchain-groq>=0.2.5
-langchain_openai>=0.3.9
-langchain-anthropic>=0.3.10
-langchain-google-genai>=2.1.0
-langchain-unstructured>=0.1.6
-langchain_huggingface>=0.1.2
-langchain_community>=0.3.19
-tiktoken>=0.9.0
-google-genai>=1.5.0
-
-# Huggingface library
-transformers>=4.49.0
-
-# Vector Store and Embeddings
-faiss-cpu>=1.10.0
-sentence_transformers>=3.4.1
-
-# AWS Libraries
-boto3>=1.37.14
-amazon-textract-caller>=0.2.0
-
-# Utilities
-nest-asyncio>=1.6.0
-python-dotenv>=1.0.1
-```
+| Model/Framework Provider | Name | Details | Example Code | Doc |
+| -------------- | -------|---------|:------------:|:---:|
+| Meta | `llama3.2-vision` | Llama 3.2-11B Vision is a multimodal AI model designed to process both text and images. It excels in visual recognition, image reasoning, captioning, and answering general questions about images. 128K token context length. | [Code](/parser/llama-vision/) | [Doc](https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices)
+| IBM | `Docling` | Excellent for complex PDFs with mixed content. Simplifies document processing, parsing diverse formats with advanced PDF understanding and seamless integrations with the GenAI ecosystem. | [Code](/parser/docling/) | [Doc](https://docling-project.github.io/docling/)
+| Microsoft | `MarkItDown` | Converts various files to Markdown. Supports: PDF, PowerPoint, Word, Excel, Images (EXIF + OCR), Audio (EXIF + speech transcription), HTML, CSV, JSON, XML, ZIP files. | [Code](/parser/markitdown/) | [Doc](https://github.com/microsoft/markitdown)
+| -- | `Marker` | Quickly converts PDFs and images to Markdown, JSON, and HTML with high accuracy. Supports all languages and document types, handles tables, forms, math, links, and code blocks. Runs on GPU, CPU, or MPS. | [Code](https://github.com/VikParuchuri/marker?tab=readme-ov-file#installation) | [Doc](https://github.com/VikParuchuri/marker)
+| Camelot-Dev | `Camelot` | Specialized table extraction from text-based PDFs using "Lattice" (grid-based) and "Stream" (whitespace-based) methods. Outputs tables as pandas DataFrames. | [Code](/parser/camelot/) | [Doc](https://github.com/camelot-dev/camelot)
+| PyPdf | `pypdf` | Free, open-source, pure-Python PDF library for splitting, merging, cropping, transforming pages, and extracting text and metadata. | [Code](/parser/pypdf/) | [Doc](https://pypdf.readthedocs.io/en/stable/)
+| PDFMiner | `pdfminer.six` | Text and layout extraction from PDFs, supporting various fonts and complex layouts. Enables conversion to HTML/XML and automatic layout analysis. | [Code](/parser/pdfminer/) | [Doc](https://pdfminersix.readthedocs.io/en/latest/)
+| Artifex Software | `PyMuPDF` | Fast Python library for extracting, analyzing, converting, and manipulating PDFs, XPS, and eBooks. Supports text/image extraction, rendering to PNG/SVG, and conversion to HTML, XML, JSON. | [Code](/parser/pymupdf/) | [Doc](https://pymupdf.readthedocs.io/en/latest/)
+| Google | `PDFium` | Google's open-source C++ library for viewing, parsing, and rendering PDFs. Powers Chromium, enabling text extraction, metadata access, and page rendering. | [Code](/parser/pypdfium/) | [Doc](https://pdfium.googlesource.com/pdfium/)
+| LangChain | `PyPDFDirectory` | Batch PDF content extraction using PyPDF Directory Loader. Process all PDFs in a folder at once. | [Code](/parser/pypdfdirectory/) | [Doc](https://python.langchain.com/api_reference/community/document_loaders/langchain_community.document_loaders.pdf.PyPDFDirectoryLoader.html)
+| -- | `PDFPlumber` | Text and layout extraction. Extends pdfminer.six for PDF data extraction, handling text, tables, and shapes with visual debugging. Excels at extracting tables into pandas DataFrames. | [Code](/parser/pdfplumber/) | [Doc](https://github.com/jsvine/pdfplumber)
 
 ### ⚙️ Setup Instructions
 
-- #### Prerequisites
-   - Python 3.9 or higher
-   - pip (Python package installer)
+#### Prerequisites
+- Python 3.10 or higher
+- pip (Python package installer)
 
-- #### Installation
-   1. Clone the repository:
-      ```bash
-      git clone https://github.com/genieincodebottle/parsemypdf.git
-      cd parsemypdf
-      ```
-   2. Create a virtual environment:
-      ```bash
-      python -m venv venv
-      venv\Scripts\activate # On Linux -> source venv/bin/activate
-      ```
-   3. Install dependencies:
-      ```bash
-      pip install -r requirements.txt
-      ```
-   4. Rename `.env.example` to `.env` and update required Environment Variables as per requirements
-      ```bash
-      GROQ_API_KEY=your_key_here    # For Groq based open source models
-      ANTHROPIC_API_KEY=your_key_here    # For Claude
-      OPENAI_API_KEY=your_key_here       # For OpenAI
-      GOOGLE_API_KEY=your_key_here   # For Google's Gemini models api key
-      UNSTRUCTURED_API_KEY=your_key_here # For Unstructured.io
-      LLAMA_CLOUD_API_KEY=your_key_here # For llama-parse
-      MISTRAL_API_KEY=your_key_here # For Mistral API Key
-      OMNI_API_KEY=your_key_here # For Omniai API Key
-      ```
+#### Installation
 
-      For **GROQ_API_KEY** follow this -> https://console.groq.com/keys
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/genieincodebottle/parsemypdf.git
+   cd parsemypdf
+   ```
 
-      For **ANTHROPIC_API_KEY** follow this -> https://console.anthropic.com/settings/keys
+2. Create a virtual environment:
+   ```bash
+   pip install uv  # if uv not installed
+   uv venv
+   .venv\Scripts\activate  # On Linux/Mac -> source .venv/bin/activate
+   ```
 
-      For **OPENAI_API_KEY** follow this -> https://platform.openai.com/api-keys
+3. Install dependencies:
+   ```bash
+   uv pip install -r requirements.txt
+   ```
 
-      For **GOOGLE_API_KEY** follow this -> https://aistudio.google.com/apikey
+4. Configure environment variables:
 
-      For **UNSTRUCTURED_API_KEY** follow this -> https://unstructured.io/api-key-free
+   Rename `.env.example` to `.env` and add the API keys you need.
 
-      For **LLAMA_CLOUD_API_KEY** follow this -> https://cloud.llamaindex.ai/api-key
+   > **You don't need ALL keys.** Only add keys for the parsers/LLMs you want to use. Start with a free one.
 
-      For **MISTRAL_API_KEY** follow this -> https://console.mistral.ai/api-keys
+   ```bash
+   # --- Free-tier (no credit card) ---
+   GROQ_API_KEY=your_key_here       # Free - https://console.groq.com/keys
+   GOOGLE_API_KEY=your_key_here     # Free - https://aistudio.google.com/apikey
 
-      For **OMNI_API_KEY** follow this -> https://app.getomni.ai/settings/account
+   # --- Paid ---
+   ANTHROPIC_API_KEY=your_key_here  # https://console.anthropic.com/settings/keys
+   OPENAI_API_KEY=your_key_here     # https://platform.openai.com/api-keys
+   MISTRAL_API_KEY=your_key_here    # https://console.mistral.ai/api-keys
+   UNSTRUCTURED_API_KEY=your_key_here # https://unstructured.io/api-key-free
+   LLAMA_CLOUD_API_KEY=your_key_here  # https://cloud.llamaindex.ai/api-key
+   OMNI_API_KEY=your_key_here       # https://app.getomni.ai/settings/account
+   ```
 
-  5. Install Ollama & Models (for local processing)
-      - Install Ollama
-         - For Window - Download the Ollama from following location (Requires Window 10 or later) -> https://ollama.com/download/windows
-         - For Linux (command line) - curl https://ollama.ai/install.sh | sh
+5. Install Ollama & Models (optional, for local processing):
+   - Download Ollama:
+     - **Windows**: https://ollama.com/download/windows (Requires Windows 10 or later)
+     - **Linux**: `curl https://ollama.ai/install.sh | sh`
+   - Pull required models:
+     ```bash
+     ollama pull llama3.1
+     ollama pull x/llama3.2-vision:11b
+     ollama pull gemma3:4b
+     ```
 
-      - Pull required models (command line)
-         - ollama pull llama3.1
-         - ollama pull x/llama3.2-vision:11b
+6. **Run the PDF Parser & RAG Evaluator app:**
+   ```bash
+   streamlit run pdf_parser_app.py
+   ```
 
-  6. For running each parser individually
-      - Place PDF files in `input/` directory
-      - You can run and test different type of parser available in "parser" folder.
+7. **Run the VLM OCR app:**
+   ```bash
+   streamlit run vlm_ocr_app.py
+   ```
 
-  7. Example Complex Pdf placed in Input folder(You can use your own pdf)
-      - **sample-1.pdf**: Standard tables
-      - **sample-2.pdf**: Image-based simple tables
-      - **sample-3.pdf**: Image-based complex tables
-      - **sample-4.pdf**: Mixed content (text, tables, images)
-      - **sample-5.pdf**: Multi-column Texts 
-  
-  8. To check all parsers at Web UI, run following command at "parsemypdf" folder
-      -  streamlit run pdf_parser_app.py
+8. **Run individual parsers:**
+   - Place PDF files in the `input/` directory
+   - Run any parser script from the `parser/` folder
 
-      <img src="images/ui.png" alt="UI"/>
+#### Example PDFs (in `input/` folder)
+| File | Description |
+|------|-------------|
+| `sample-1.pdf` | Standard tables |
+| `sample-2.pdf` | Image-based simple tables |
+| `sample-3.pdf` | Image-based complex tables |
+| `sample-4.pdf` | Mixed content (text, tables, images) |
+| `sample-5.pdf` | Multi-column texts |
 
-  
 ### 📝 Important Notes
-- System resources needed for local Multimodal models operations
-- API keys required for API/cloud based implementations
-- Factor in PDF complexity—snapshots, tables, merged cells, scanned documents, handwritten text, multi-column layouts, rotated text, embedded images, and annotations—when selecting implementation options 
-- All frameworks, libraries, and multimodal models provided in one place for testing. 
-- Ghostscript required for Camelot
+- System resources needed for local multimodal model operations
+- API keys required for API/cloud-based implementations
+- Factor in PDF complexity (tables, merged cells, scanned documents, handwritten text, multi-column layouts, rotated text, embedded images) when selecting a parser
+- All frameworks, libraries, and multimodal models provided in one place for testing
+- Ghostscript is required for Camelot (`pip install ghostscript` + system install)
+- `torch` is a heavy dependency (~2GB+). It is required for HuggingFace embeddings and local models. If you only need API-based parsers, you can skip it

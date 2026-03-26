@@ -23,7 +23,10 @@ Advantages:
    - Support for multiple document formats
 """
 import os
+from dotenv import load_dotenv
 from langchain_unstructured import UnstructuredLoader
+
+load_dotenv()
 
 # Get the project root directory
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))

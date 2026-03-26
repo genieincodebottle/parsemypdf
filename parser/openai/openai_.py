@@ -37,11 +37,11 @@ from openai import OpenAI
 from dotenv import load_dotenv
 from pathlib import Path
 from langchain_ollama.llms import OllamaLLM
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 
 # Get the project root directory
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -91,7 +91,7 @@ def get_completion_response(client, base64_image):
         maintaining the original structure and formatting tables in Markdown.
     """
     response = client.chat.completions.create(
-        model="gpt-5-2025-08-07", #gpt-4.1-2025-04-14, gpt-4.1-mini-2025-04-14, #gpt-4o-mini, #gpt-4o-2024-08-06, #gpt-4o-mini-2024-07-18
+        model="gpt-4.1-2025-04-14", #gpt-4.1-mini-2025-04-14, #gpt-4o-mini, #gpt-4o-2024-08-06, #gpt-4o-mini-2024-07-18
         messages=[
             {
                 "role": "user",
@@ -287,7 +287,7 @@ def main():
         is_separator_regex=False
     )
     # Split extracted text into manageable chunks
-    text_chunks = text_splitter.split_text(response)
+    text_chunks = text_splitter.split_text(final_response)
 
     # Create vector store for semantic search
     vector_store = create_vector_store(text_chunks)

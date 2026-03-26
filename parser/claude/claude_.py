@@ -81,8 +81,8 @@ def extract_pdf_content(question, pdf_base64_string) -> str:
     Returns:
         str: Claude's answer to the question based on PDF content
     """
-    # Initialize Anthropic client with PDF beta feature
-    client = anthropic.Client(api_key=ANTHROPIC_API_KEY)
+    # Initialize Anthropic client
+    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
     
     # Define system prompt for PDF content extraction and question answering
     system_prompt = f"""You are an expert at extracting and structuring content from PDFs.

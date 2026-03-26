@@ -27,7 +27,7 @@ from google.genai import types
 from mistralai import Mistral
 
 # LangChain Core
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.prompts import ChatPromptTemplate
 
 # LangChain Integrations
@@ -57,6 +57,7 @@ from markitdown import MarkItDown
 import boto3
 
 # Utilities
+import tempfile
 from utils.pdf_to_image import PDFToJPGConverter
 
 
@@ -85,7 +86,6 @@ LLM_CONFIGS = {
     },
     "OpenAI": {
         "models": [
-            "gpt-5-2025-08-07",
             "gpt-4.1-2025-04-14",
             "gpt-4.1-mini-2025-04-14",
             "gpt-4o-2024-08-06",
@@ -97,7 +97,7 @@ LLM_CONFIGS = {
         "models": [
             "claude-opus-4-20250514",
             "claude-sonnet-4-20250514",
-            "claude-3-7-sonnet-latest",
+            "claude-3-7-sonnet-20250219",
             "claude-3-5-sonnet-20241022",
             "claude-3-5-haiku-20241022",
         ],
@@ -109,7 +109,7 @@ LLM_CONFIGS = {
             "gemini-2.5-flash",
             "gemini-2.5-flash-lite-preview-06-17",
             "gemini-2.0-flash",
-            "gemini-2.0-flash-lite"
+            "gemini-2.0-flash-lite",
             "gemini-1.5-flash",
             "gemini-1.5-flash-8b",
             "gemini-1.5-pro"
@@ -277,18 +277,18 @@ class MultiParser:
             logger.error(f"Error parsing PDF with {self.parser_name}: {str(e)}", exc_info=True)
             raise
     
-    def _parse_with_gemini(self, pdf_content: bytes) -> str:
+    def _parse_with_gemini(self, pdf_content: bytes, model_name: str = "gemini-2.0-flash") -> str:
         api_key=os.getenv("GOOGLE_API_KEY")
         client = genai.Client(api_key=api_key)
-    
-        prompt = """Extract all the text content, including both plain text and tables, from the 
-                provided document or image. Maintain the original structure, including headers, 
-                paragraphs, and any content preceding or following the table. Format the table in 
-                Markdown format, preserving numerical data and relationships. Ensure no text is excluded, 
+
+        prompt = """Extract all the text content, including both plain text and tables, from the
+                provided document or image. Maintain the original structure, including headers,
+                paragraphs, and any content preceding or following the table. Format the table in
+                Markdown format, preserving numerical data and relationships. Ensure no text is excluded,
                 including any introductory or explanatory text before or after the table."""
-        
+
         response = client.models.generate_content(
-            model="gemini-1.5-flash",
+            model=model_name,
             contents=[
                 types.Part.from_bytes(
                     data=pdf_content,
@@ -299,7 +299,7 @@ class MultiParser:
     
     def _parse_with_claude(self, pdf_content: bytes) -> str:
         api_key=os.getenv("ANTHROPIC_API_KEY")
-        client = anthropic.Client(api_key=api_key, default_headers={"anthropic-beta": "pdfs-2024-09-25"})
+        client = anthropic.Anthropic(api_key=api_key)
     
         base64_pdf = base64.b64encode(pdf_content).decode('utf-8')
         
@@ -418,83 +418,92 @@ class MultiParser:
         return final_response
     
     def _parse_with_camelot(self, pdf_content: bytes) -> str:
-        # Save PDF content temporarily
-        with open("temp.pdf", "wb") as f:
-            f.write(pdf_content)
-        
-        # Extract tables
-        tables = camelot.read_pdf("temp.pdf")
-        
-        # Convert tables to markdown format
-        text = ""
-        for i, table in enumerate(tables):
-            text += f"\nTable {i+1}:\n"
-            text += table.df.to_markdown()
-            text += "\n"
-        
-        # Cleanup
-        os.remove("temp.pdf")
-        return text
+        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
+            tmp.write(pdf_content)
+            tmp_path = tmp.name
+
+        try:
+            tables = camelot.read_pdf(tmp_path)
+            text = ""
+            for i, table in enumerate(tables):
+                text += f"\nTable {i+1}:\n"
+                text += table.df.to_markdown()
+                text += "\n"
+            return text
+        finally:
+            os.remove(tmp_path)
 
     def _parse_with_pdfminer(self, pdf_content: bytes) -> str:
-        with open("temp.pdf", "wb") as f:
-            f.write(pdf_content)
-        
-        loader = PDFMinerLoader("temp.pdf")
-        documents = loader.load()
-        
-        os.remove("temp.pdf")
-        return "\n\n".join(doc.page_content for doc in documents)
+        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
+            tmp.write(pdf_content)
+            tmp_path = tmp.name
+
+        try:
+            loader = PDFMinerLoader(tmp_path)
+            documents = loader.load()
+            return "\n\n".join(doc.page_content for doc in documents)
+        finally:
+            os.remove(tmp_path)
 
     def _parse_with_pdfplumber(self, pdf_content: bytes) -> str:
-        with open("temp.pdf", "wb") as f:
-            f.write(pdf_content)
-        
-        loader = PDFPlumberLoader("temp.pdf")
-        documents = loader.load()
-        
-        os.remove("temp.pdf")
-        return "\n\n".join(doc.page_content for doc in documents)
+        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
+            tmp.write(pdf_content)
+            tmp_path = tmp.name
+
+        try:
+            loader = PDFPlumberLoader(tmp_path)
+            documents = loader.load()
+            return "\n\n".join(doc.page_content for doc in documents)
+        finally:
+            os.remove(tmp_path)
 
     def _parse_with_pymupdf(self, pdf_content: bytes) -> str:
-        with open("temp.pdf", "wb") as f:
-            f.write(pdf_content)
-        
-        loader = PyMuPDFLoader("temp.pdf")
-        documents = loader.load()
-        
-        os.remove("temp.pdf")
-        return "\n\n".join(doc.page_content for doc in documents)
+        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
+            tmp.write(pdf_content)
+            tmp_path = tmp.name
+
+        try:
+            loader = PyMuPDFLoader(tmp_path)
+            documents = loader.load()
+            return "\n\n".join(doc.page_content for doc in documents)
+        finally:
+            os.remove(tmp_path)
 
     def _parse_with_pypdf(self, pdf_content: bytes) -> str:
-        with open("temp.pdf", "wb") as f:
-            f.write(pdf_content)
-        
-        loader = PyPDFLoader("temp.pdf")
-        documents = loader.load()
-        
-        os.remove("temp.pdf")
-        return "\n\n".join(doc.page_content for doc in documents)
+        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
+            tmp.write(pdf_content)
+            tmp_path = tmp.name
+
+        try:
+            loader = PyPDFLoader(tmp_path)
+            documents = loader.load()
+            return "\n\n".join(doc.page_content for doc in documents)
+        finally:
+            os.remove(tmp_path)
 
     def _parse_with_docling(self, pdf_content: bytes) -> str:
-        with open("temp.pdf", "wb") as f:
-            f.write(pdf_content)
-        
-        converter = DocumentConverter()
-        result = converter.convert("temp.pdf")
-        
-        os.remove("temp.pdf")
-        return result.document.export_to_markdown()
+        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
+            tmp.write(pdf_content)
+            tmp_path = tmp.name
+
+        try:
+            converter = DocumentConverter()
+            result = converter.convert(tmp_path)
+            return result.document.export_to_markdown()
+        finally:
+            os.remove(tmp_path)
 
     def _parse_with_markitdown(self, pdf_content: bytes) -> str:
-        with open("temp.pdf", "wb") as f:
-            f.write(pdf_content)
-        
-        md = MarkItDown()
-        result = md.convert("temp.pdf")
-        
-        os.remove("temp.pdf")
-        return result.text_content
+        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
+            tmp.write(pdf_content)
+            tmp_path = tmp.name
+
+        try:
+            md = MarkItDown()
+            result = md.convert(tmp_path)
+            return result.text_content
+        finally:
+            os.remove(tmp_path)
 
     def _parse_with_textract(self, pdf_content: bytes) -> str:
         textract = boto3.client(

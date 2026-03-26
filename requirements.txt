@@ -1,17 +1,18 @@
 # UI
-streamlit>=1.43.2 
+streamlit>=1.43.2
 
 # PDF Processing Libraries
 pypdf>=5.4.0
 pymupdf>=1.25.4
-PyPDF2>=3.0
 camelot-py>=1.0.0
 Ghostscript>=0.7
+pdfplumber>=0.11.0
+pdfminer.six>=20231228
 
 docling>=2.26.0 # IBM's Opensource
 docling_core>=2.23.1
 markitdown>=0.0.2 # Microsoft's Opensource
-llama-cloud-services>=0.1.14 #llama-parse related 
+llama-cloud-services>=0.1.14 # llama-parse related
 
 # Computer Vision
 opencv-python>=4.11.0.86
@@ -20,6 +21,7 @@ opencv-python>=4.11.0.86
 ollama>=0.4.7
 openai>=1.66.3
 anthropic>=0.49.0
+langchain>=0.3.0
 langchain_ollama>=0.2.3
 langchain-groq>=0.2.5
 langchain_openai>=0.3.9
@@ -28,6 +30,7 @@ langchain-google-genai>=2.1.0
 langchain-unstructured>=0.1.6
 langchain_huggingface>=0.1.2
 langchain_community>=0.3.19
+langchain_text_splitters>=0.3.0
 tiktoken>=0.9.0
 google-genai>=1.5.0
 mistralai>=1.5.1
@@ -46,6 +49,7 @@ amazon-textract-caller>=0.2.0
 # Utilities
 nest-asyncio>=1.6.0
 python-dotenv>=1.0.1
-pillow>=11.1.0 
+pillow>=11.1.0
 requests>=2.32.3
+tabulate>=0.9.0
 torch>=2.6.0
