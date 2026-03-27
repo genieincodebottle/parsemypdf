@@ -15,7 +15,7 @@ markitdown>=0.0.2 # Microsoft's Opensource
 llama-cloud-services>=0.1.14 # llama-parse related
 
 # OCR Libraries
-surya-ocr>=0.9.0 # 90+ language OCR with layout analysis
+surya-ocr>=0.17.0 # 90+ language OCR with layout analysis
 py-zerox>=0.0.7 # Vision model-based OCR
 
 # Computer Vision
@@ -56,7 +56,7 @@ amazon-textract-caller>=0.2.0
 # Utilities
 nest-asyncio>=1.6.0
 python-dotenv>=1.0.1
-pillow>=11.1.0
+pillow>=10.2.0
 requests>=2.32.3
 tabulate>=0.9.0
 torch>=2.6.0

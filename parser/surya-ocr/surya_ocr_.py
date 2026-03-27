@@ -30,7 +30,6 @@ def main():
     """
     Extract text from PDF using Surya OCR with layout analysis.
     """
-    from surya.ocr import run_ocr
     from surya.recognition import RecognitionPredictor
     from surya.detection import DetectionPredictor
     import pymupdf
@@ -56,9 +55,8 @@ def main():
         images.append(img)
     doc.close()
 
-    # Run OCR on all pages
-    languages = [["en"]] * len(images)
-    results = run_ocr(images, languages, detection_predictor, recognition_predictor)
+    # Run OCR on all pages (surya 0.17+ API: call recognition_predictor directly)
+    results = recognition_predictor(images, det_predictor=detection_predictor)
 
     # Extract text from results
     full_text = ""

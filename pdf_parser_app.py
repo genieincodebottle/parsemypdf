@@ -24,7 +24,7 @@ import anthropic
 from openai import OpenAI
 from google import genai
 from google.genai import types
-from mistralai import Mistral
+from mistralai.client import Mistral
 
 # LangChain Core
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -564,7 +564,6 @@ class MultiParser:
 
     def _parse_with_surya(self, pdf_content: bytes) -> str:
         try:
-            from surya.ocr import run_ocr
             from surya.recognition import RecognitionPredictor
             from surya.detection import DetectionPredictor
             import pymupdf
@@ -588,8 +587,7 @@ class MultiParser:
                 images.append(img)
             doc.close()
 
-            languages = [["en"]] * len(images)
-            results = run_ocr(images, languages, detection_predictor, recognition_predictor)
+            results = recognition_predictor(images, det_predictor=detection_predictor)
 
             full_text = ""
             for i, page_result in enumerate(results):

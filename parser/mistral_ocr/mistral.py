@@ -10,7 +10,7 @@ Environment Setup:
         - MISTRAL_API_KEY in .env file
 """
 import os
-from mistralai import Mistral
+from mistralai.client import Mistral
 from dotenv import load_dotenv
 from pathlib import Path
 

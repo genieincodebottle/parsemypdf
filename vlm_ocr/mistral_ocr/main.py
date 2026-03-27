@@ -6,7 +6,7 @@ import base64
 import io
 import os
 from PIL import Image
-from mistralai import Mistral
+from mistralai.client import Mistral
 from dotenv import load_dotenv
 
 # Load environment variables from .env file

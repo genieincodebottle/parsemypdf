@@ -30,7 +30,7 @@ except ImportError:
     OPENAI_AVAILABLE = False
 
 try:
-    from mistralai import Mistral
+    from mistralai.client import Mistral
     MISTRAL_AVAILABLE = True
 except ImportError:
     MISTRAL_AVAILABLE = False
