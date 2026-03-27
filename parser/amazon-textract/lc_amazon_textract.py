@@ -83,12 +83,9 @@ def main():
     # Returns list of Document objects with extracted text and metadata
     documents = loader.load()
 
-    # Second load call (Note: This appears redundant and could be removed)
-    docs = loader.load()
-
     # Output options
     extracted_content = ""
-    for doc in docs:
+    for doc in documents:
         extracted_content += doc.page_content+ "\n"
 
     # Output extracted content to output.txt

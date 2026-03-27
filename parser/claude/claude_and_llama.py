@@ -57,11 +57,11 @@ from dotenv import load_dotenv
 import anthropic
 
 from langchain_ollama.llms import OllamaLLM
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 
 # Get the project root directory
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -89,7 +89,7 @@ def get_completion(client, messages, model_name):
 def extract_pdf_content(pdf_base64_string) -> str:
     """Extract structured content from PDF using Claude API"""
 
-    client = anthropic.Client(api_key=ANTHROPIC_API_KEY)
+    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 
     system_prompt = """You are an expert at extracting and structuring content from complex PDFs, which contain tables, images and text. 
     Please scan the pdf deeply and extract every text content from the provided PDF, maintaining the structure and formatting.

@@ -1,4 +1,7 @@
-from llama_cloud_services import LlamaParse
+try:
+    from llama_parse import LlamaParse
+except ImportError:
+    from llama_cloud_services import LlamaParse
 
 import os
 from dotenv import load_dotenv

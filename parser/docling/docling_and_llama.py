@@ -50,11 +50,11 @@ import os
 from typing import List
 from docling.document_converter import DocumentConverter  # For PDF content extraction
 from langchain_ollama.llms import OllamaLLM  # Local LLM integration
-from langchain.text_splitter import RecursiveCharacterTextSplitter  # For text chunking
+from langchain_text_splitters import RecursiveCharacterTextSplitter  # For text chunking
 from langchain_huggingface import HuggingFaceEmbeddings  # For text embeddings
 from langchain_community.vectorstores import FAISS  # Vector database
 from langchain.chains import RetrievalQA  # For question-answering pipeline
-from langchain.prompts import PromptTemplate  # For customizing LLM prompts
+from langchain_core.prompts import PromptTemplate  # For customizing LLM prompts
 
 # Get the project root directory
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))

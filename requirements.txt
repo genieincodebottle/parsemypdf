@@ -12,7 +12,7 @@ pdfminer.six>=20231228
 docling>=2.26.0 # IBM's Opensource
 docling_core>=2.23.1
 markitdown>=0.0.2 # Microsoft's Opensource
-llama-cloud-services>=0.1.14 # llama-parse related
+llama-parse>=0.6.0 # LlamaParse PDF parser
 
 # OCR Libraries
 surya-ocr>=0.17.0 # 90+ language OCR with layout analysis
