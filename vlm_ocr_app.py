@@ -80,7 +80,7 @@ MODEL_PROVIDERS = {
         "available": MISTRAL_AVAILABLE and MISTRAL_API_KEY is not None
     },
     "Ollama": {
-        "models": ["gemma3:4b", "gemma3:12b", "gemma3:27b", "x/llama3.2-vision:11b"],
+        "models": ["gemma3:4b", "gemma3:12b", "gemma3:27b", "x/llama3.2-vision:11b", "qwen2.5vl:7b", "qwen2.5vl:32b", "minicpm-v:8b"],
         "api_key": None,  # No API key needed for local Ollama
         "available": True  # We'll check connection during runtime
     },

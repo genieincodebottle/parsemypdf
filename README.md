@@ -41,6 +41,8 @@ Comprehensive example code for extracting content from complex PDFs with mixed e
 | Unstructured IO | -- | Advanced content partitioning and classification. Processes PDFs, HTML, Word, and images. The Enterprise ETL Platform automates data ingestion and cleaning, integrating seamlessly with GenAI stacks. | [Code](/parser/unstructured-io/) | [Doc](https://docs.unstructured.io/welcome)
 | Llama-Parse | -- | GenAI-native document parser for LLM applications like RAG and agents. Supports PDFs, PowerPoint, Word, Excel, and HTML. Free users get 1,000 pages/day. | [Code](/parser/llama-parse/) | [Doc](https://docs.llamaindex.ai/en/stable/llama_cloud/llama_parse/)
 | Amazon Textract | -- | AWS ML service that extracts text, forms, tables, and signatures from scanned documents. Goes beyond OCR by preserving structure for easy data integration. Supports PNG, JPEG, TIFF, and PDF. | [Code](/parser/amazon-textract/) | [Doc](https://aws.amazon.com/textract/)
+| Azure Doc Intelligence | -- | Azure AI service (formerly Form Recognizer) for extracting text, tables, key-value pairs, and structure from documents. Supports handwriting, scanned docs, and custom models. Free tier: 500 pages/month. | [Code](/parser/azure-doc-intelligence/) | [Doc](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/)
+| Zerox | -- | Vision model-based OCR by OmniAI. Converts PDF pages to images, then uses GPT-4o/mini for extraction. Supports structured data extraction via schemas. Clean markdown output. | [Code](/parser/zerox/) | [Doc](https://github.com/getomni-ai/zerox)
 
 
 #### 2. 🖥️ Open Weight - Local Methods
@@ -58,6 +60,8 @@ Comprehensive example code for extracting content from complex PDFs with mixed e
 | Google | `PDFium` | Google's open-source C++ library for viewing, parsing, and rendering PDFs. Powers Chromium, enabling text extraction, metadata access, and page rendering. | [Code](/parser/pypdfium/) | [Doc](https://pdfium.googlesource.com/pdfium/)
 | LangChain | `PyPDFDirectory` | Batch PDF content extraction using PyPDF Directory Loader. Process all PDFs in a folder at once. | [Code](/parser/pypdfdirectory/) | [Doc](https://python.langchain.com/api_reference/community/document_loaders/langchain_community.document_loaders.pdf.PyPDFDirectoryLoader.html)
 | -- | `PDFPlumber` | Text and layout extraction. Extends pdfminer.six for PDF data extraction, handling text, tables, and shapes with visual debugging. Excels at extracting tables into pandas DataFrames. | [Code](/parser/pdfplumber/) | [Doc](https://github.com/jsvine/pdfplumber)
+| Datalab | `Surya OCR` | Lightweight OCR toolkit supporting 90+ languages with line-level detection, layout analysis, and table recognition. By the creator of Marker. Outperforms Tesseract on most benchmarks. Runs locally, no API key needed. | [Code](/parser/surya-ocr/) | [Doc](https://github.com/datalab-to/surya)
+| StepFun | `GOT-OCR2` | Unified end-to-end 580M parameter model for text, tables, charts, equations, and LaTeX. Supports formatted markdown output. Runs on consumer GPUs (8GB+ VRAM). | [Code](/parser/got-ocr2/) | [Doc](https://github.com/Ucas-HaoranWei/GOT-OCR2.0)
 
 ### ⚙️ Setup Instructions
 
@@ -103,6 +107,10 @@ Comprehensive example code for extracting content from complex PDFs with mixed e
    UNSTRUCTURED_API_KEY=your_key_here # https://unstructured.io/api-key-free
    LLAMA_CLOUD_API_KEY=your_key_here  # https://cloud.llamaindex.ai/api-key
    OMNI_API_KEY=your_key_here       # https://app.getomni.ai/settings/account
+
+   # Azure Document Intelligence (optional)
+   AZURE_DI_ENDPOINT=your_endpoint  # https://portal.azure.com
+   AZURE_DI_KEY=your_key_here
    ```
 
 5. Install Ollama & Models (optional, for local processing):
@@ -114,6 +122,8 @@ Comprehensive example code for extracting content from complex PDFs with mixed e
      ollama pull llama3.1
      ollama pull x/llama3.2-vision:11b
      ollama pull gemma3:4b
+     ollama pull qwen2.5vl:7b
+     ollama pull minicpm-v:8b
      ```
 
 6. **Run the PDF Parser & RAG Evaluator app:**

@@ -171,6 +171,18 @@ PARSER_CONFIGS = {
     "Llama Vision": {
         "description": "Uses Llama 3.2 Vision model",
         "requires_api_key": None
+    },
+    "Surya OCR": {
+        "description": "90+ language OCR with layout analysis and table detection",
+        "requires_api_key": None
+    },
+    "Zerox": {
+        "description": "Vision model-based OCR (converts PDF to images, then uses LLM)",
+        "requires_api_key": "OPENAI_API_KEY"
+    },
+    "Azure Doc Intelligence": {
+        "description": "Azure AI service for document text, tables, and form extraction",
+        "requires_api_key": "AZURE_DI_ENDPOINT"
     }
 }
 
@@ -271,6 +283,12 @@ class MultiParser:
                 return self._parse_with_textract(pdf_content)
             elif self.parser_name == "Llama Vision":
                 return self._parse_with_llama_vision(pdf_content)
+            elif self.parser_name == "Surya OCR":
+                return self._parse_with_surya(pdf_content)
+            elif self.parser_name == "Zerox":
+                return self._parse_with_zerox(pdf_content)
+            elif self.parser_name == "Azure Doc Intelligence":
+                return self._parse_with_azure_di(pdf_content)
             else:
                 raise ValueError(f"Unsupported parser: {self.parser_name}")
         except Exception as e:
@@ -542,6 +560,108 @@ class MultiParser:
             )
             full_text += response.message.content + "\n\n"
         
+        return full_text
+
+    def _parse_with_surya(self, pdf_content: bytes) -> str:
+        try:
+            from surya.ocr import run_ocr
+            from surya.recognition import RecognitionPredictor
+            from surya.detection import DetectionPredictor
+            import pymupdf
+        except ImportError:
+            raise ImportError("Install surya-ocr: pip install surya-ocr")
+
+        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
+            tmp.write(pdf_content)
+            tmp_path = tmp.name
+
+        try:
+            recognition_predictor = RecognitionPredictor()
+            detection_predictor = DetectionPredictor()
+
+            doc = pymupdf.open(tmp_path)
+            images = []
+            for page in doc:
+                pix = page.get_pixmap(dpi=300)
+                from PIL import Image as PILImage
+                img = PILImage.frombytes("RGB", [pix.width, pix.height], pix.samples)
+                images.append(img)
+            doc.close()
+
+            languages = [["en"]] * len(images)
+            results = run_ocr(images, languages, detection_predictor, recognition_predictor)
+
+            full_text = ""
+            for i, page_result in enumerate(results):
+                full_text += f"\n--- Page {i+1} ---\n"
+                for line in page_result.text_lines:
+                    full_text += line.text + "\n"
+            return full_text
+        finally:
+            os.remove(tmp_path)
+
+    def _parse_with_zerox(self, pdf_content: bytes) -> str:
+        try:
+            from pyzerox import zerox
+            import asyncio
+        except ImportError:
+            raise ImportError("Install zerox: pip install py-zerox")
+
+        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
+            tmp.write(pdf_content)
+            tmp_path = tmp.name
+
+        try:
+            result = asyncio.run(zerox(
+                file_path=tmp_path,
+                model="gpt-4o-mini",
+                cleanup=True,
+            ))
+            full_text = ""
+            for page in result.pages:
+                full_text += page.content + "\n\n"
+            return full_text
+        finally:
+            os.remove(tmp_path)
+
+    def _parse_with_azure_di(self, pdf_content: bytes) -> str:
+        try:
+            from azure.ai.documentintelligence import DocumentIntelligenceClient
+            from azure.core.credentials import AzureKeyCredential
+        except ImportError:
+            raise ImportError("Install azure-ai-documentintelligence: pip install azure-ai-documentintelligence")
+
+        endpoint = os.getenv("AZURE_DI_ENDPOINT")
+        key = os.getenv("AZURE_DI_KEY")
+        if not endpoint or not key:
+            raise ValueError("AZURE_DI_ENDPOINT and AZURE_DI_KEY must be set in .env")
+
+        client = DocumentIntelligenceClient(endpoint=endpoint, credential=AzureKeyCredential(key))
+
+        poller = client.begin_analyze_document(
+            "prebuilt-read",
+            body=pdf_content,
+            content_type="application/pdf"
+        )
+        result = poller.result()
+
+        full_text = ""
+        for page in result.pages:
+            for line in page.lines:
+                full_text += line.content + "\n"
+            full_text += "\n"
+
+        if result.tables:
+            for i, table in enumerate(result.tables):
+                full_text += f"\nTable {i+1}:\n"
+                rows = {}
+                for cell in table.cells:
+                    rows.setdefault(cell.row_index, {})[cell.column_index] = cell.content
+                for row_idx in sorted(rows.keys()):
+                    row = rows[row_idx]
+                    full_text += "| " + " | ".join(row.get(c, "") for c in sorted(row.keys())) + " |\n"
+                full_text += "\n"
+
         return full_text
 
 def main():
