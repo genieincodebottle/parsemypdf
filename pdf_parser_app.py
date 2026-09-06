@@ -655,8 +655,8 @@ class MultiParser:
         return full_text
 
 def main():
-    st.set_page_config(page_title="Pdf Parsing & RAG Evaluator", page_icon="📚", layout="wide")
-    st.subheader("📚 Pdf Parsing & RAG Evaluator")
+    st.set_page_config(page_title="Pdf Parsing & RAG Evaluator", page_icon="", layout="wide")
+    st.subheader("Pdf Parsing & RAG Evaluator")
     
     # Initialize session state
     if 'processed_chunks' not in st.session_state:
@@ -670,7 +670,7 @@ def main():
 
     # Sidebar configuration
     with st.sidebar:
-        st.header("⚙️ Configuration")
+        st.header("Configuration")
 
         llm_provider = st.selectbox(
             "LLM Provider",
@@ -681,7 +681,7 @@ def main():
         if LLM_CONFIGS[llm_provider].get("requires_key"):
             key_name = LLM_CONFIGS[llm_provider]["requires_key"]
             if not os.getenv(key_name):
-                st.warning(f"⚠️ {key_name} not set")
+                st.warning(f"{key_name} not set")
 
         model_name = st.selectbox(
             "Model",
@@ -698,7 +698,7 @@ def main():
         st.session_state.temperature = temperature
         st.markdown("---")
         # Parser Configuration
-        st.subheader("📄 Parser Settings")
+        st.subheader("Parser Settings")
         parser_name = st.selectbox(
             "Select Parser",
             options=list(PARSER_CONFIGS.keys()),
@@ -711,12 +711,12 @@ def main():
         # Check if required API key is set
         required_key = PARSER_CONFIGS[parser_name]["requires_api_key"]
         if required_key and not os.getenv(required_key):
-            st.warning(f"⚠️ {required_key} not set. This parser may not work.")
+            st.warning(f"{required_key} not set. This parser may not work.")
 
         st.markdown("---")
 
         # Text Chunking Configuration
-        st.subheader("📝 Chunking Settings")
+        st.subheader("Chunking Settings")
         chunk_size = st.slider(
             "Chunk Size",
             min_value=500,
@@ -736,7 +736,7 @@ def main():
         st.markdown("---")
         
         # Debug Options
-        st.subheader("🔧 Debug Options")
+        st.subheader("Debug Options")
         show_debug = st.checkbox(
             "Show Debug Info",
             value=False,
@@ -792,10 +792,10 @@ def main():
                     progress_text.text("Processing complete!")
                     progress_bar.progress(1.0)
 
-                    st.success(f"✅ PDF processed successfully into {len(chunks)} chunks")
+                    st.success(f"PDF processed successfully into {len(chunks)} chunks")
 
                     # Display chunks preview
-                    with st.expander("📄 View Processed Chunks"):
+                    with st.expander("View Processed Chunks"):
                         num_preview = min(3, len(chunks))
                         for i in range(num_preview):
                             st.text_area(
@@ -823,11 +823,11 @@ def main():
                         response = st.session_state.qa_chain.invoke({"input": question})
 
                         # Display answer
-                        st.markdown("### 💡 Answer")
+                        st.markdown("### Answer")
                         st.write(response["answer"])
 
                         # Show sources
-                        with st.expander("🔍 View Source Chunks"):
+                        with st.expander("View Source Chunks"):
                             for i, doc in enumerate(response["context"]):
                                 st.markdown(f"**Source {i+1}:**")
                                 st.text(doc.page_content)
@@ -839,7 +839,7 @@ def main():
                         st.exception(e)
 
             # Download processed text
-            if st.button("📥 Download Processed Text"):
+            if st.button("Download Processed Text"):
                 try:
                     combined_text = "\n\n".join(st.session_state.processed_chunks)
                     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")

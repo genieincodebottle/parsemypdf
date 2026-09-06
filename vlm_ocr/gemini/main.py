@@ -17,7 +17,7 @@ if not GOOGLE_API_KEY:
 
 st.set_page_config(
     page_title="OCR with gemini-flash-latest",
-    page_icon="📄",
+    page_icon="",
     layout="wide"
 )
 
@@ -36,7 +36,7 @@ def query_gemini(image, prompt, model_name, temperature=0.7, max_tokens=2048):
     return response.text
    
 # App title and description
-st.header("📄 OCR with Gemini-2.0")
+st.header("OCR with Gemini-2.0")
 st.markdown("Upload an image and ask Gemini to analyze or describe it.")
 
 

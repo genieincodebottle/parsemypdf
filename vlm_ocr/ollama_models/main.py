@@ -9,7 +9,7 @@ from PIL import Image
 
 st.set_page_config(
     page_title="Multimodal based OCR",
-    page_icon="📄",
+    page_icon="",
     layout="wide"
 )
 
@@ -59,7 +59,7 @@ def query_ollama(image, model_name, prompt=None, temperature=0.7, top_p=0.9, top
         return f"Error connecting to Ollama: {str(e)}"
 
 # App title and description
-st.header("📄 OCR with Gemma3 & Llama3.2 Vision Language Models")
+st.header("OCR with Gemma3 & Llama3.2 Vision Language Models")
 
 # Sidebar for model selection and configuration
 with st.sidebar:
@@ -173,11 +173,11 @@ try:
         gemma_models = [m for m in models if any(prefix in m.get("name", "").lower() for prefix in gemma_prefixes)]
         
         if gemma_models:
-            status_container.success("✅ Ollama is running and models are available.")
+            status_container.success("Ollama is running and models are available.")
             st.json(gemma_models)
         else:
-            status_container.warning("⚠️ Ollama is running but no models found. Please pull the model first.")
+            status_container.warning("Ollama is running but no models found. Please pull the model first.")
     else:
-        status_container.error("❌ Ollama API responded with an error.")
+        status_container.error("Ollama API responded with an error.")
 except:
-    status_container.error("❌ Could not connect to Ollama API. Make sure Ollama is running on localhost:11434.")
+    status_container.error("Could not connect to Ollama API. Make sure Ollama is running on localhost:11434.")

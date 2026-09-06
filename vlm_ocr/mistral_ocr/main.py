@@ -19,7 +19,7 @@ if not MISTRAL_API_KEY:
 
 st.set_page_config(
     page_title="OCR with Mistral-OCR",
-    page_icon="📄",
+    page_icon="",
     layout="wide"
 )
 
@@ -66,7 +66,7 @@ def query_mistral_ocr(image, model_name):
         return f"Error connecting to Mistral-OCR API: {str(e)}"
 
 # App title and description
-st.header("📄 OCR with Mistral-OCR")
+st.header("OCR with Mistral-OCR")
 st.markdown("Upload an image and ask Mistral-OCR to analyze or describe it.")
 
 

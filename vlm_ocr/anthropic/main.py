@@ -19,7 +19,7 @@ if not ANTHROPIC_API_KEY:
 
 st.set_page_config(
     page_title="OCR with Claude3.7 Sonnet",
-    page_icon="📄",
+    page_icon="",
     layout="wide"
 )
 
@@ -76,7 +76,7 @@ def query_claude(image, prompt, model_name, temperature=0.7, max_tokens=2048):
         return f"Error connecting to Claude API: {str(e)}"
 
 # App title and description
-st.header("📄 OCR with Claude 3.7 Sonnet")
+st.header("OCR with Claude 3.7 Sonnet")
 st.markdown("Upload an image and ask Claude to analyze or describe it.")
 
 

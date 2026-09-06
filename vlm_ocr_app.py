@@ -96,7 +96,7 @@ AVAILABLE_PROVIDERS = [p for p, details in MODEL_PROVIDERS.items() if details["a
 
 st.set_page_config(
     page_title="OCR with Vision Language Model",
-    page_icon="📄",
+    page_icon="",
     layout="wide"
 )
 
@@ -393,7 +393,7 @@ def process_with_provider(provider, model, image, prompt, temp, max_tokens):
         return f"Unknown provider: {provider}"
 
 # App title and description
-st.header("📄 OCR with Vision Language Model")
+st.header("OCR with Vision Language Model")
 st.markdown("Upload an image and extract text using various AI models")
 
 # Sidebar for model selection and configuration
@@ -645,13 +645,13 @@ if "Ollama" in AVAILABLE_PROVIDERS:
             ollama_models = [m for m in models if any(model in m.get("name", "").lower() for model in ["gemma3", "llama3.2-vision"])]
             
             if ollama_models:
-                ollama_status.success("✅ Ollama is running and models are available.")
+                ollama_status.success("Ollama is running and models are available.")
             else:
-                ollama_status.warning("⚠️ Ollama is running but required models not found. Please pull the models first.")
+                ollama_status.warning("Ollama is running but required models not found. Please pull the models first.")
         else:
-            ollama_status.error("❌ Ollama API responded with an error.")
+            ollama_status.error("Ollama API responded with an error.")
     except:
-        ollama_status.error("❌ Could not connect to Ollama API. Make sure Ollama is running on localhost:11434.")
+        ollama_status.error("Could not connect to Ollama API. Make sure Ollama is running on localhost:11434.")
 
 # Add footer information
 st.markdown("---")

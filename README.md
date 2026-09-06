@@ -11,11 +11,11 @@
     <a target="_blank" href="https://x.com/zero2nn"><img src="https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=%20%40zero2nn"></a>
 </div>
 
-## <a target="_blank" href="https://github.com/genieincodebottle/generative-ai/blob/main/GenAI_Roadmap.md">👉 GenAI Roadmap - 2025</a></h3>
+## <a target="_blank" href="https://github.com/genieincodebottle/generative-ai/blob/main/GenAI_Roadmap.md">GenAI Roadmap - 2025</a></h3>
 
-## 🖼️ [OCR with Multimodal | Vision Language Models](/vlm_ocr/)
+## [OCR with Multimodal | Vision Language Models](/vlm_ocr/)
 
-## 📑 Complex PDF Parsing
+## Complex PDF Parsing
 
 Comprehensive example code for extracting content from complex PDFs with mixed elements, including text and image data extraction. Includes **two Streamlit apps**:
 
@@ -24,13 +24,13 @@ Comprehensive example code for extracting content from complex PDFs with mixed e
 
 ### Also, check -> [PDF Parsing Guide](https://github.com/genieincodebottle/parse-my-pdf/blob/main/pdf-parsing-guide.pdf)
 
-🎥 YouTube Video: Walkthrough on setup and running the app
+YouTube Video: Walkthrough on setup and running the app
 
 [![Watch the video](https://img.youtube.com/vi/26thuRsxiUc/0.jpg)](https://www.youtube.com/watch?v=26thuRsxiUc)
 
-### 📦 Implementation Options
+### Implementation Options
 
-#### 1. ☁️ Paid - API Based Methods
+#### 1. Paid - API Based Methods
 
 | Model Provider | Models | Details | Example Code | Doc |
 | -------------- | -------|---------|:------------:|:---:|
@@ -45,7 +45,7 @@ Comprehensive example code for extracting content from complex PDFs with mixed e
 | Zerox | -- | Vision model-based OCR by OmniAI. Converts PDF pages to images, then uses GPT-4o/mini for extraction. Supports structured data extraction via schemas. Clean markdown output. | [Code](/parser/zerox/) | [Doc](https://github.com/getomni-ai/zerox)
 
 
-#### 2. 🖥️ Open Weight - Local Methods
+#### 2. Open Weight - Local Methods
 
 | Model/Framework Provider | Name | Details | Example Code | Doc |
 | -------------- | -------|---------|:------------:|:---:|
@@ -63,7 +63,7 @@ Comprehensive example code for extracting content from complex PDFs with mixed e
 | Datalab | `Surya OCR` | Lightweight OCR toolkit supporting 90+ languages with line-level detection, layout analysis, and table recognition. By the creator of Marker. Outperforms Tesseract on most benchmarks. Runs locally, no API key needed. | [Code](/parser/surya-ocr/) | [Doc](https://github.com/datalab-to/surya)
 | StepFun | `GOT-OCR2` | Unified end-to-end 580M parameter model for text, tables, charts, equations, and LaTeX. Supports formatted markdown output. Runs on consumer GPUs (8GB+ VRAM). | [Code](/parser/got-ocr2/) | [Doc](https://github.com/Ucas-HaoranWei/GOT-OCR2.0)
 
-### ⚙️ Setup Instructions
+### Setup Instructions
 
 #### Prerequisites
 - Python 3.10 or higher
@@ -149,7 +149,7 @@ Comprehensive example code for extracting content from complex PDFs with mixed e
 | `sample-4.pdf` | Mixed content (text, tables, images) |
 | `sample-5.pdf` | Multi-column texts |
 
-### 📝 Important Notes
+### Important Notes
 - System resources needed for local multimodal model operations
 - API keys required for API/cloud-based implementations
 - Factor in PDF complexity (tables, merged cells, scanned documents, handwritten text, multi-column layouts, rotated text, embedded images) when selecting a parser

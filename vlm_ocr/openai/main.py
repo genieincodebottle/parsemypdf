@@ -19,7 +19,7 @@ if not OPENAI_API_KEY:
 
 st.set_page_config(
     page_title="OCR with GPT 4.0",
-    page_icon="📄",
+    page_icon="",
     layout="wide"
 )
 
@@ -79,7 +79,7 @@ def query_gpt(image, prompt, model_name, temperature=0.7, max_tokens=2048):
         return f"Error connecting to GPT API: {str(e)}"
 
 # App title and description
-st.header("📄 OCR with GPT 4.0")
+st.header("OCR with GPT 4.0")
 st.markdown("Upload an image and ask GPT to analyze or describe it.")
 
 

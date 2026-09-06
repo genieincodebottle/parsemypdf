@@ -30,7 +30,7 @@ HEADER_UPLOAD_FILE = {
 # Set up Streamlit page configuration
 st.set_page_config(
     page_title="OCR with Omni AI",
-    page_icon="📄",
+    page_icon="",
     layout="wide"
 )
 
@@ -105,7 +105,7 @@ def run_extraction_with_progress(url=None, uploaded_file=None, template_id=""):
         st.error(f"Error during extraction: {str(e)}")
         return None
 
-st.header("📄 OCR with Omni AI")
+st.header("OCR with Omni AI")
 with st.sidebar:
     st.markdown("""
     ### Setup Instructions

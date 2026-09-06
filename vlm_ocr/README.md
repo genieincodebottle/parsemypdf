@@ -10,9 +10,9 @@
     <a target="_blank" href="https://x.com/zero2nn"><img src="https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=%20%40zero2nn"></a>
 </div>
 
-### <a target="_blank" href="https://github.com/genieincodebottle/generative-ai/blob/main/GenAI_Roadmap.md">👉 GenAI Roadmap - 2025</a></h3>
+### <a target="_blank" href="https://github.com/genieincodebottle/generative-ai/blob/main/GenAI_Roadmap.md">GenAI Roadmap - 2025</a></h3>
 
-### 🖼️ OCR with Multimodal | Vision Language Models
+### OCR with Multimodal | Vision Language Models
 
 | Model Provider | Models                                                       | Open / Paid | Example Code     | Doc       |
 | -------------- | ------------------------------------------------------------ | ------------------ | -------- |---------- |
@@ -24,11 +24,11 @@
 | Google & Meta         | `gemma3:4b`, `gemma3:12b`, `gemma3:27b`, `x/llama3.2-vision:11b` | Open Weight  | [Code](/vlm_ocr/ollama_models/main.py)              | [Gemma Doc](https://blog.google/technology/developers/gemma-3/), [Llama3.2 Doc](https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/)
 | IBM         | `SmolDocling-256M-preview`                                       | Open Weight | [Code](/vlm_ocr/smol_docling//main.py)              | [Doc](https://huggingface.co/ds4sd/SmolDocling-256M-preview)
 
-### 📊 [OCR Benchmark](https://github.com/getomni-ai/benchmark?tab=readme-ov-file#omni-ocr-benchmark) 
+### [OCR Benchmark](https://github.com/getomni-ai/benchmark?tab=readme-ov-file#omni-ocr-benchmark)
 
-### 🔗 Dependencies
+### Dependencies
 
-#### 📚 Python Libraries
+#### Python Libraries
 ```bash
 # UI
 streamlit>=1.43.2 
@@ -52,7 +52,7 @@ requests>=2.32.3
 torch>=2.6.0
 ```
 
-### ⚙️ Setup Instructions
+### Setup Instructions
 
 - #### Prerequisites
    - Python 3.9 or higher
