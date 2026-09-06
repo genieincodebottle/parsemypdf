@@ -93,9 +93,9 @@ def extract_pdf_content(question, pdf_base64_string) -> str:
     Response must be to the point."""
     
     # Specify the model version
-    model_name = "claude-sonnet-4-20250514"
-    #model_name = "claude-opus-4-20250514"
-    #model_name = "claude-3-7-sonnet-latest"
+    model_name = "claude-sonnet-5"
+    #model_name = "claude-opus-5"
+    #model_name = "claude-sonnet-4-6"
 
     # Construct message payload with PDF document and prompt
     messages = [

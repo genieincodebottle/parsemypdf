@@ -91,7 +91,7 @@ def get_completion_response(client, base64_image):
         maintaining the original structure and formatting tables in Markdown.
     """
     response = client.chat.completions.create(
-        model="gpt-4.1-2025-04-14", #gpt-4.1-mini-2025-04-14, #gpt-4o-mini, #gpt-4o-2024-08-06, #gpt-4o-mini-2024-07-18
+        model="gpt-4.1", #gpt-4.1-mini, #gpt-4o-mini, #gpt-5.6-terra, #gpt-5.6-luna
         messages=[
             {
                 "role": "user",

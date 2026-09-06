@@ -16,7 +16,7 @@ if not GOOGLE_API_KEY:
     raise ValueError("GOOGLE_API_KEY not set in environment variables")
 
 st.set_page_config(
-    page_title="OCR with gemini-2.0-flash",
+    page_title="OCR with gemini-flash-latest",
     page_icon="📄",
     layout="wide"
 )
@@ -48,9 +48,9 @@ with st.sidebar:
     model_name = st.selectbox(
         "Select Gemini Model",
         options=[
-            "gemini-2.0-flash", 
-            "gemini-2.0-flash-lite",
-            "gemini-2.0-pro-exp-02-05"
+            "gemini-flash-latest", 
+            "gemini-flash-lite-latest",
+            "gemini-pro-latest"
         ],
         index=0,
         help="Select the Gemini model to use"

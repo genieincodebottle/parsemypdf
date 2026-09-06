@@ -34,7 +34,7 @@ Required Environment Variables:
     - ANTHROPIC_API_KEY: API key for Claude services
 
 Models Used:
-    - Text Extraction: claude-3-7-sonnet-20250219
+    - Text Extraction: claude-sonnet-4-6
     - Embeddings: sentence-transformers/all-MiniLM-L12-v2
     - Question Answering: llama3.1 8B(via Ollama)
 
@@ -96,9 +96,9 @@ def extract_pdf_content(pdf_base64_string) -> str:
     Format tables properly in markdown format. In case of tables, preserve all numerical data and relationships between elements.
     Do not exclude any content from the pdf"""
 
-    model_name = "claude-sonnet-4-20250514"
-    #model_name = "claude-opus-4-20250514"
-    #model_name = "claude-3-7-sonnet-latest"
+    model_name = "claude-sonnet-5"
+    #model_name = "claude-opus-5"
+    #model_name = "claude-sonnet-4-6"
 
     messages = [
         {

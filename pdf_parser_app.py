@@ -75,44 +75,36 @@ logger = logging.getLogger(__name__)
 LLM_CONFIGS = {
     "Groq": {
         "models": [
-            "llama3-8b-8192",
-            "llama3-70b-8192",
-            "llama-3.1-8b-instant",
-            "llama-3.3-70b-versatile",
-            "gemma2-9b-it",
-            "mixtral-8x7b-32768"
+            "openai/gpt-oss-20b",
+            "openai/gpt-oss-120b"
         ],
         "requires_key": "GROQ_API_KEY"
     },
     "OpenAI": {
         "models": [
-            "gpt-4.1-2025-04-14",
-            "gpt-4.1-mini-2025-04-14",
-            "gpt-4o-2024-08-06",
-            "gpt-4o-mini-2024-07-18"
+            "gpt-5.6-sol",
+            "gpt-5.6-terra",
+            "gpt-5.6-luna",
+            "gpt-4.1",
+            "gpt-4.1-mini"
         ],
         "requires_key": "OPENAI_API_KEY"
     },
     "Anthropic": {
         "models": [
-            "claude-opus-4-20250514",
-            "claude-sonnet-4-20250514",
-            "claude-3-7-sonnet-20250219",
-            "claude-3-5-sonnet-20241022",
-            "claude-3-5-haiku-20241022",
+            "claude-opus-5",
+            "claude-sonnet-5",
+            "claude-sonnet-4-6",
+            "claude-haiku-4-5",
         ],
         "requires_key": "ANTHROPIC_API_KEY"
     },
     "Gemini": {
         "models": [
-            "gemini-2.5-pro",
-            "gemini-2.5-flash",
-            "gemini-2.5-flash-lite-preview-06-17",
-            "gemini-2.0-flash",
-            "gemini-2.0-flash-lite",
-            "gemini-1.5-flash",
-            "gemini-1.5-flash-8b",
-            "gemini-1.5-pro"
+            "gemini-pro-latest",
+            "gemini-flash-latest",
+            "gemini-flash-lite-latest",
+            "gemini-2.5-flash"
         ],
         "requires_key": "GOOGLE_API_KEY"
     }
@@ -295,7 +287,7 @@ class MultiParser:
             logger.error(f"Error parsing PDF with {self.parser_name}: {str(e)}", exc_info=True)
             raise
     
-    def _parse_with_gemini(self, pdf_content: bytes, model_name: str = "gemini-2.0-flash") -> str:
+    def _parse_with_gemini(self, pdf_content: bytes, model_name: str = "gemini-flash-latest") -> str:
         api_key=os.getenv("GOOGLE_API_KEY")
         client = genai.Client(api_key=api_key)
 
@@ -344,7 +336,7 @@ class MultiParser:
         }]
         
         response = client.messages.create(
-            model="claude-3-7-sonnet-20250219",
+            model="claude-sonnet-4-6",
             max_tokens=1500,
             messages=messages
         )
