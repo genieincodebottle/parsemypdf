@@ -36,6 +36,7 @@ Note: Uses Claude 3.7 Sonnet model with PDF beta feature for optimal extraction
 
 # Standard library imports
 import os
+import sys
 import base64
 
 # Third-party imports
@@ -44,6 +45,9 @@ import anthropic
 
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
+sys.path.append(project_root)
+
+from utils.cli import input_pdf
 # Load environment variables from .env file
 load_dotenv()
 
@@ -118,11 +122,10 @@ def main():
     """
     # STEP 1: Read and encode the PDF file
     # Multiple PDF files available for testing different scenarios:
-    #file_path = project_root+"/input/sample-1.pdf" # Table in pdf
-    #file_path = project_root+"/input/sample-2.pdf" # Image based simple table in pdf
-    file_path = project_root+"/input/sample-3.pdf" # Image based complex table in pdf
-    #file_path = project_root+"/input/sample-4.pdf"  # Complex PDF where many text contents and tables are in image
-    #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts 
+    # Which PDF to process. Override with --file, e.g.
+    #   python parser/claude/claude_.py --file input/sample-3.pdf
+    # Run with --list to see every bundled sample.
+    file_path = input_pdf("sample-1.pdf")
     
     # Read PDF file and convert to base64
     with open(file_path, "rb") as pdf_file:

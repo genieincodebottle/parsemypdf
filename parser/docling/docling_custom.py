@@ -2,21 +2,35 @@ import json
 import logging
 import time
 from pathlib import Path
+import os
+import sys
+
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(project_root)
+
+from utils.cli import input_pdf
 
 from docling.backend.pypdfium2_backend import PyPdfiumDocumentBackend
 from docling.datamodel.base_models import InputFormat
-from docling.datamodel.pipeline_options import PdfPipelineOptions
+# Current docling keeps every OCR option class in pipeline_options. The old
+# per-model modules (docling.models.ocr_mac_model and friends) are gone, so
+# importing from them raises ModuleNotFoundError before anything runs.
+from docling.datamodel.pipeline_options import (
+    PdfPipelineOptions,
+    OcrMacOptions,
+    TesseractCliOcrOptions,
+    TesseractOcrOptions,
+)
 from docling.document_converter import DocumentConverter, PdfFormatOption
-from docling.models.ocr_mac_model import OcrMacOptions
-from docling.models.tesseract_ocr_cli_model import TesseractCliOcrOptions
-from docling.models.tesseract_ocr_model import TesseractOcrOptions
 
 _log = logging.getLogger(__name__)
 
 def main():
     logging.basicConfig(level=logging.INFO)
 
-    input_doc_path = Path("input/sample-3.pdf")
+    # A relative path only works if you happen to run from the repo root.
+    # input_pdf() resolves against the repo root and accepts --file.
+    input_doc_path = Path(input_pdf("sample-3.pdf"))
 
     ###########################################################################
 

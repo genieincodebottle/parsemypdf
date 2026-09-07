@@ -23,6 +23,7 @@ Advantages:
    - Support for multiple document formats
 """
 import os
+import sys
 from dotenv import load_dotenv
 from langchain_unstructured import UnstructuredLoader
 
@@ -31,10 +32,27 @@ load_dotenv()
 # Get the project root directory
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
+sys.path.append(project_root)
+
+from utils.cli import input_pdf
 # Get API key from environment variables and validate its presence
+# Unstructured has TWO products with different keys, and they are not
+# interchangeable:
+#
+#   Serverless Partition API  <- what UnstructuredLoader below calls
+#                                key from https://unstructured.io/api-key-free
+#   Platform / Workflow API   <- https://platform-api.transform.unstructured.io
+#
+# A valid Platform key sent to the Partition API comes back as
+# "401 API key is invalid", which reads like a bad key rather than the wrong
+# product. If you hit that, check which one you generated.
 UNSTRUCTURED_API_KEY = os.getenv("UNSTRUCTURED_API_KEY")
 if not UNSTRUCTURED_API_KEY:
-    raise ValueError("UNSTRUCTURED_API_KEY not set in environment variables")
+    raise ValueError(
+        "UNSTRUCTURED_API_KEY not set. This script needs a SERVERLESS "
+        "Partition API key from https://unstructured.io/api-key-free - a "
+        "Platform key will be rejected with a confusing 401."
+    )
 
 def main():
    """
@@ -61,11 +79,10 @@ def main():
        None: Prints extracted content to console
    """
    # Select PDF file to process - uncomment desired sample file
-   file_path = project_root+"/input/sample-1.pdf" # Table in pdf
-   #file_path = project_root+"/input/sample-2.pdf" # Image based simple table in pdf
-   #file_path = project_root+"/input/sample-3.pdf" # Image based complex table in pdf
-   #file_path = project_root+"/input/sample-4.pdf"  # Complex PDF with mixed content types
-   #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts 
+   # Which PDF to process. Override with --file, e.g.
+   #   python parser/unstructured-io/lc_unstructured-io.py --file input/sample-3.pdf
+   # Run with --list to see every bundled sample.
+   file_path = input_pdf("sample-1.pdf")
    
    # Initialize Unstructured loader with API configuration
    # Note: API key should be stored securely in environment variables
@@ -86,7 +103,8 @@ def main():
       extracted_content += doc.page_content+ "\n"
 
    # Output extracted content to output.txt
-   with open("output.txt", 'w') as file:
+   os.makedirs(os.path.join(project_root, "output"), exist_ok=True)
+   with open(os.path.join(project_root, "output", "lc_unstructured-io.txt"), "w", encoding="utf-8") as file:
       file.write(extracted_content)
 
 if __name__ == "__main__":

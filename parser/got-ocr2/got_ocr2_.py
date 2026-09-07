@@ -27,32 +27,35 @@ project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 sys.path.append(project_root)
 
 
+
+from utils.cli import input_pdf
 def main():
     """
     Extract text from PDF using GOT-OCR2 model via HuggingFace Transformers.
     """
     import torch
-    from transformers import AutoModel, AutoTokenizer
+    # The "-hf" repo is the transformers-native port of GOT-OCR2 and uses the
+    # standard processor + generate() API. The `.chat()` method belongs to the
+    # ORIGINAL trust_remote_code repo (stepfun-ai/GOT-OCR2_0); mixing the two
+    # raises AttributeError: 'GotOcr2Model' object has no attribute 'chat'.
+    from transformers import AutoProcessor, AutoModelForImageTextToText
     import pymupdf
     from PIL import Image
-    import tempfile
 
     # Configure input PDF path
-    #file_path = project_root + "/input/sample-1.pdf"  # Standard tables
-    #file_path = project_root + "/input/sample-2.pdf"  # Image-based simple tables
-    file_path = project_root + "/input/sample-3.pdf"   # Image-based complex tables
-    #file_path = project_root + "/input/sample-4.pdf"  # Mixed content
-    #file_path = project_root + "/input/sample-5.pdf"  # Multi-column texts
+    # Which PDF to process. Override with --file, e.g.
+    #   python parser/got-ocr2/got_ocr2_.py --file input/sample-3.pdf
+    # Run with --list to see every bundled sample.
+    file_path = input_pdf("sample-1.pdf")
 
-    # Load GOT-OCR2 model
+    # Load GOT-OCR2. About 1.5 GB on the first run, cached afterwards.
     model_name = "stepfun-ai/GOT-OCR-2.0-hf"
-    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
-    model = AutoModel.from_pretrained(
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    processor = AutoProcessor.from_pretrained(model_name)
+    model = AutoModelForImageTextToText.from_pretrained(
         model_name,
-        trust_remote_code=True,
-        torch_dtype=torch.float16,
-        device_map="auto"
-    )
+        dtype=torch.float16 if device == "cuda" else torch.float32,
+    ).to(device)
     model.eval()
 
     # Convert PDF pages to images
@@ -63,25 +66,30 @@ def main():
         pix = page.get_pixmap(dpi=300)
         img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
 
-        # Save temp image (GOT-OCR2 expects file path)
-        with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp:
-            img.save(tmp, format="PNG")
-            tmp_path = tmp.name
-
-        try:
-            # Run OCR - use "ocr" for plain text, "format" for markdown/LaTeX
-            result = model.chat(tokenizer, tmp_path, ocr_type="format")
-            full_text += f"\n--- Page {page_num + 1} ---\n"
-            full_text += result + "\n"
-        finally:
-            os.remove(tmp_path)
+        # The processor takes a PIL image directly - no temp file needed.
+        inputs = processor(img, return_tensors="pt").to(device)
+        with torch.no_grad():
+            generated = model.generate(
+                **inputs,
+                do_sample=False,
+                tokenizer=processor.tokenizer,
+                stop_strings="<|im_end|>",
+                max_new_tokens=2048,
+            )
+        result = processor.decode(
+            generated[0, inputs["input_ids"].shape[1]:],
+            skip_special_tokens=True,
+        )
+        full_text += f"\n--- Page {page_num + 1} ---\n"
+        full_text += result + "\n"
 
     doc.close()
 
     print(full_text)
 
     # Save output
-    with open("output.txt", "w", encoding="utf-8") as f:
+    os.makedirs(os.path.join(project_root, "output"), exist_ok=True)
+    with open(os.path.join(project_root, "output", "got_ocr2.txt"), "w", encoding="utf-8") as f:
         f.write(full_text)
     print("\nOutput saved to output.txt")
 

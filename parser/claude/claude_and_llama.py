@@ -60,13 +60,20 @@ from langchain_ollama.llms import OllamaLLM
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
-from langchain.chains import RetrievalQA
+# LangChain 1.x moved the legacy chains into `langchain_classic`. Try the new
+# home first so a current install works, and fall back so 0.3.x still does.
+try:
+    from langchain_classic.chains import RetrievalQA
+except ImportError:  # langchain < 1.0
+    from langchain.chains import RetrievalQA
 from langchain_core.prompts import PromptTemplate
 
 # Get the project root directory
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 sys.path.append(project_root)
 
+
+from utils.cli import input_pdf
 import utils.utils as utils
 
 # Load environment variables
@@ -168,10 +175,10 @@ def main():
 
     # STEP 1: Read the PDF and base64 encoding
 
-    #file_path = project_root+"/input/sample-1.pdf" # Table in pdf
-    #file_path = project_root+"/input/sample-2.pdf" # Image based simple table in pdf
-    #file_path = project_root+"/input/sample-3.pdf" # Image based complex table in pdf
-    file_path = project_root+"/input/sample-4.pdf"  # Complex PDF where many text contents and tables are in image 
+    # Which PDF to process. Override with --file, e.g.
+    #   python parser/claude/claude_and_llama.py --file input/sample-3.pdf
+    # Run with --list to see every bundled sample.
+    file_path = input_pdf("sample-1.pdf")
     base64_encoded_list = utils.read_pdf_in_pairs(file_path)
     
     # STEP 2: Extract PDF content as text using Claude 3.7 Sonnet API
@@ -180,7 +187,8 @@ def main():
         structured_content += "\n" + extract_pdf_content(content)
     
     # Output extracted content to output.txt
-    with open("output.txt", 'w') as file:
+    os.makedirs(os.path.join(project_root, "output"), exist_ok=True)
+    with open(os.path.join(project_root, "output", "claude_and_llama.txt"), "w", encoding="utf-8") as file:
         file.write(structured_content)
 
     # STEP 3: Split & chunk extracted PDF text

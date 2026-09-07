@@ -21,11 +21,15 @@ Characteristics:
    - Limited support for complex layouts and tables
 """
 import os
+import sys
 from langchain_community.document_loaders import PyPDFLoader
 
 # Get the project root directory
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
+sys.path.append(project_root)
+
+from utils.cli import input_pdf
 def main():
    """
    Main function to demonstrate PDF content extraction using PyPDF2.
@@ -50,11 +54,10 @@ def main():
        None: Prints extracted content to console
    """
    # Select PDF file to process - uncomment desired sample file
-   #file_path = project_root+"/input/sample-1.pdf" # Table in pdf
-   #file_path = project_root+"/input/sample-2.pdf" # Image based simple table in pdf
-   #file_path = project_root+"/input/sample-3.pdf" # Image based complex table in pdf
-   file_path = project_root+"/input/sample-4.pdf"  # Complex PDF with mixed content types
-   #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts 
+   # Which PDF to process. Override with --file, e.g.
+   #   python parser/pypdf/lc_pypdf.py --file input/sample-3.pdf
+   # Run with --list to see every bundled sample.
+   file_path = input_pdf("sample-1.pdf")
    
    # Initialize PyPDF loader
    # Uses PyPDF2 internally for basic PDF text extraction

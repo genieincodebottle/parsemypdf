@@ -30,6 +30,8 @@ import sys
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 sys.path.append(project_root)
 
+
+from utils.cli import input_pdf
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -48,11 +50,10 @@ def main():
     from azure.core.credentials import AzureKeyCredential
 
     # Configure input PDF path
-    #file_path = project_root + "/input/sample-1.pdf"  # Standard tables
-    #file_path = project_root + "/input/sample-2.pdf"  # Image-based simple tables
-    file_path = project_root + "/input/sample-3.pdf"   # Image-based complex tables
-    #file_path = project_root + "/input/sample-4.pdf"  # Mixed content
-    #file_path = project_root + "/input/sample-5.pdf"  # Multi-column texts
+    # Which PDF to process. Override with --file, e.g.
+    #   python parser/azure-doc-intelligence/azure_di_.py --file input/sample-3.pdf
+    # Run with --list to see every bundled sample.
+    file_path = input_pdf("sample-1.pdf")
 
     # Initialize the client
     client = DocumentIntelligenceClient(
@@ -94,7 +95,8 @@ def main():
     print(full_text)
 
     # Save output
-    with open("output.txt", "w", encoding="utf-8") as f:
+    os.makedirs(os.path.join(project_root, "output"), exist_ok=True)
+    with open(os.path.join(project_root, "output", "azure_di.txt"), "w", encoding="utf-8") as f:
         f.write(full_text)
     print("\nOutput saved to output.txt")
 

@@ -18,11 +18,15 @@ Note:
     complex layouts or image-based content.
 """
 import os
+import sys
 from langchain_community.document_loaders import PDFMinerLoader
 
 # Get the project root directory
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
+sys.path.append(project_root)
+
+from utils.cli import input_pdf
 def main():
     """
     Main function to demonstrate PDF content extraction.
@@ -38,11 +42,10 @@ def main():
         None: Prints extracted content to console
     """
     # File path selection - uncomment desired sample file
-    #file_path = project_root+"/input/sample-1.pdf" # Table in pdf
-    #file_path = project_root+"/input/sample-2.pdf" # Image based simple table in pdf
-    #file_path = project_root+"/input/sample-3.pdf" # Image based complex table in pdf
-    file_path = project_root+"/input/sample-4.pdf"  # Complex PDF where many text contents and tables are in image
-    #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts 
+    # Which PDF to process. Override with --file, e.g.
+    #   python parser/pdfminer/lc_pdfminer.py --file input/sample-3.pdf
+    # Run with --list to see every bundled sample.
+    file_path = input_pdf("sample-1.pdf")
     
     # Initialize PDFMiner loader with specified file
     loader = PDFMinerLoader(file_path)
@@ -57,7 +60,8 @@ def main():
         extracted_content += doc.page_content+ "\n"
 
     # Output extracted content to output.txt
-    with open("output.txt", 'w') as file:
+    os.makedirs(os.path.join(project_root, "output"), exist_ok=True)
+    with open(os.path.join(project_root, "output", "lc_pdfminer.txt"), "w", encoding="utf-8") as file:
         file.write(extracted_content)
 
 if __name__ == "__main__":

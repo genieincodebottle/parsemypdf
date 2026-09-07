@@ -40,23 +40,57 @@ from langchain_ollama.llms import OllamaLLM
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
-from langchain.chains import RetrievalQA
+# LangChain 1.x moved the legacy chains into `langchain_classic`. Try the new
+# home first so a current install works, and fall back so 0.3.x still does.
+try:
+    from langchain_classic.chains import RetrievalQA
+except ImportError:  # langchain < 1.0
+    from langchain.chains import RetrievalQA
 from langchain_core.prompts import PromptTemplate
 
 # Get the project root directory
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 sys.path.append(project_root)
 
+
+from utils.cli import input_pdf
 from utils.pdf_to_image import PDFToJPGConverter
 
 # Initialize environment variables from .env file
 load_dotenv()
 
 # Validate and set OpenAI API key
+# OpenAI is paid. Groq exposes an OpenAI-COMPATIBLE endpoint, so this same
+# code runs against a free key by pointing base_url at it. Set GROQ_API_KEY
+# with no OPENAI_API_KEY and this picks it up automatically.
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4.1")
+
+# The fallback has to be a VISION model: this parser renders each page to an
+# image and sends image content blocks. Groq's gpt-oss models are text-only
+# and reject those with "messages[0].content must be a string", so Gemini is
+# the free option here, through its own OpenAI-compatible endpoint.
+if not OPENAI_API_KEY and os.getenv("GEMINI_API_KEY"):
+    OPENAI_API_KEY = os.environ["GEMINI_API_KEY"]
+    OPENAI_BASE_URL = OPENAI_BASE_URL or (
+        "https://generativelanguage.googleapis.com/v1beta/openai/"
+    )
+    OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gemini-flash-latest")
+    print(f"Using Gemini's OpenAI-compatible endpoint with {OPENAI_MODEL}")
+
 if not OPENAI_API_KEY:
-    raise ValueError("OPENAI_API_KEY not set in environment variables")
+    raise ValueError(
+        "No key found. This parser needs a VISION model.\n"
+        "  OPENAI_API_KEY  -> paid:  https://platform.openai.com/api-keys\n"
+        "  GEMINI_API_KEY  -> free:  https://aistudio.google.com/apikey\n"
+        "Either one works; the script picks whichever is set."
+    )
+
+os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 os.environ["API_KEY"] = OPENAI_API_KEY
+if OPENAI_BASE_URL:
+    os.environ["OPENAI_BASE_URL"] = OPENAI_BASE_URL
 
 def encode_image_to_base64(image_path):
     """
@@ -91,7 +125,7 @@ def get_completion_response(client, base64_image):
         maintaining the original structure and formatting tables in Markdown.
     """
     response = client.chat.completions.create(
-        model="gpt-4.1", #gpt-4.1-mini, #gpt-4o-mini, #gpt-5.6-terra, #gpt-5.6-luna
+        model=OPENAI_MODEL,   # override with OPENAI_MODEL in .env
         messages=[
             {
                 "role": "user",
@@ -241,11 +275,10 @@ def main():
 
     # Configure input PDF path
     # Different sample types available for processing:
-    #file_path = project_root+"/input/sample-1.pdf"  # Simple table-based PDF
-    #file_path = project_root+"/input/sample-2.pdf"  # PDF with image-based simple tables
-    file_path = project_root+"/input/sample-3.pdf"   # PDF with complex image-based tables
-    #file_path = project_root+"/input/sample-4.pdf"  # PDF with mixed content types
-    #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts
+    # Which PDF to process. Override with --file, e.g.
+    #   python parser/openai/openai_.py --file input/sample-3.pdf
+    # Run with --list to see every bundled sample.
+    file_path = input_pdf("sample-1.pdf")
 
     # Set up PDF to image conversion
     converter = PDFToJPGConverter()

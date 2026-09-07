@@ -21,21 +21,24 @@ Note: Requires Ghostscript to be properly configured on the system
 """
 # Import camelot library for extracting tables from PDFs
 import os
+import sys
 import camelot
 
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
+sys.path.append(project_root)
+
+from utils.cli import input_pdf
 def main():
     """
     Main function to extract tables from PDF files using Camelot library.
     """
     # Define input PDF file path
     # Multiple test files available for different scenarios:
-    file_path = project_root+"/input/sample-1.pdf"  # Contains standard table format
-    #file_path = project_root+"/input/sample-2.pdf" # Contains image-based simple table
-    #file_path = project_root+"/input/sample-3.pdf" # Contains image-based complex table
-    #file_path = project_root+"/input/sample-4.pdf" # Complex PDF with mixed content (text and tables in images)
-    #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts 
+    # Which PDF to process. Override with --file, e.g.
+    #   python parser/camelot/camelot_.py --file input/sample-3.pdf
+    # Run with --list to see every bundled sample.
+    file_path = input_pdf("sample-1.pdf")
     
     # Extract tables from the PDF
     # camelot.read_pdf returns a TableList object containing all detected tables

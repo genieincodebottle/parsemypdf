@@ -47,18 +47,27 @@ Note: This implementation runs entirely locally and doesn't require API keys
 or cloud services, but needs sufficient system resources for LLM operations.
 """
 import os
+import sys
 from typing import List
 from docling.document_converter import DocumentConverter  # For PDF content extraction
 from langchain_ollama.llms import OllamaLLM  # Local LLM integration
 from langchain_text_splitters import RecursiveCharacterTextSplitter  # For text chunking
 from langchain_huggingface import HuggingFaceEmbeddings  # For text embeddings
 from langchain_community.vectorstores import FAISS  # Vector database
-from langchain.chains import RetrievalQA  # For question-answering pipeline
+# LangChain 1.x moved the legacy chains into `langchain_classic`. Try the new
+# home first so a current install works, and fall back so 0.3.x still does.
+try:
+    from langchain_classic.chains import RetrievalQA
+except ImportError:  # langchain < 1.0
+    from langchain.chains import RetrievalQA
 from langchain_core.prompts import PromptTemplate  # For customizing LLM prompts
 
 # Get the project root directory
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
+sys.path.append(project_root)
+
+from utils.cli import input_pdf
 def extract_pdf_content(file_path) -> str:
     """
     Extract structured content from PDF using Docling library
@@ -145,15 +154,15 @@ def main():
     """
     # STEP 1: Extract PDF content as text using Claude 3.5 Sonnet API
     # Different PDF types for testing
-    #file_path = project_root+"/input/sample-1.pdf" # Table in pdf
-    #file_path = project_root+"/input/sample-2.pdf" # Image based simple table in pdf
-    #file_path = project_root+"/input/sample-3.pdf" # Image based complex table in pdf
-    file_path = project_root+"/input/sample-4.pdf"  # Complex PDF with text and tables in images
-    #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts 
+    # Which PDF to process. Override with --file, e.g.
+    #   python parser/docling/docling_and_llama.py --file input/sample-3.pdf
+    # Run with --list to see every bundled sample.
+    file_path = input_pdf("sample-1.pdf")
     
     structured_content = extract_pdf_content(file_path)
     # Output extracted content to output.txt
-    with open("output.txt", 'w') as file:
+    os.makedirs(os.path.join(project_root, "output"), exist_ok=True)
+    with open(os.path.join(project_root, "output", "docling_and_llama.txt"), "w", encoding="utf-8") as file:
         file.write(structured_content)
     
     # STEP 2: Split extracted PDF text into smaller chunks for processing

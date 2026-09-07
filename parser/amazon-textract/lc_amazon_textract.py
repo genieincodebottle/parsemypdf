@@ -27,11 +27,15 @@ Advantages:
    - Integration with AWS services
 """
 import os
+import sys
 import boto3
 from langchain_community.document_loaders import AmazonTextractPDFLoader
 
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
+sys.path.append(project_root)
+
+from utils.cli import input_pdf
 def main():
     """
     Main function to demonstrate PDF content extraction using Amazon Textract.
@@ -56,11 +60,10 @@ def main():
         None: Prints extracted content to console
     """
     # Local file path for processing
-    file_path = project_root+"/input/sample-1.pdf"  # Contains standard table format
-    #file_path = project_root+"/input/sample-2.pdf" # Contains image-based simple table
-    #file_path = project_root+"/input/sample-3.pdf" # Contains image-based complex table
-    #file_path = project_root+"/input/sample-4.pdf" # Complex PDF with mixed content (text and tables in images)
-    #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts 
+    # Which PDF to process. Override with --file, e.g.
+    #   python parser/amazon-textract/lc_amazon_textract.py --file input/sample-3.pdf
+    # Run with --list to see every bundled sample.
+    file_path = input_pdf("sample-1.pdf")
 
     # Initialize AWS Textract client
     # Requires properly configured AWS credentials
@@ -89,7 +92,8 @@ def main():
         extracted_content += doc.page_content+ "\n"
 
     # Output extracted content to output.txt
-    with open("output.txt", 'w') as file:
+    os.makedirs(os.path.join(project_root, "output"), exist_ok=True)
+    with open(os.path.join(project_root, "output", "lc_amazon_textract.txt"), "w", encoding="utf-8") as file:
         file.write(extracted_content)
 
 if __name__ == "__main__":

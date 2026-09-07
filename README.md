@@ -11,148 +11,289 @@
     <a target="_blank" href="https://x.com/zero2nn"><img src="https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=%20%40zero2nn"></a>
 </div>
 
-## <a target="_blank" href="https://github.com/genieincodebottle/generative-ai/blob/main/GenAI_Roadmap.md">GenAI Roadmap - 2025</a></h3>
+# ParseMyPDF
 
-## [OCR with Multimodal | Vision Language Models](/vlm_ocr/)
+> **Learn how to build this project step-by-step on [AI-ML Companion](https://aimlcompanion.ai/)**. Interactive ML learning platform with guided walkthroughs, architecture decisions, and hands-on challenges.
 
-## Complex PDF Parsing
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.43+-FF4B4B)
+![Parsers](https://img.shields.io/badge/parsers-23-orange)
+![Start](https://img.shields.io/badge/start-no%20API%20key-brightgreen)
 
-Comprehensive example code for extracting content from complex PDFs with mixed elements, including text and image data extraction. Includes **two Streamlit apps**:
+**Twenty-three PDF parsers and nine vision-OCR paths, pointed at the same five
+deliberately awkward PDFs. Nine of them need no API key at all, so you can see
+the comparison working before signing up for anything.**
 
-1. **PDF Parser & RAG Evaluator** (`pdf_parser_app.py`) - Parse PDFs with 13 different parsers + ask questions using RAG
-2. **VLM OCR App** (`vlm_ocr_app.py`) - Extract text from images using Vision Language Models (Claude, Gemini, GPT-4o, Mistral-OCR, Ollama, OmniAI)
+---
 
-### Also, check -> [PDF Parsing Guide](https://github.com/genieincodebottle/parse-my-pdf/blob/main/pdf-parsing-guide.pdf)
+## 1. Why this exists
 
-YouTube Video: Walkthrough on setup and running the app
+"Extract the text from a PDF" sounds solved until the PDF has a merged cell, a
+rotated header, a scanned table, or two columns. Then every library gives a
+different wrong answer, and the only way to choose is to run several on your
+own document and read the output.
 
-[![Watch the video](https://img.youtube.com/vi/26thuRsxiUc/0.jpg)](https://www.youtube.com/watch?v=26thuRsxiUc)
+Here is that comparison, already wired up. And here is the thing worth
+internalising, measured on the bundled samples:
 
-### Implementation Options
+| Sample | Pages | Text layer | What that means |
+|---|---|---|---|
+| `sample-1.pdf` | 1 | 396 chars | ordinary tables, any parser handles it |
+| `sample-2.pdf` | 1 | **2 chars** | effectively a scan - plain parsers return nothing |
+| `sample-3.pdf` | 2 | **42 chars** | effectively a scan, with merged cells |
+| `sample-4.pdf` | 6 | 9,019 chars | mixed text, tables and images |
+| `sample-5.pdf` | 3 | 4,564 chars | multi-column; reading order is the problem |
 
-#### 1. Paid - API Based Methods
+`sample-2` and `sample-3` have almost no text layer. **A parser that returns
+nothing on them is not broken - it is telling you the document needs OCR or a
+vision model.** That distinction is most of the value here.
 
-| Model Provider | Models | Details | Example Code | Doc |
-| -------------- | -------|---------|:------------:|:---:|
-| Anthropic | `claude-opus-5`, `claude-sonnet-5`, `claude-sonnet-4-6`, `claude-haiku-4-5` | Claude is a multimodal AI model family from Anthropic, capable of processing both text and images. It excels in visual reasoning tasks, such as interpreting charts and graphs, and can accurately transcribe text from imperfect images. Supports native PDF input via base64 encoding. | [Code](/parser/claude/) | [Doc](https://www.anthropic.com/claude/)
-| Gemini | `gemini-pro-latest`, `gemini-flash-latest`, `gemini-flash-lite-latest`, `gemini-2.5-flash` | These are rolling aliases rather than pinned IDs, so they track Google's current generation instead of 404ing when a version retires. They offer superior speed, native tool integration, and multimodal generation capabilities. Support 1M token context window, native PDF input, and multimodal outputs. | [Code](/parser/gemini/) | [Doc](https://ai.google.dev/gemini-api/docs/models)
-| OpenAI | `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna`, `gpt-4.1`, `gpt-4.1-mini` | GPT-5.6 and GPT-4.1 are multimodal models capable of processing text, images, and audio with high efficiency. It enhances text generation, reasoning, and vision tasks while improving latency and cost. | [Code](/parser/openai/) | [Doc](https://platform.openai.com/docs/models/gpt-4o)
-| Mistral-OCR | `mistral-ocr-latest` | Mistral OCR is an advanced AI-powered OCR API for extracting structured text, tables, and equations from documents with high accuracy. Supports multiple languages, processes up to 2,000 pages/min, and provides structured markdown output. | [Code](/parser/mistral_ocr/) | [Doc](https://mistral.ai/news/mistral-ocr)
-| Unstructured IO | -- | Advanced content partitioning and classification. Processes PDFs, HTML, Word, and images. The Enterprise ETL Platform automates data ingestion and cleaning, integrating seamlessly with GenAI stacks. | [Code](/parser/unstructured-io/) | [Doc](https://docs.unstructured.io/welcome)
-| Llama-Parse | -- | GenAI-native document parser for LLM applications like RAG and agents. Supports PDFs, PowerPoint, Word, Excel, and HTML. Free users get 1,000 pages/day. | [Code](/parser/llama-parse/) | [Doc](https://docs.llamaindex.ai/en/stable/llama_cloud/llama_parse/)
-| Amazon Textract | -- | AWS ML service that extracts text, forms, tables, and signatures from scanned documents. Goes beyond OCR by preserving structure for easy data integration. Supports PNG, JPEG, TIFF, and PDF. | [Code](/parser/amazon-textract/) | [Doc](https://aws.amazon.com/textract/)
-| Azure Doc Intelligence | -- | Azure AI service (formerly Form Recognizer) for extracting text, tables, key-value pairs, and structure from documents. Supports handwriting, scanned docs, and custom models. Free tier: 500 pages/month. | [Code](/parser/azure-doc-intelligence/) | [Doc](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/)
-| Zerox | -- | Vision model-based OCR by OmniAI. Converts PDF pages to images, then uses GPT-4o/mini for extraction. Supports structured data extraction via schemas. Clean markdown output. | [Code](/parser/zerox/) | [Doc](https://github.com/getomni-ai/zerox)
+A second measured example: on `sample-5`, pypdf returns 32 bytes while PyMuPDF
+reads 4,564 characters from the same file. Same PDF, same machine, different
+library.
 
+## 2. Quick start
 
-#### 2. Open Weight - Local Methods
+### Prerequisites
 
-| Model/Framework Provider | Name | Details | Example Code | Doc |
-| -------------- | -------|---------|:------------:|:---:|
-| Meta | `llama3.2-vision` | Llama 3.2-11B Vision is a multimodal AI model designed to process both text and images. It excels in visual recognition, image reasoning, captioning, and answering general questions about images. 128K token context length. | [Code](/parser/llama-vision/) | [Doc](https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices)
-| IBM | `Docling` | Excellent for complex PDFs with mixed content. Simplifies document processing, parsing diverse formats with advanced PDF understanding and seamless integrations with the GenAI ecosystem. | [Code](/parser/docling/) | [Doc](https://docling-project.github.io/docling/)
-| Microsoft | `MarkItDown` | Converts various files to Markdown. Supports: PDF, PowerPoint, Word, Excel, Images (EXIF + OCR), Audio (EXIF + speech transcription), HTML, CSV, JSON, XML, ZIP files. | [Code](/parser/markitdown/) | [Doc](https://github.com/microsoft/markitdown)
-| -- | `Marker` | Quickly converts PDFs and images to Markdown, JSON, and HTML with high accuracy. Supports all languages and document types, handles tables, forms, math, links, and code blocks. Runs on GPU, CPU, or MPS. | [Code](https://github.com/VikParuchuri/marker?tab=readme-ov-file#installation) | [Doc](https://github.com/VikParuchuri/marker)
-| Camelot-Dev | `Camelot` | Specialized table extraction from text-based PDFs using "Lattice" (grid-based) and "Stream" (whitespace-based) methods. Outputs tables as pandas DataFrames. | [Code](/parser/camelot/) | [Doc](https://github.com/camelot-dev/camelot)
-| PyPdf | `pypdf` | Free, open-source, pure-Python PDF library for splitting, merging, cropping, transforming pages, and extracting text and metadata. | [Code](/parser/pypdf/) | [Doc](https://pypdf.readthedocs.io/en/stable/)
-| PDFMiner | `pdfminer.six` | Text and layout extraction from PDFs, supporting various fonts and complex layouts. Enables conversion to HTML/XML and automatic layout analysis. | [Code](/parser/pdfminer/) | [Doc](https://pdfminersix.readthedocs.io/en/latest/)
-| Artifex Software | `PyMuPDF` | Fast Python library for extracting, analyzing, converting, and manipulating PDFs, XPS, and eBooks. Supports text/image extraction, rendering to PNG/SVG, and conversion to HTML, XML, JSON. | [Code](/parser/pymupdf/) | [Doc](https://pymupdf.readthedocs.io/en/latest/)
-| Google | `PDFium` | Google's open-source C++ library for viewing, parsing, and rendering PDFs. Powers Chromium, enabling text extraction, metadata access, and page rendering. | [Code](/parser/pypdfium/) | [Doc](https://pdfium.googlesource.com/pdfium/)
-| LangChain | `PyPDFDirectory` | Batch PDF content extraction using PyPDF Directory Loader. Process all PDFs in a folder at once. | [Code](/parser/pypdfdirectory/) | [Doc](https://python.langchain.com/api_reference/community/document_loaders/langchain_community.document_loaders.pdf.PyPDFDirectoryLoader.html)
-| -- | `PDFPlumber` | Text and layout extraction. Extends pdfminer.six for PDF data extraction, handling text, tables, and shapes with visual debugging. Excels at extracting tables into pandas DataFrames. | [Code](/parser/pdfplumber/) | [Doc](https://github.com/jsvine/pdfplumber)
-| Datalab | `Surya OCR` | Lightweight OCR toolkit supporting 90+ languages with line-level detection, layout analysis, and table recognition. By the creator of Marker. Outperforms Tesseract on most benchmarks. Runs locally, no API key needed. | [Code](/parser/surya-ocr/) | [Doc](https://github.com/datalab-to/surya)
-| StepFun | `GOT-OCR2` | Unified end-to-end 580M parameter model for text, tables, charts, equations, and LaTeX. Supports formatted markdown output. Runs on consumer GPUs (8GB+ VRAM). | [Code](/parser/got-ocr2/) | [Doc](https://github.com/Ucas-HaoranWei/GOT-OCR2.0)
+Python 3.10 or higher, and git.
 
-### Setup Instructions
+### Install with uv
 
-#### Prerequisites
-- Python 3.10 or higher
-- pip (Python package installer)
+[uv](https://docs.astral.sh/uv/) is a fast drop-in replacement for pip and
+venv. Install it once:
 
-#### Installation
+```bash
+pip install uv
+```
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/genieincodebottle/parsemypdf.git
-   cd parsemypdf
-   ```
+Then clone and create the environment:
 
-2. Create a virtual environment:
-   ```bash
-   pip install uv  # if uv not installed
-   uv venv
-   .venv\Scripts\activate  # On Linux/Mac -> source .venv/bin/activate
-   ```
+```bash
+git clone https://github.com/genieincodebottle/parsemypdf.git
+cd parsemypdf
 
-3. Install dependencies:
-   ```bash
-   uv pip install -r requirements.txt
-   ```
+uv venv
+```
 
-4. Configure environment variables:
+Activate it:
 
-   Rename `.env.example` to `.env` and add the API keys you need.
+```bash
+# Windows PowerShell
+.venv\Scripts\activate
 
-   > **You don't need ALL keys.** Only add keys for the parsers/LLMs you want to use. Start with a free one.
+# Windows cmd
+.venv\Scripts\activate.bat
 
-   ```bash
-   # --- Free-tier (no credit card) ---
-   GROQ_API_KEY=your_key_here       # Free - https://console.groq.com/keys
-   GOOGLE_API_KEY=your_key_here     # Free - https://aistudio.google.com/apikey
+# Linux / macOS
+source .venv/bin/activate
+```
 
-   # --- Paid ---
-   ANTHROPIC_API_KEY=your_key_here  # https://console.anthropic.com/settings/keys
-   OPENAI_API_KEY=your_key_here     # https://platform.openai.com/api-keys
-   MISTRAL_API_KEY=your_key_here    # https://console.mistral.ai/api-keys
-   UNSTRUCTURED_API_KEY=your_key_here # https://unstructured.io/api-key-free
-   LLAMA_CLOUD_API_KEY=your_key_here  # https://cloud.llamaindex.ai/api-key
-   OMNI_API_KEY=your_key_here       # https://app.getomni.ai/settings/account
+Install the dependencies:
 
-   # Azure Document Intelligence (optional)
-   AZURE_DI_ENDPOINT=your_endpoint  # https://portal.azure.com
-   AZURE_DI_KEY=your_key_here
-   ```
+```bash
+uv pip install -r requirements.txt
+```
 
-5. Install Ollama & Models (optional, for local processing):
-   - Download Ollama:
-     - **Windows**: https://ollama.com/download/windows (Requires Windows 10 or later)
-     - **Linux**: `curl https://ollama.ai/install.sh | sh`
-   - Pull required models:
-     ```bash
-     ollama pull llama3.1
-     ollama pull x/llama3.2-vision:11b
-     ollama pull gemma3:4b
-     ollama pull qwen2.5vl:7b
-     ollama pull minicpm-v:8b
-     ```
+This is a large install - roughly 200 packages including torch, docling and
+surya - because the point of the repo is breadth. If you only want one or two
+parsers, see [section 6](#6-installing-only-what-you-need).
 
-6. **Run the PDF Parser & RAG Evaluator app:**
-   ```bash
-   streamlit run pdf_parser_app.py
-   ```
+### Run one, with no API key
 
-7. **Run the VLM OCR app:**
-   ```bash
-   streamlit run vlm_ocr_app.py
-   ```
+```bash
+python parser/pymupdf/lc_pymupdf.py
+```
 
-8. **Run individual parsers:**
-   - Place PDF files in the `input/` directory
-   - Run any parser script from the `parser/` folder
+That is the whole first step. No `.env`, no signup, no model download.
 
-#### Example PDFs (in `input/` folder)
-| File | Description |
-|------|-------------|
-| `sample-1.pdf` | Standard tables |
-| `sample-2.pdf` | Image-based simple tables |
-| `sample-3.pdf` | Image-based complex tables |
-| `sample-4.pdf` | Mixed content (text, tables, images) |
-| `sample-5.pdf` | Multi-column texts |
+### Try a harder document
 
-### Important Notes
-- System resources needed for local multimodal model operations
-- API keys required for API/cloud-based implementations
-- Factor in PDF complexity (tables, merged cells, scanned documents, handwritten text, multi-column layouts, rotated text, embedded images) when selecting a parser
-- All frameworks, libraries, and multimodal models provided in one place for testing
-- Ghostscript is required for Camelot (`pip install ghostscript` + system install)
-- `torch` is a heavy dependency (~2GB+). It is required for HuggingFace embeddings and local models. If you only need API-based parsers, you can skip it
+Every parser takes `--file`. You do **not** need to edit any source code:
+
+```bash
+python parser/pymupdf/lc_pymupdf.py --file input/sample-5.pdf
+python parser/pymupdf/lc_pymupdf.py --file /path/to/your/own.pdf
+python parser/pymupdf/lc_pymupdf.py --list      # list the bundled samples
+```
+
+Results are written to `output/<parser-name>.txt`, so runs from different
+parsers sit side by side instead of overwriting each other.
+
+### The UI
+
+```bash
+streamlit run pdf_parser_app.py     # all PDF parsers, plus RAG Q&A
+streamlit run vlm_ocr_app.py        # vision-language OCR paths
+```
+
+<img src="images/ui.png" alt="The parser comparison UI"/>
+
+## 3. Keys - what you actually need
+
+**Nine parsers need nothing.** Start there. Add a key only when you want a
+vision model for a scanned document.
+
+| Key | Unlocks | Cost | Where |
+|---|---|---|---|
+| none | pypdf, PyMuPDF, pdfplumber, pdfminer, pypdfium, PyPDFDirectory, Camelot, MarkItDown, Docling | free | - |
+| `GOOGLE_API_KEY` | Gemini parser, and the OpenAI parser's free fallback | free tier | [aistudio.google.com/apikey](https://aistudio.google.com/apikey) |
+| `ANTHROPIC_API_KEY` | Claude parsers | paid | [console.anthropic.com](https://console.anthropic.com/settings/keys) |
+| `OPENAI_API_KEY` | OpenAI parser, Zerox | paid | [platform.openai.com](https://platform.openai.com/api-keys) |
+| `MISTRAL_API_KEY` <br>or `MISTRAL_AI_API_KEY` | Mistral OCR | paid | [console.mistral.ai](https://console.mistral.ai/api-keys) |
+| `LLAMA_CLOUD_API_KEY` <br>or `LLAMA_PARSE_API_KEY` | LlamaParse | 1,000 pages/day free | [cloud.llamaindex.ai](https://cloud.llamaindex.ai/api-key) |
+| `UNSTRUCTURED_API_KEY` | Unstructured.io - must be a **Serverless Partition** key, not a Platform key | free tier | [unstructured.io/api-key-free](https://unstructured.io/api-key-free) |
+| `AZURE_DI_ENDPOINT` + `AZURE_DI_KEY` | Azure Document Intelligence | 500 pages/month free | [Azure](https://learn.microsoft.com/azure/ai-services/document-intelligence/) |
+| AWS credentials | Amazon Textract | paid | your AWS account |
+
+```bash
+cp .env.example .env      # then fill in only what you need
+```
+
+**The OpenAI parser runs without an OpenAI key.** It renders each page to an
+image and needs a *vision* model, so when `OPENAI_API_KEY` is missing it uses
+Gemini's OpenAI-compatible endpoint with your free `GEMINI_API_KEY` instead.
+Nothing else in the script changes.
+
+### Local models, no key
+
+```bash
+# Install Ollama from https://ollama.com/download
+ollama pull llama3.1
+ollama pull x/llama3.2-vision:11b
+```
+
+GOT-OCR2 and Surya download their own weights on first run (about 1.5 GB and
+2 GB). No account needed, but the first run is slow.
+
+## 4. The parsers
+
+### No key required
+
+| Parser | Best at | Code |
+|---|---|---|
+| PyMuPDF | speed; the sensible default to try first | [parser/pymupdf](/parser/pymupdf/) |
+| pdfplumber | tables into DataFrames, visual debugging | [parser/pdfplumber](/parser/pdfplumber/) |
+| pypdf | split, merge, crop, basic text | [parser/pypdf](/parser/pypdf/) |
+| PDFMiner | text plus layout detail | [parser/pdfminer](/parser/pdfminer/) |
+| pdfium | the renderer behind Chromium | [parser/pypdfium](/parser/pypdfium/) |
+| PyPDFDirectory | batch extraction over a folder | [parser/pypdfdirectory](/parser/pypdfdirectory/) |
+| Camelot | tables with grid lines (lattice) or whitespace (stream) | [parser/camelot](/parser/camelot/) |
+| MarkItDown | many formats to Markdown | [parser/markitdown](/parser/markitdown/) |
+| Docling | complex PDFs with mixed content | [parser/docling](/parser/docling/) |
+
+### Local models, no key, but a download
+
+| Parser | Notes | Code |
+|---|---|---|
+| GOT-OCR2 | ~1.5 GB; strong on dense scanned pages | [parser/got-ocr2](/parser/got-ocr2/) |
+| Surya OCR | ~2 GB; 90+ languages with layout analysis | [parser/surya-ocr](/parser/surya-ocr/) |
+| Llama Vision | via Ollama; multimodal, fully local | [parser/llama-vision](/parser/llama-vision/) |
+
+### Cloud APIs
+
+| Provider | Models | Code |
+|---|---|---|
+| Gemini | `gemini-pro-latest`, `gemini-flash-latest`, `gemini-flash-lite-latest` | [parser/gemini](/parser/gemini/) |
+| Anthropic | `claude-opus-5`, `claude-sonnet-5`, `claude-sonnet-4-6`, `claude-haiku-4-5` | [parser/claude](/parser/claude/) |
+| OpenAI | `gpt-5.6-sol`, `gpt-4.1` - or free through Gemini | [parser/openai](/parser/openai/) |
+| Mistral OCR | `mistral-ocr-latest` | [parser/mistral_ocr](/parser/mistral_ocr/) |
+| LlamaParse | RAG-oriented parsing | [parser/llama-parse](/parser/llama-parse/) |
+| Unstructured.io | partitioning mixed documents | [parser/unstructured-io](/parser/unstructured-io/) |
+| Amazon Textract | forms, signatures, scans | [parser/amazon-textract](/parser/amazon-textract/) |
+| Azure Doc Intelligence | key-value pairs, handwriting | [parser/azure-doc-intelligence](/parser/azure-doc-intelligence/) |
+| Zerox | vision OCR via litellm | [parser/zerox](/parser/zerox/) |
+
+Nine more vision-OCR paths live in [vlm_ocr/](/vlm_ocr/).
+
+## 5. Choosing one
+
+A decision order, not a ranking:
+
+1. **Does the PDF have a text layer?** Try `PyMuPDF` first - it is instant and
+   free. If it returns almost nothing, the document is a scan and no plain
+   parser will help.
+2. **Tables with visible grid lines?** Camelot in lattice mode.
+3. **Scanned, rotated, or handwritten?** You need a vision model. Gemini's free
+   tier is the cheapest way to find out whether one can read it at all.
+4. **Multi-column text?** Reading order defeats most naive extractors; Docling
+   and the vision models handle it best.
+5. **Feeding a RAG pipeline?** LlamaParse and Docling emit chunk-friendly
+   structure rather than a wall of text.
+
+## 6. Installing only what you need
+
+The full `requirements.txt` is deliberately broad. For a single parser:
+
+```bash
+uv pip install pymupdf langchain-community      # PyMuPDF
+uv pip install pdfplumber langchain-community   # pdfplumber
+uv pip install camelot-py ghostscript           # Camelot
+uv pip install docling                          # Docling
+uv pip install google-genai                     # Gemini
+```
+
+## 7. If something goes wrong
+
+Every row below is an error that actually occurred while testing this repo from
+a clean install.
+
+| symptom | cause | fix |
+|---|---|---|
+| `ModuleNotFoundError: No module named 'langchain.chains'` | LangChain 1.x moved the legacy chains | fixed here; re-pull. Elsewhere use `langchain_classic.chains` |
+| `UnicodeEncodeError: 'charmap' codec can't encode` | writing extracted text without `encoding="utf-8"` on Windows | fixed here; all parsers now write UTF-8 |
+| `--file` seems ignored | an older copy had a second `file_path =` that silently overrode it | fixed here; re-pull |
+| `404 ... no longer available to new users` | a retired model ID | use the rolling aliases this repo now ships |
+| `429 insufficient_quota` on OpenAI | valid key, no credit | set `GEMINI_API_KEY`; the OpenAI parser uses it instead |
+| `messages[0].content must be a string` | a text-only model was sent an image | that parser needs a vision model - Gemini or GPT-4o class |
+| Camelot: `Ghostscript is not installed` | native dependency | install Ghostscript, then reopen the terminal |
+| `ValueError: ... key not set` and similar | that parser is cloud-only | use a no-key parser, or add the key |
+| Key is in `.env` but the script says it is missing | the variable name differs | Mistral accepts `MISTRAL_API_KEY` or `MISTRAL_AI_API_KEY`; LlamaParse accepts `LLAMA_CLOUD_API_KEY` or `LLAMA_PARSE_API_KEY` |
+| `401 API key is invalid` on Unstructured | you have a Platform key; the loader needs a Serverless Partition key | get one at [unstructured.io/api-key-free](https://unstructured.io/api-key-free) |
+| Ollama parsers: connection refused | daemon not running | `ollama serve` in another terminal |
+| Textract: `NoCredentialsError` | no AWS credentials | `aws configure` |
+| First run of GOT-OCR2 or Surya takes a long time | downloading 1.5-2 GB of weights | expected once; cached afterwards |
+| Llama Vision seems to hang | a vision model on CPU via Ollama | it is working; allow 5+ minutes, or use a GPU |
+| A parser returns empty text | the PDF has no text layer | that is the finding - use a vision model |
+
+## 8. Layout
+
+```
+pdf_parser_app.py      Streamlit UI for the PDF parsers, with RAG Q&A
+vlm_ocr_app.py         Streamlit UI for vision-language OCR
+parser/                one folder per parser, each runnable on its own
+vlm_ocr/               one folder per vision-OCR path
+utils/cli.py           the shared --file / --list handling
+input/                 the five sample PDFs
+output/                where parsers write their results
+pdf-parsing-guide.pdf  the visual guide to the whole subject
+```
+
+## 9. Honest limitations
+
+- **Nothing here is scored.** There is no ground truth for the samples and no
+  accuracy metric. The output is for you to read and judge, which is the honest
+  position: "correct" depends on your document.
+- **Cost is not shown.** Vision parsers charge per page. Test on one page.
+- **Vision output is non-deterministic.** The same PDF twice can give different
+  table formatting.
+- **Cloud parsers send your document to a third party.** If it is confidential,
+  use the no-key parsers - they make no network call.
+- **Verified end to end from a clean install:** the nine no-key parsers,
+  Docling, GOT-OCR2, Llama Vision, the Gemini parser, both Claude parsers, the
+  OpenAI parser through Gemini's endpoint, Mistral OCR and LlamaParse.
+  **Not verified:** Unstructured.io, Amazon Textract, Azure Document
+  Intelligence and Zerox - no usable key was available. Their model IDs and
+  imports are current, but they were not run.
+- **Two parsers are slow rather than broken.** Llama Vision runs a vision
+  model locally through Ollama and took over 5 minutes per document on CPU
+  here. Surya OCR downloads about 2 GB on first run, and on this machine then
+  asked for a newer CUDA driver. Neither is a code fault; both need patience
+  or a GPU.
+- **Some parsers need native dependencies** (Ghostscript for Camelot, Tesseract
+  for parts of Unstructured) that pip cannot install for you.
+
+## 10. Further reading
+
+- [PDF parsing guide (PDF)](./pdf-parsing-guide.pdf) - the visual companion
+- [GenAI Roadmap](https://github.com/genieincodebottle/generative-ai/blob/main/GenAI_Roadmap.md)

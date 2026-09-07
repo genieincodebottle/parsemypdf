@@ -10,6 +10,7 @@ Environment Setup:
         - MISTRAL_API_KEY in .env file
 """
 import os
+import sys
 from mistralai.client import Mistral
 from dotenv import load_dotenv
 from pathlib import Path
@@ -17,12 +18,20 @@ from pathlib import Path
 # Get the project root directory
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
+sys.path.append(project_root)
+
+from utils.cli import input_pdf
 # Initialize environment variables from .env file
 load_dotenv()
 # Validate and set Mistral API key
-MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
+# Both spellings are in circulation, so accept either rather than telling
+# someone their key is missing when it is sitting in .env under another name.
+MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY") or os.getenv("MISTRAL_AI_API_KEY")
 if not MISTRAL_API_KEY:
-    raise ValueError("MISTRAL_API_KEY not set in environment variables")
+    raise ValueError(
+        "No Mistral key found. Set MISTRAL_API_KEY (or MISTRAL_AI_API_KEY) "
+        "in .env. Get one at https://console.mistral.ai/api-keys"
+    )
 
 def main():
     """
@@ -32,11 +41,10 @@ def main():
     
     # Configure input PDF path
     # Different sample types available for processing:
-    #file_path = project_root+"/input/sample-1.pdf"  # Simple table-based PDF
-    #file_path = project_root+"/input/sample-2.pdf"  # PDF with image-based simple tables
-    file_path = project_root+"/input/sample-3.pdf"   # PDF with complex image-based tables
-    #file_path = project_root+"/input/sample-4.pdf"  # PDF with mixed content types
-    #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts
+    # Which PDF to process. Override with --file, e.g.
+    #   python parser/mistral_ocr/mistral.py --file input/sample-3.pdf
+    # Run with --list to see every bundled sample.
+    file_path = input_pdf("sample-1.pdf")
 
     try:
         file_name = os.path.basename(file_path)

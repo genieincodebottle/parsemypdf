@@ -26,25 +26,25 @@ project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 sys.path.append(project_root)
 
 
+
+from utils.cli import input_pdf
 def main():
     """
     Extract text from PDF using Surya OCR with layout analysis.
     """
     from surya.recognition import RecognitionPredictor
-    from surya.detection import DetectionPredictor
     import pymupdf
     from PIL import Image
 
     # Configure input PDF path
-    #file_path = project_root + "/input/sample-1.pdf"  # Standard tables
-    #file_path = project_root + "/input/sample-2.pdf"  # Image-based simple tables
-    file_path = project_root + "/input/sample-3.pdf"   # Image-based complex tables
-    #file_path = project_root + "/input/sample-4.pdf"  # Mixed content
-    #file_path = project_root + "/input/sample-5.pdf"  # Multi-column texts
+    # Which PDF to process. Override with --file, e.g.
+    #   python parser/surya-ocr/surya_ocr_.py --file input/sample-3.pdf
+    # Run with --list to see every bundled sample.
+    file_path = input_pdf("sample-1.pdf")
 
-    # Initialize Surya predictors
+    # Initialize the Surya predictor. Detection is run internally from 0.18
+    # onward, so there is no detection predictor to pass in any more.
     recognition_predictor = RecognitionPredictor()
-    detection_predictor = DetectionPredictor()
 
     # Convert PDF pages to images
     doc = pymupdf.open(file_path)
@@ -55,8 +55,9 @@ def main():
         images.append(img)
     doc.close()
 
-    # Run OCR on all pages (surya 0.17+ API: call recognition_predictor directly)
-    results = recognition_predictor(images, det_predictor=detection_predictor)
+    # Run OCR on all pages. Surya 0.18 removed the `det_predictor` keyword -
+    # passing it raises TypeError on any current install.
+    results = recognition_predictor(images)
 
     # Extract text from results
     full_text = ""
@@ -68,7 +69,8 @@ def main():
     print(full_text)
 
     # Save output
-    with open("output.txt", "w", encoding="utf-8") as f:
+    os.makedirs(os.path.join(project_root, "output"), exist_ok=True)
+    with open(os.path.join(project_root, "output", "surya_ocr.txt"), "w", encoding="utf-8") as f:
         f.write(full_text)
     print("\nOutput saved to output.txt")
 

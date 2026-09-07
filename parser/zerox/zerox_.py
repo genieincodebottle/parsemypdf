@@ -25,6 +25,8 @@ import asyncio
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 sys.path.append(project_root)
 
+
+from utils.cli import input_pdf
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -36,15 +38,25 @@ def main():
     from pyzerox import zerox
 
     # Configure input PDF path
-    #file_path = project_root + "/input/sample-1.pdf"  # Standard tables
-    #file_path = project_root + "/input/sample-2.pdf"  # Image-based simple tables
-    file_path = project_root + "/input/sample-3.pdf"   # Image-based complex tables
-    #file_path = project_root + "/input/sample-4.pdf"  # Mixed content
-    #file_path = project_root + "/input/sample-5.pdf"  # Multi-column texts
+    # Which PDF to process. Override with --file, e.g.
+    #   python parser/zerox/zerox_.py --file input/sample-3.pdf
+    # Run with --list to see every bundled sample.
+    file_path = input_pdf("sample-1.pdf")
 
-    # Select the vision model to use
-    model = "gpt-4o-mini"  # Cost-effective option (~$0.01/page)
-    #model = "gpt-4o"      # Higher accuracy but more expensive
+    # Zerox routes through litellm, so any vision model litellm supports works.
+    # It needs a VISION model: Groq's gpt-oss models are text-only, so there is
+    # no free fallback here the way there is for the plain OpenAI parser.
+    model = os.getenv("ZEROX_MODEL", "gpt-4o-mini")  # ~$0.01/page
+    #model = "gpt-4o"                                # more accurate, dearer
+    #model = "gemini/gemini-flash-latest"            # needs GEMINI_API_KEY
+
+    if not (os.getenv("OPENAI_API_KEY") or os.getenv("GEMINI_API_KEY")):
+        raise SystemExit(
+            "Zerox needs a VISION model key.\n"
+            "  OPENAI_API_KEY  -> keep the default gpt-4o-mini\n"
+            "  GEMINI_API_KEY  -> set ZEROX_MODEL=gemini/gemini-flash-latest "
+            "(free tier)"
+        )
 
     # Run Zerox extraction
     result = asyncio.run(zerox(
@@ -61,7 +73,8 @@ def main():
     print(full_text)
 
     # Save output
-    with open("output.txt", "w", encoding="utf-8") as f:
+    os.makedirs(os.path.join(project_root, "output"), exist_ok=True)
+    with open(os.path.join(project_root, "output", "zerox.txt"), "w", encoding="utf-8") as f:
         f.write(full_text)
     print("\nOutput saved to output.txt")
 

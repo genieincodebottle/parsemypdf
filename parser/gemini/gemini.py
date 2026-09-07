@@ -10,6 +10,7 @@ Environment Setup:
         - GOOGLE_API_KEY in .env file
 """
 import os
+import sys
 from google import genai
 from google.genai import types
 from dotenv import load_dotenv
@@ -17,6 +18,9 @@ from dotenv import load_dotenv
 # Get the project root directory
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
+sys.path.append(project_root)
+
+from utils.cli import input_pdf
 # Initialize environment variables from .env file
 load_dotenv()
 # Validate and set Google API key
@@ -32,11 +36,10 @@ def main():
     
     # Configure input PDF path
     # Different sample types available for processing:
-    #file_path = project_root+"/input/sample-1.pdf"  # Simple table-based PDF
-    #file_path = project_root+"/input/sample-2.pdf"  # PDF with image-based simple tables
-    file_path = project_root+"/input/sample-3.pdf"   # PDF with complex image-based tables
-    #file_path = project_root+"/input/sample-4.pdf"  # PDF with mixed content types
-    #file_path = project_root+"/input/sample-5.pdf"  # Multi-column Texts
+    # Which PDF to process. Override with --file, e.g.
+    #   python parser/gemini/gemini.py --file input/sample-3.pdf
+    # Run with --list to see every bundled sample.
+    file_path = input_pdf("sample-1.pdf")
 
     try:
         with open(file_path, 'rb') as file:

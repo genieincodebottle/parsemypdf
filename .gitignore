@@ -50,3 +50,7 @@ dist/**
 package.nls.*.json
 l10n/
 python-env-tools/**
+# Parser output (generated at runtime)
+output/*.txt
+output.txt
+scratch/

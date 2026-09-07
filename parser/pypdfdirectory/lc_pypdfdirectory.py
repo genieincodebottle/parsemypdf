@@ -64,7 +64,8 @@ def main():
       extracted_content += doc.page_content+ "\n"
 
    # Output extracted content to output.txt
-   with open("output.txt", 'w') as file:
+   os.makedirs(os.path.join(project_root, "output"), exist_ok=True)
+   with open(os.path.join(project_root, "output", "lc_pypdfdirectory.txt"), "w", encoding="utf-8") as file:
       file.write(extracted_content)
 
 if __name__ == "__main__":

@@ -32,6 +32,7 @@ langchain_openai>=0.3.9
 langchain-anthropic>=0.3.10
 langchain-google-genai>=2.1.0
 langchain-unstructured>=0.1.6
+unstructured>=0.16.0        # the library itself, not just the API client
 langchain_huggingface>=0.1.2
 langchain_community>=0.3.19
 langchain_text_splitters>=0.3.0
@@ -49,9 +50,10 @@ sentence_transformers>=3.4.1
 # AWS Libraries
 boto3>=1.37.14
 amazon-textract-caller>=0.2.0
+amazon-textract-textractor>=1.7.0   # the loader needs this as well
 
-# Azure Libraries (optional)
-# azure-ai-documentintelligence>=1.0.0
+# Azure - needed by parser/azure-doc-intelligence/
+azure-ai-documentintelligence>=1.0.0
 
 # Utilities
 nest-asyncio>=1.6.0
